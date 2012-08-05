@@ -84,6 +84,7 @@ ul.posts {
   width: 40em;
   margin: 3em auto 2em auto;
   line-height: 1.5em;
+    overflow:hidden;
 }
 
 .title {
@@ -196,6 +197,3 @@ ul.posts {
   #related h2 {
     margin-bottom: 1em;
   }
-.footer{
-        margin-bottom:20px;
-}
