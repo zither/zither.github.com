@@ -4,9 +4,15 @@ title: Learning laravel
 ---
 
 <div id="home">
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+    <ul class="posts">
+        {% for post in site.posts %}
+        <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h1>开源项目</h1>
+    <ul class="posts">
+        <li><a href="http://github.com/laravel">:Laravel Framework</a>简洁而优秀的PHP框架</li>
+        <li><a href="http://github.com/zither/Laravel-Chinese-Document">:Laravel中文文档</a>Laravel文档翻译计划</li>
+    </ul>
 </div>
