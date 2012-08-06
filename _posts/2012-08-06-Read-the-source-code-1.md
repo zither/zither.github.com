@@ -20,4 +20,17 @@ title: Laravel源码笔记(1)
     }
 这个函数主要是取得laravel框架的目录路径，在其他文件里会多次用到。另外在paths文件里定义了框架的app、sys、public等路径。入口文件中加载的另一个文件：laravel.php则是框架的主要文件。
     require  'core.php';
-在laravel文件中首先载入的是框架的核心文件，如果有印象的话，在Artisan命令行工具中同样是加载了它，也就是说，如果我们理解了core文件，那么就知道了laravel框架的运行路线。
+在laravel文件中首先载入的是框架的核心文件，如果有印象的话，在Artisan命令行工具中同样是加载了它，也就是说，如果我们理解了core文件，那么就知道了laravel框架的运行路线。我们在这里设个断点，先去看看core文件。
+
+在core文件中先是定义了命名空间Laravel和一系列常量，我们可以留意一下下面这句：
+    define('DEFAULT_BUNDLE','application');
+定义常量之后，用在paths文件中定义的path函数加载了六个系统文件：
+    require path('sys').'ioc'.EXT;
+    require path('sys').'event'.EXT;
+    require path('sys').'bundle'.EXT;
+    require path('sys').'config'.EXT;
+    require path('sys').'helper'.EXT;
+    require path('sys').'autoloader'.EXT;
+暂时可以猜测这六个文件是框架依赖比较大的，然后我们要留意之后注册的一个自动加载函数:
+    spl_autoload_register(array('Laravel\\Autolaoder','load'));
+这个load函数应该是定义在上面加载的autoloader文件之中。
