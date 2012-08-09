@@ -16,7 +16,7 @@ Laravel框架自带了一个身份验证验证模块可以让我们方便的进�
     'model' => 'User',
     'table' => 'user'
 
-在配置里一共有五个选项，第一个选项是你想要选择的驱动，Laravel提供了两种方式：‘fluent’和‘eloquent’。username和password是两种驱动都需要的参数。
+在config/auth.php配置文件里一共有五个选项，第一个选项是你想要选择的驱动，Laravel提供了两种方式：‘fluent’和‘eloquent’。username和password是两种驱动都需要的参数。
 
 如果你选择了fluent方式，那么你必须正确填写table选项，Laravel会直接在这个表中查询帐号和密码。
 
