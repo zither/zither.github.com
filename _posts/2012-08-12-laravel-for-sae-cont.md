@@ -156,4 +156,6 @@ get方法里最重要的就是这句，load()函数决定了加载内容：
         }
     }
 
-现在我们就可以在SAE中同时使用原生视图和blade模板了。Demo：[http://laravel.sinaapp.com/public/](http://laravel.sinaapp.com/public/)
+现在我们就可以在SAE中同时使用原生视图和blade模板了。
+
+Demo：[http://laravel.sinaapp.com/public/](http://laravel.sinaapp.com/public/)
