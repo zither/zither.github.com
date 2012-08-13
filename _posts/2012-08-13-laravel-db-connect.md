@@ -15,7 +15,7 @@ Laravel使用PDO为我们提供了非常方便的DB类，我们在需要数据�
             'host'     => 'localhost',
             'database' => 'laravel',
             'username' => 'root',
-            'password' => '89048498',
+            'password' => '123456',
             'charset'  => 'utf8',
             'prefix'   => '',
             ),
