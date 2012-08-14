@@ -36,7 +36,11 @@ migrate的rollback只回滚最后一次任务，也就是laravel_migrations表�
 
 我们来拓展下，Laravel中的migrate在任务中为我们提供了up和down两种方法，其中up方法会在执行迁移时运行，而down方法则是在回滚时运行。在框架的文档中只告诉我们可以用它来创建表和删除表，其实我们可以用它来做更多的事情，比如修改表，插入记录等等。
 
-我们用插入记录来举个例子，直接在application/migrations中复制之前的那个creat_users_table的任务，把它名字中的日期改一下，然后我们打开它，把修改内容如下：
+我们用插入记录来举个例子，我们用artisan工具新建一个任务，取名为update_users_table:
+
+    php artsian migrate:make update_users_table
+
+我们为up方法和down方法分别添加对应的任务：
 
     public function up()
     {
