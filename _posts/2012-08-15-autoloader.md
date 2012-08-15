@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Laravel的自动加载
+title: 自动加载类 | Laravel
 ---
 
 {{ page.title }}
