@@ -8,9 +8,9 @@ title: Laravel的自动加载
 
 <p class="meta">15 Aug 2012 - By MiniMee</p>
 
-八月六日的时候写过一次关于[Laravel源码](/2012/08/06/Read-the-source-code-1.html)的文章，其实读懂一个项目的代码，必须事先了解它的自动加载机制，这里就接上篇文章说一下Laravel的自动加载。
+八月六日的时候写过一次关于[Laravel源码](/2012/08/06/Read-the-source-code-1.html)的文章，其实要读懂一个项目的代码，必须事先了解它的自动加载机制，这里就接上篇文章说一下Laravel的自动加载。
 
-Laravel中所有关于自己加载的部分都在laravel/autoloader.php文件中，从它声明的数组里我们就可以知道Laravel为我们提供的自动加载类型：
+Laravel中所有关于自动加载的部分都在laravel/autoloader.php文件中，从它声明的数组里我们就可以知道Laravel为我们提供的自动加载类型：
 
     public static $mappings = array();
     public static $directories = array();
