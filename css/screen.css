@@ -58,7 +58,8 @@ table {
 pre {
     border: 1px solid #000000;
     border-radius: 5px;
-    padding: 10px 25px 10px 55px;    
+    padding: 10px 25px 10px 55px;
+    line-height: 1em;
 }
 code {
     font-family: monospace, serif;
@@ -96,7 +97,6 @@ ul.posts {
   text-align: justify;
   width: 50em;
   margin: 3em auto 2em auto;
-  line-height: 1.4em;
     overflow:hidden;
 }
 
