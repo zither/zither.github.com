@@ -54,6 +54,15 @@ table {
   font: 100%;
 }
 
+pre {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 10px 25px 10px 55px;    
+}
+code {
+    font-family: monospace, serif;
+    font-size: 1em;    
+}
 /*****************************************************************************/
 /*
 /* Home
