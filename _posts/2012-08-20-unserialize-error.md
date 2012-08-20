@@ -1,6 +1,6 @@
 ---
 layout: post
-title: unserialize error | Laravel
+title: Unserialize Error | Laravel
 ---
 
 {{ page.title }}
