@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 一个很诡异的问题 | Laravel
+title: Section Error | Laravel
 ---
 
 {{ page.title }}
