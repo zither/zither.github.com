@@ -1,0 +1,113 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Checking file types | 槐花九九</title>
+  <meta name="author" content="MiniMee" />
+  <link href="/atom.xml" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+  <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/highlight/99_solarized_dark.css" />
+  <script src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-33950131-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+  <div class="site">
+    <div class="title">
+        <a href="/">槐花九九</a>
+        <a class="extra" href="/archive.html">存档</a>
+    </div>
+    
+    
+    <div id="post">
+    <h1>Checking file types</h1>
+    <p class="meta">29 Aug 2012 - By MiniMee</p>
+
+<p>Laravel文档正在翻译中，第一次尝试翻译英文文档，进展非常缓慢。</p>
+
+<p>今天翻译的是file类相关文档，就想写下file类提供的is方法。这个方法可以用于检测文件类型，使用方法如下：</p>
+
+<pre><code>if(File::is('jpg','path/to/file.jpg')){
+    // ....
+}
+</code></pre>
+
+<p>关于文件类型检测在很多地方都会用到，特别是在检测用户上传文件的时候。文档中对is方法做了一个简单的说明，is方法并不仅仅是简单的检查文件的拓展名。</p>
+
+<p>我们来看看is方法的源代码：</p>
+
+<pre><code>public static function is($extensions, $path)
+{
+    $mimes = Config::get('mimes');
+
+    $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+
+    foreach ((array) $extensions as $extension)
+    {
+        if (isset($mimes[$extension]) and in_array($mime, (array) $mimes[$extension]))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+</code></pre>
+
+<p>源代码相当简单，我们可以很清楚的看到is方法检查了两个部分：</p>
+
+<pre><code>// 获取在application/config/mimes.php中定义的MIME类型
+$mimes = Config::get('mimes');
+// 获取文件的真实MIME类型
+$mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE),$path);
+</code></pre>
+
+<p>文档中说的不简单就是指的这里，函数的第一个参数用来获取应用程序预定义的MIME类型，第二个参数通过PHP的Fileinfo拓展来获取文件的真实MIME类型。被检查的文件只有同时满足两个条件函数才会返回TRUE：</p>
+
+<pre><code>// 只有被检测文件的真实MIME类型在应用程序允许的MIME类型中时才会返回TRUE
+isset($mimes[$extension]) and in_array($mime, (array) $mimes[$extension])
+</code></pre>
+
+<p>所以如果想通过更改后缀名的方式来骗过程序是不行的啦。</p>
+
+<p>--EOF--</p>
+    </div>
+
+    <div id="related">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'minimee'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            
+
+    </div>
+
+    
+    <div class="footer"></div>
+  </div>
+  <a href="http://github.com/zither"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
