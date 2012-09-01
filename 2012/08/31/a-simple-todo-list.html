@@ -66,16 +66,16 @@ class lists {
      *
      * @var string
      */ 
-    private $list = NULL;
+    private $lists = NULL;
 
     /**
      * 初始化类
      *
      * @return void
      */
-    public function __construct($list)
+    public function __construct($lists)
     {
-        $this-&gt;list = $list;
+        $this-&gt;lists = $lists;
     }
 
     /**
@@ -83,18 +83,18 @@ class lists {
      *
      * @return string
      */
-    public function get_list()
+    public function get_lists()
     {
         // 替换根列表
-        $this-&gt;parent();
+        $this-&gt;parents();
 
         // 替换子列表
-        $this-&gt;child();
+        $this-&gt;children();
 
         // 最终列表
-        $this-&gt;list = '&lt;ul&gt;'.$this-&gt;list.'&lt;/ul&gt;';
+        $this-&gt;lists = '&lt;ul&gt;'.$this-&gt;lists.'&lt;/ul&gt;';
 
-        return $this-&gt;list;
+        return $this-&gt;lists;
     }
 
     /**
@@ -102,13 +102,13 @@ class lists {
      *
      * @return void
      */
-    protected function parent()
+    protected function parents()
     {
         $mregex = '/^\S.+\n((\s{'.$this-&gt;tab.',}.+\n)*)/im';
 
         $replacement = '&lt;li&gt;$0&lt;/li&gt;';
 
-        $this-&gt;list = preg_replace($mregex,$replacement,$this-&gt;list);
+        $this-&gt;lists = preg_replace($mregex,$replacement,$this-&gt;lists);
     }
 
     /**
@@ -116,7 +116,7 @@ class lists {
      *
      * @return void
      */
-    protected function child()
+    protected function children()
     {
         // 在允许的最大嵌套数内进行循环替换子列表
         for($i = 1; $i &lt; $this-&gt;level; $i++){
@@ -131,7 +131,7 @@ class lists {
 
             $replacement = '&lt;ul&gt;&lt;li&gt;$0&lt;/li&gt;&lt;/ul&gt;';
 
-            $this-&gt;list = preg_replace($regex,$replacement,$this-&gt;list);
+            $this-&gt;lists = preg_replace($regex,$replacement,$this-&gt;lists);
         }
     }
 }
@@ -141,7 +141,7 @@ $contents = file_get_contents('mlist.txt');
 
 $list = new lists($contents);
 
-echo $list-&gt;get_list();
+echo $list-&gt;get_lists();
 </code></pre>
 
 <p>这次代码比之前的代码更加简单明了，已经完全满足我自己的需要了，可能在嵌套层数方面可以改进一下。</p>
