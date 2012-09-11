@@ -66,6 +66,33 @@ while(count($numbers)&lt;=5)
 <pre><code>select * from books order by rand() limit 5;
 </code></pre>
 
+<p>虽然order by rand()很方便，但是必须谨慎使用，官方特意提示在记录超过300,000时你会发疯的。</p>
+
+<p><strong>Update</strong>:最后决定采用上面所提到的，用Rand函数生成随机数的方法来解决推荐书籍问题：</p>
+
+<pre><code>// 储存随机推荐的书籍ID
+$books = array();
+
+// 获取书籍最大ID
+$max = Book::max('id');
+
+// 从数据库中随机取出5本书籍
+while(count($books) &lt; 5)
+{
+    $id = rand(1, $max);
+
+    $book = Book::find($id);
+
+    // 当随机ID对应的书籍存在并与之前所取书籍不重复，则将它出入推荐数组中
+    if($book &amp;&amp; (! in_array($book, $books)))
+    {
+        $books[] = $book;
+    }
+}
+</code></pre>
+
+<p>我觉得虽然这种方法可能会出现重复查询多次的问题。但是在我的个人项目需求中，书籍数量肯定远远大于推荐数量，重复查询的问题基本可以忽略。</p>
+
 <p>-- EOF --</p>
     </div>
 
