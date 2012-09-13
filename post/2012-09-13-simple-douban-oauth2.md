@@ -64,4 +64,6 @@
     // 使用豆瓣用户API获取用户信息
     Douban_oauth::user_info();
 
-豆瓣Oauth2类和例子都上传到了Github上，有兴趣的可以看看：[Simple-douban-oauth2](https://github.com/zither/simple-douban-oauth2)
+豆瓣Oauth2类和例子都上传到了Github上，有兴趣的可以看看：[Simple-douban-oauth2](https://github.com/zither/simple-douban-oauth2)。
+
+-- EOF --
