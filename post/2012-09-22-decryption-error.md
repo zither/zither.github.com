@@ -1,6 +1,6 @@
 -----
 {
-    "title": "Decrption error",
+    "title": "Decryption error",
     "category": "Laravel"
 }
 -----
