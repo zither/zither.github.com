@@ -7,7 +7,7 @@
 
 <p class="meta">22 sep 2012 - By MiniMee</p>
 
-之前在文章[Redirecting with data](http://blog.minimee.org/2012/09/05/redirecting-with-data.html)中提到在Validation类中使用中文信息会出现一个Decryption error:Padding is invalid。
+之前在文章[Redirecting with data](http://blog.minimee.org/2012/09/05/redirecting-with-data.html)中提到在Validation类中使用中文信息会出现一个Decryption error:Padding is invalid错误。
 
 这个错误提示是定义在Laravle框架的Crypter类中的：
 
@@ -93,8 +93,13 @@ Crypter类是Laravel框架的加密类。Laravel在加密的时候会进行一�
         // 获取字符串长度
         $length = Str::length($value);
         
-        // 通过mb_substr截取padding
-        $pad = ord(mb_substr($value, $length - 1, 1, Config::get('application.encoding')));
+        // MB_STRING常量在laravel/core.php中定义
+        if (MB_STRING) {
+            // 如果使用了宽字符集，通过mb_substr截取字符
+            $pad = ord(mb_substr($value, $length - 1, 1, Config::get('application.encoding')));
+        } else {
+            $pad = ord(substr($value, $length - 1));
+        }
 
 		if ($pad and $pad < static::$block)
 		{
@@ -103,8 +108,14 @@ Crypter类是Laravel框架的加密类。Laravel在加密的时候会进行一�
 			// as the padding appears to have been changed.
 			if (preg_match('/'.chr($pad).'{'.$pad.'}$/', $value))
 			{
-                // 修改substr为mb_substr，以适应中文环境
-				return mb_substr($value, 0, $length - $pad, Config::get('application.encoding'));
+                if (MB_STRING) {
+                    // 修改substr为mb_substr，以适应中文环境
+                    $value = mb_substr($value, 0, $length - $pad, Config::get('application.encoding'));
+                } else {
+                    $value = substr($value, 0, $length - $pad);
+                }
+				
+                return $value;
 			}
 
 			// If the padding characters do not match the expected padding
@@ -117,5 +128,7 @@ Crypter类是Laravel框架的加密类。Laravel在加密的时候会进行一�
 		}
 
 		return $value;
+    }
+
 
 -- EOF --
