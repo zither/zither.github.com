@@ -30,40 +30,53 @@
      * @date 2012-09-13
      */
 
-    // 包含豆瓣OAUTH类
-    require('douban.php');
+    // 载入豆瓣Oauth类和API类
+    require 'DoubanOauth.php';
+    require 'DoubanAPI.php';
 
-    // 豆瓣应用的Public Key
-    $client_id = 'Your app public key';
+    // 豆瓣应用public key
+    $clientId = 'Your app public key';
 
-    // 豆瓣应用的Secret Key
+    // 豆瓣应用secret key
     $secret = 'Your app secret key';
 
-    // 获取豆瓣授权令牌后的返回链接
+    // 用户授权后的回调链接
     $callback = 'http://127.0.0.1/example.php';
 
-    // 注册豆瓣OAUTH
-    Douban_oauth::make($client_id, $secret, $callback);
+    // 设置应用需要的权限，Oauth类默认设置为douban_basic_common
+    $scope ='douban_basic_common';
 
-    // 如果没有设置Authorization_code，跳转到豆瓣授权页面
-    if( ! isset($_GET['code']))
-    {
-        // 跳转到豆瓣授权页面，获取Authorization_code
-        Douban_oauth::authorization();
+    // 生成一个豆瓣Oauth类实例
+    $douban = new DoubanOauth($clientId, $secret, $callback, $scope);
 
+    // 如果没有authorizationCode，跳转到用户授权页面
+    if ( ! isset($_GET['code'])) {
+        $douban->authorization();
         exit;
     }
 
-    // 设置Authorization_code
-    Douban_oauth::$authorization_code = $_GET['code'];
+    // 设置authorizationCode
+    $douban->authorizationCode = $_GET['code'];
 
-    // 使用Authorization_code获取Access_token
-    Douban_oauth::access();
+    // 通过authorizationCode获取accessToken
+    $accessToken = $douban->access();
 
-    // 使用Access_token调用豆瓣API的例子
-    // 使用豆瓣用户API获取用户信息
-    Douban_oauth::user_info();
+    // 生成一个豆瓣API基类实例
+    $API = new DoubanAPI();
+
+    // 选择修改评论API
+    $API = $API->userMe('$accessToken);
+
+    // 使用豆瓣Oauth类向修改评论API发送请求，请获取返回结果
+    $result = $douban->send($API, $data);
+
+    // 打印结果
+    var_dump($result);
 
 豆瓣Oauth2类和例子都上传到了Github上，有兴趣的可以看看：[Simple-douban-oauth2](https://github.com/zither/simple-douban-oauth2)。
+
+Update:
+
+- 2012年09月29日，重新修改豆瓣Oauth类，拆分为DoubanOauth和DoubanAPI两部分，结构更加简单。
 
 -- EOF --
