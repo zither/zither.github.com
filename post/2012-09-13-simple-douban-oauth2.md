@@ -65,7 +65,7 @@
     $API = new DoubanAPI();
 
     // 选择修改评论API
-    $API = $API->userMe('$accessToken);
+    $API->userMe('$accessToken);
 
     // 使用豆瓣Oauth类向修改评论API发送请求，请获取返回结果
     $result = $douban->send($API, $data);
