@@ -1,7 +1,7 @@
 -----
 {
     "title": "Hello Ubuntu",
-    "category": "PHP"
+    "category": "Linux"
 }
 -----
 
