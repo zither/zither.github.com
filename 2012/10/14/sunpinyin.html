@@ -41,15 +41,13 @@
 
 <p>这里记录下Ubuntu12.4的Ibus框架替换过程。其实和上面文章中的过程下不多，只要替换掉输入法里对应的图标即可。</p>
 
-<ul>
-<li>首先当然一样是<a href="http://chengis.me/fruity/wp-content/uploads/icons/sunpinyin-icon.zip">下载</a>图标文件,并解压缩。</li>
-<li><p>然后在替换掉Ibus-sunpinyin目录下的图标，具体命令如下。</p>
+<p>首先当然一样是<a href="http://chengis.me/fruity/wp-content/uploads/icons/sunpinyin-icon.zip">下载</a>图标文件,并解压缩。然后在替换掉Ibus-sunpinyin目录下的图标，具体命令如下。</p>
 
-<p>sudo cp SunPY-03.png /usr/share/ibus-sunpinyin/icons
+<pre><code>sudo cp SunPY-03.png /usr/share/ibus-sunpinyin/icons
 cd /usr/share/ibus-sunpinyin/icons
 sudo mv sunpinyin-logo.png sunpinyin-logo-backup.png
-sudo mv SunPY-03.png sunpinyin-logo.png</p></li>
-</ul>
+sudo mv SunPY-03.png sunpinyin-logo.png
+</code></pre>
 
 <p>替换之后使用输入法时图标看起来就要舒服得多了。</p>
 

@@ -13,8 +13,7 @@ Linux平台下的中文输入法没有windows平台那么多选择。习惯五�
 
 这里记录下Ubuntu12.4的Ibus框架替换过程。其实和上面文章中的过程下不多，只要替换掉输入法里对应的图标即可。
 
-- 首先当然一样是[下载](http://chengis.me/fruity/wp-content/uploads/icons/sunpinyin-icon.zip)图标文件,并解压缩。
-- 然后在替换掉Ibus-sunpinyin目录下的图标，具体命令如下。
+首先当然一样是[下载](http://chengis.me/fruity/wp-content/uploads/icons/sunpinyin-icon.zip)图标文件,并解压缩。然后在替换掉Ibus-sunpinyin目录下的图标，具体命令如下。
 
     sudo cp SunPY-03.png /usr/share/ibus-sunpinyin/icons
     cd /usr/share/ibus-sunpinyin/icons
