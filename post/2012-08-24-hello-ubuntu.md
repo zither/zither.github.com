@@ -5,7 +5,7 @@
 }
 -----
 
-<p class="meta">26 sep 2012 - By MiniMee</p>
+<p class="meta">24 Aug 2012 - By MiniMee</p>
 
 之前所有的开发都是在windows下完成的，因此在测试程序的时候只能检测windows环境，为了一些不必要的兼容性问题，终于下定决心完全迁移到linux下来。
 
