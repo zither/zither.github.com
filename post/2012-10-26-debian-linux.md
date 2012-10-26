@@ -17,6 +17,6 @@
 
 首先晒一下配置完成之后的效果图，一张桌面，一张终端和Gvim。
 
-![Debian](http://pic.yupoo.com/ilorn/CmVGcjqo/13IZDc.png "Debian")
+<img src="http://pic.yupoo.com/ilorn/CmVGcjqo/13IZDc.png" width="800px" />
 
-![Debian](http://pic.yupoo.com/ilorn/CmVGduPB/Y25P9.png "Gvim")
+<img src="http://pic.yupoo.com/ilorn/CmVGduPB/Y25P9.png" width="800px" />
