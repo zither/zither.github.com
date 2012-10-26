@@ -17,6 +17,6 @@
 
 首先晒一下配置完成之后的效果图，一张桌面，一张终端和Gvim。
 
-<img src="http://pic.yupoo.com/ilorn/CmVGcjqo/13IZDc.png" width="800px" />
+<img src="http://pic.yupoo.com/ilorn/CmVGcjqo/13IZDc.png" width="100%" />
 
-<img src="http://pic.yupoo.com/ilorn/CmVGduPB/Y25P9.png" width="800px" />
+<img src="http://pic.yupoo.com/ilorn/CmVGduPB/Y25P9.png" width="100%" />
