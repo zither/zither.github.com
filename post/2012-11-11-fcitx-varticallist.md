@@ -18,7 +18,7 @@
     $ gvim fcitx-classic-ui.config
     // 修改VerticalList属性
     VerticalList=False
-    // 重启fcitx
+    // 重启fcitx(fcitx重启快捷键为ctrl+5)
     pkill fcitx && fcitx -d
 
 -- EOF --
