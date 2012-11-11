@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>修改fcitx候选词为横排显示 | 槐花九九</title>
+  <meta name="author" content="MiniMee" />
+  <link href="/atom.xml" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+  <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/highlight/99_solarized_dark.css" />
+  <script src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-33950131-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+  <div class="site">
+    <div class="title">
+        <a href="/">槐花九九</a>
+        <a class="extra" href="/archive.html">存档</a>
+    </div>
+    
+    
+    <div id="post">
+    <h1>修改fcitx候选词为横排显示</h1>
+    <p class="meta">11 Nov 2012 - By MiniMee</p>
+
+<p>上一篇Debian折腾记还没写完网络光纤就意外断裂，这种状态一直持续到昨天才恢复。Linux这个分类主要是记录我使用Linux系统的过程，因为接触linux系统不久，所以难免会记录一些比较幼稚的问题。</p>
+
+<p>今天要写的是关于fcitx输入法候选词列表的修改。Debian sid默认使用的是fcitx输入法，候选词列表是竖排显示的，但是最新版的fcitx的配置工具暂时还没有提供候选词显示方式选择，旧版本反而有。</p>
+
+<p>所以干脆翻了一下fcitx输入法的配置文件，发现切换功能其实还在，只是在配置工具中没有提供。这里记录下修改过程：</p>
+
+<pre><code>// fcitx的个人配置都保存在这里
+$ cd ~/.config/fcitx/conf
+$ gvim fcitx-classic-ui.config
+// 修改VerticalList属性
+VerticalList=False
+// 重启fcitx
+pkill fcitx &amp;&amp; fcitx -d
+</code></pre>
+
+<p>-- EOF --</p>
+    </div>
+
+    <div id="related">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'minimee'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            
+
+    </div>
+
+    
+    <div class="footer"></div>
+  </div>
+  <a href="http://github.com/zither"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
