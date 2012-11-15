@@ -1,0 +1,147 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Debian安装记录 | 槐花九九</title>
+  <meta name="author" content="MiniMee" />
+  <link href="/atom.xml" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+  <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/highlight/99_solarized_dark.css" />
+  <script src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-33950131-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+  <div class="site">
+    <div class="title">
+        <a href="/">槐花九九</a>
+        <a class="extra" href="/archive.html">存档</a>
+    </div>
+    
+    
+    <div id="post">
+    <h1>Debian安装记录</h1>
+    <p class="meta">15 Nov 2012 - By MiniMee</p>
+
+<p>经过老爷机这段时间的使用，已经喜欢上了之前搭配的轻量级桌面环境，所以决定把之前的ubuntu环境也更换掉。这篇文章记录整个安装过程(非顺序记录)，以备以后查看。</p>
+
+<p><strong>LAMP 环境的安装</strong></p>
+
+<p>总体来说Debian sid下的PHP环境搭建是非常简单的，基本只需一路aptitude进行安装即可。</p>
+
+<pre><code>// 安装apahce2
+$ sudo aptitude install apache2
+// 安装PHP5
+$ sudo aptitude install php5
+// 安装PHP的Mcrypt拓展
+$ sudo aptitude install php5-mcrypt
+// 安装PHP的Mysql拓展
+$ sudo aptitude install php5-mysql
+// 安装Mysql
+$ sudo aptitude install mysql-server-5.5
+// 启用apache rewrite
+$ sudo a2enmod rewrite 
+$ sudo service apahce2 restart
+</code></pre>
+
+<p><strong>Debian sid 安装</strong></p>
+
+<p>电脑之前就已经安装有Windows xp，因此直接通过硬盘安装Debian sid。我使用的是电信4M宽带，带自动拨号，就直接选择了网络安装的方式。这里碰到一个问题就是官方源中直接提供的sid版netboot installer都会出现找不到内核模块的问题，比如这里：<a href="http://http.us.debian.org/debian/dists/sid/main/installer-i386/current/images/netboot/">us.debian.org</a>。google无果之后选择先安装test然后升级到sid。</p>
+
+<pre><code>// 我选择了daily版，下载地址如下
+http://d-i.debian.org/daily-images/i386/daily/netboot/
+</code></pre>
+
+<p>直接下载链接中的mini.iso镜像和debian-installer/i386目录中的initrd.gz和linux三个文件放置到xp的c盘根目录。</p>
+
+<p>下载Grub4dos0.44版，把其中的grldr复制到c盘根目录，然后打开c盘根目录下的boot.ini(系统文件)，在末尾添加：</p>
+
+<pre><code>c:\grldr="Grub4dos"
+</code></pre>
+
+<p>关闭保存，然后在根目录新建一个menu.list文件，内容如下</p>
+
+<pre><code>default 2
+timeout 5
+
+title Debian installer
+root (hd0,0)
+kernel /linux
+initrd /initrd.gz
+</code></pre>
+
+<p>重启后即可进入Debian的安装界面。由于是通过网络安装，所以在选择源的时候要选择一个比较快的，我直接使用了163的源。Debian的安装过程非常清晰，为了方便配置系统，在选装软件时我勾选了安装桌面环境，如果你有信心直接从framebuffer配置出桌面环境就不用安装了。</p>
+
+<p>在等待不到两个小时之后Debian就安装成功了，默认安装了gnome-shell桌面，感觉和unity差不多，不是很喜欢。</p>
+
+<p><strong>N卡闭源驱动安装</strong></p>
+
+<p>系统安装完毕之后，默认安装的是Nouveau开源驱动，各种特效都可以支持，但是CPU风扇转得很快，电脑CPU为Pentium Dual-Core E5400,显卡Geforce 310。看来开源驱动还是有问题，为了解决风扇问题，需要更换为闭源驱动。</p>
+
+<p>直接到NVIDIA官方网站下载合适自己显卡的linux驱动，比如我下载的是NVIDIA-Linux-x86-304.64.run，安装过程可以参照这篇文章：<a href="http://linux.blogbus.com/logs/35468874.html">DebianLenny 安装NVIDIA显卡驱动</a></p>
+
+<pre><code>// 进入root，需输入密码
+$ su
+// 安装依赖
+$ aptitude install build-essential linux-headers-$(uname -r)
+// 把驱动放置到/usr/src
+$ cp NVIDIA-Linux-x86-304.64.run /usr/src
+// 联接
+$ ln -s linux-headers-$(uname -r) linux
+// 关闭X-window
+$ /etc/init.d/gdm3 stop
+// 按ctrl+alt+F1进入tty模式
+// 安装显卡驱动
+$ cd /usr/src &amp;&amp; sh NVIDIA-Linux-x86-304.64.run
+</code></pre>
+
+<p>在安装显卡驱动过程中会出现一些选项，选择接受许可，不从网站下载内核。我在安装过程中还提示gcc版本不符，我的gcc要新一些，所以就直接选择了编译，最后要同意NVIDIA自动更新xconfig配置文件。</p>
+
+<pre><code>// 驱动安装完毕之后直接启动X
+$ startx
+// 运行NVIDIA X-Server Settings
+$ nvidia-settings
+// 选择X Server Display Configuration选项，在菜单中选择Save to X Configuration File
+</code></pre>
+
+<p>安装完显卡驱动之后CPU风扇终于安静了。</p>
+    </div>
+
+    <div id="related">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'minimee'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            
+
+    </div>
+
+    
+    <div class="footer"></div>
+  </div>
+  <a href="http://github.com/zither"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
