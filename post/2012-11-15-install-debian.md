@@ -140,4 +140,15 @@ gnome-shell默认使用的是gnome-terminal作为终端，它在使用起来也�
 
 在panel方面我选择了比较简洁的tint2，安装方便，配置更加方便，并且官方有非常详细的wiki。我基本上完全使用了官方的默认配置，只是简单的修改了下位置、字体及字体大小，全部配置可以在这里查看：[tint2rc](https://github.com/zither/config/blob/master/tint2rc)。
 
+**配置compton**
 
+由于我一直没有找到xcompmgr启用阴影效果后终端出现残影的问题，所以只能放弃使用xcompmgr，转而使用compton。compton是从xcompmgr fork后的修改版本，并且一直到现在都还在更新。
+
+    // compton下载地址
+    https://github.com/chjj/compton
+
+Debian sid源里并没有提供现成的包，所以我只能从github上clone一份源码，然后编译安装。compton的文档还是很详细的，README中直接写明了所有编译和运行的依赖，因此只需要逐个安装，然后make即可。
+
+**细节备注**
+
+Debian默认浏览器为Iceweasel(冰鼬)，不过我还是喜欢chromium多一些，这里碰到一个问题就是如果使用chromium自带的标题栏和边框，在进行最大化操作时就会出现显示区域刷新问题，必须等待一段时间才能完全显示。解决方法就是在chromium外观设置中勾选“使用系统标题栏和边框”即可。
