@@ -188,6 +188,14 @@ https://github.com/chjj/compton
 
 <p>Debian sid源里并没有提供现成的包，所以我只能从github上clone一份源码，然后编译安装。compton的文档还是很详细的，README中直接写明了所有编译和运行的依赖，因此只需要逐个安装，然后make即可。</p>
 
+<p>compton也可以使用配置文件来修改渲染效果，比起使用参数更加直观和容易修改。同时官方也给出了一个完整的示例，只需要修改参数值就可以配置让自己满意的效果了。</p>
+
+<pre><code>// 我使用得配置文件
+https://github.com/zither/config/blob/master/.compton.conf
+// openbox中使用compton
+compton --config ~/.compton.conf &amp;
+</code></pre>
+
 <p><strong>细节备注</strong></p>
 
 <p>Debian默认浏览器为Iceweasel(冰鼬)，不过我还是喜欢chromium多一些，这里碰到一个问题就是如果使用chromium自带的标题栏和边框，在进行最大化操作时就会出现显示区域刷新问题，必须等待一段时间才能完全显示。解决方法就是在chromium外观设置中勾选“使用系统标题栏和边框”即可。</p>
