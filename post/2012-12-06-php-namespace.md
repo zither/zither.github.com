@@ -11,26 +11,26 @@
 
     namespace Test {
 
-        class test {}
+        class Test {}
     }
 
     namespace chou {
 
-        use Test\test;
+        use Test\Test;
 
-        $test = 'test';
+        $test = 'Test';
         $tmp = new $test();
     }
 
 当我试图动态实例化类时引发了“Class not found”错误，我自己的理解是PHP的命名空间只影响类、函数和常量，貌似可以说得通，然后我又尝试写成下面的样子：
 
-    namespace chou {
+    namespace Chou {
 
-        use Test\test;
+        use Test\Test;
 
-        class mee {
+        class Mee {
 
-            public $class = 'test';
+            public $class = 'Test';
 
             public function getClass()
             {
@@ -38,7 +38,7 @@
             }
         }
 
-        $tmp = new mee();
+        $tmp = new Mee();
         $tmp->getClass();
     }
 
