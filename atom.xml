@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-	<title><![CDATA[Minimee]]></title>
+	<title><![CDATA[MiniThinker]]></title>
 	<subtitle>学习那些想要知道的东西。</subtitle>
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-16T17:52:33+08:00</updated>
+	<updated>2014-02-16T18:06:59+08:00</updated>
 	<entry>
 		<title type="html"><![CDATA[重新整理博客]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/16/rebuild-blog" />
