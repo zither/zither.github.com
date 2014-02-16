@@ -1,3 +1,1 @@
-#Projec Mee
-
-This is my blog powered by Project Mee.
+[Powered by Pointless](https://github.com/scarwu/Pointless)
