@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
 	<meta name="keywords" content="MiniThinker,Programming, Computer, PHP, Scheme">
-	<title>MiniThinker</title>
+	<title>编程语言从哪里来 | MiniThinker</title>
 	
 	<!-- Load Cascading Style Sheets -->
 	<link rel="stylesheet" href="/theme/main.css">
@@ -22,9 +22,9 @@
 				<a href="/">Home</a>
 				<a href="/about">About</a>
 			</div>
-			<div id="container"><div id="page">
-		<article>
-		<div class="title"><a href="/article/2014/02/17/what-is-a-programming-language">编程语言从哪里来</a></div>
+			<div id="container"><div id="article">
+	<article>
+		<div class="title">编程语言从哪里来</div>
 		<div class="info">
 			<span class="date">2014-02-17</span>
 			-
@@ -36,7 +36,7 @@
 								<span><a href="/tag/Programming">Programming</a></span>
 							</span>
             -
-						<span class="comments">
+						<span class="comment">
 				<a href="/article/2014/02/17/what-is-a-programming-language/#disqus_thread">0 Comment</a>
 			</span>
 					</div>
@@ -46,49 +46,34 @@
 
 <p>但是在接触到 LISP 和 Scheme 的时候上面的疑惑又出现了。Scheme 的语法很简单，所以大部分教程也相对简洁，很多时候都是在传授如何用它进行各种计算，或者是让你在屏幕上输出一句“Hello, world!”。（未完）</p>
 </div>
-		<a class="more" href="/article/2014/02/17/what-is-a-programming-language">Read more</a>
 	</article>
-		<article>
-		<div class="title"><a href="/article/2014/02/16/rebuild-blog">重新整理博客</a></div>
-		<div class="info">
-			<span class="date">2014-02-16</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Life">Life</a>			</span>
-			-
-			<span class="tag">
-				Tag: 
-								<span><a href="/tag/Note">Note</a></span>
-							</span>
-            -
-						<span class="comments">
-				<a href="/article/2014/02/16/rebuild-blog/#disqus_thread">0 Comment</a>
-			</span>
-					</div>
-		<div class="content"><p>距离上次写博客已经是很久以前的事情了，因为放弃使用 Laravel 框架之后也就再也没有使用自己为 Laravel 框架写的静态博客插件。最近有一些学习上的东西想要记录一下，所以又切换到之前介绍过的 Pointless 静态博客程序。不过值得庆幸的是 Pointless 直到现在都还在更新维护，所以提交了一个半角双引号可能引起问题的 Issue。</p>
-
-<p>目前版本的 Pointless 和我一年多前用过的有蛮大的差别。大致浏览了一下程序目录，发现在自定义模板这部分有些不太直观，我直接去掉了 side 部分，然后把 comment 链接移到了 Tag 之后。暂时先这样用着，以后重新修改一个更简单点的模板。</p>
-</div>
-		<a class="more" href="/article/2014/02/16/rebuild-blog">Read more</a>
-	</article>
-		<div class="bar">
+	<div class="bar">
 		<span class="new">
 					</span>
 		<span class="old">
-					</span>
-		<span class="count">&lt; 1 / 1 &gt;</span>
+			<a href="/article/2014/02/16/rebuild-blog">重新整理博客 >></a>		</span>
+		<span class="count">&lt; 1 / 2 &gt;</span>
 	</div>
-</div>
-<script type="text/javascript">
-	var disqus_shortname = 'minimee';
-	(function() {
-		var count = document.createElement('script');
-		count.async = true;
-		count.type = 'text/javascript';
-		count.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(count);
-	}());
-</script>
+		<hr>
+	<!-- DISQUS -->
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'minimee';
+		(function() {
+			var embed = document.createElement('script');
+			embed.type = 'text/javascript';
+			embed.async = true;
+			embed.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(embed);
+
+			var count = document.createElement('script');
+			count.async = true;
+			count.type = 'text/javascript';
+			count.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(count);
+		}());
+	</script>
+	</div>
 </div>
 			<footer>Powerd By Pointless</footer>
 		</div>

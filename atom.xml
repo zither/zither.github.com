@@ -5,7 +5,19 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-17T15:50:10+08:00</updated>
+	<updated>2014-02-17T16:24:56+08:00</updated>
+	<entry>
+		<title type="html"><![CDATA[编程语言从哪里来]]></title>
+		<link href="http://blog.minimee.org/article/2014/02/17/what-is-a-programming-language" />
+		<id>urn:uuid:41897e6d-83f8-9cca-142e-2d3bce5ffd62</id>
+		<updated>2014-02-17T15:59:12+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;我学习的第一门编程语言是 ASP，想做一个个人网站，后来陆续接触到 PHP、C、Python、Scheme 等语言。因为一直都是自学，所以在学习过程中心里总是有很多疑惑。&lt;/p&gt;
+
+&lt;p&gt;其中最大的疑惑就是现在这么多编程语言到底是从哪里来的？也许有些可笑，编程语言当然都是人写的。各种语言书籍中都会提到语言的发展，比如学习 PHP 时他们会告诉你 PHP 是用 C 语言写的。最初的 C 语言又是由 B 语言开发的。这些发展过程好像有迹可循，所以我忽略了一些重要的东西。&lt;/p&gt;
+
+&lt;p&gt;但是在接触到 LISP 和 Scheme 的时候上面的疑惑又出现了。Scheme 的语法很简单，所以大部分教程也相对简洁，很多时候都是在传授如何用它进行各种计算，或者是让你在屏幕上输出一句“Hello, world!”。（未完）&lt;/p&gt;
+]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[重新整理博客]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/16/rebuild-blog" />
