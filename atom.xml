@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-18T14:05:21+08:00</updated>
+	<updated>2014-02-18T14:39:03+08:00</updated>
 	<entry>
 		<title type="html"><![CDATA[编程语言从哪里来]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/17/what-is-a-programming-language" />
@@ -39,7 +39,7 @@
 
 &lt;!--more--&gt;
 
-&lt;p&gt;稍微调整了下博客的主题，因为一贯喜欢简洁的页面，所以直接在官方 Classic 主题上做了减法，去掉了所有用不掉的元素。但是现在还没对引用和代码块做样式上的修改。另外有点想调整下 markdown 语法，先考察下相关库再说吧。&lt;/p&gt;
+&lt;p&gt;稍微调整了下博客的主题，因为一贯喜欢简洁的页面，所以直接在官方 Classic 主题上做了减法，去掉了所有用不掉的元素。但是现在还没对引用和代码块做样式上的修改。另外有点想调整下 markdown 语法，改为更加接近 Github Flavored Markdown 的语法。搜索了一下，发现一个名叫 &lt;a href=&quot;http://parsedown.org&quot;&gt;parsedown&lt;/a&gt; 的解析库。&lt;/p&gt;
 ]]></summary>
 	</entry>
 </feed>
