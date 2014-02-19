@@ -38,14 +38,6 @@
 					</div>
 		<div class="content"><p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 <strong>\Slim\Helper\Set</strong> 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 变量时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
 
-<pre><code>$app = new \Slim\Slim();
-$app-&gt;uuid = function(){
-    return exec('uuidgen');
-};
-// 获取一个新的 UUID
-$uuid = $app-&gt;uuid;
-</code></pre>
-
 </div>
 		<a class="more" href="/article/2014/02/19/confusion-about-closure-in-slim">Read more</a>
 	</article>

@@ -38,6 +38,8 @@
 					</div>
 		<div class="content"><p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 <strong>\Slim\Helper\Set</strong> 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 变量时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
 
+<!--more-->
+
 <pre><code>$app = new \Slim\Slim();
 $app-&gt;uuid = function(){
     return exec('uuidgen');
@@ -45,8 +47,6 @@ $app-&gt;uuid = function(){
 // 获取一个新的 UUID
 $uuid = $app-&gt;uuid;
 </code></pre>
-
-<!--more-->
 
 <p>在这个例子中，我们把一个匿名函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个匿名函数：</p>
 
