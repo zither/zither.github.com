@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-19T16:52:42+08:00</updated>
+	<updated>2014-02-19T17:01:34+08:00</updated>
 	<entry>
 		<title type="html"><![CDATA[Slim 中关于 Closure 的问题]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/19/confusion-about-closure-in-slim" />
