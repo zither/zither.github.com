@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title><![CDATA[MiniThinker]]></title>
-	<subtitle>努力学习那些想要知道的东西。</subtitle>
+	<subtitle>努力学习那些想要知道的东西</subtitle>
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-19T17:04:19+08:00</updated>
+	<updated>2014-02-20T16:20:00+08:00</updated>
+	<author>
+		<name><![CDATA[Minimee]]></name>
+		<uri>http://blog.minimee.org/</uri>
+	</author>
 	<entry>
 		<title type="html"><![CDATA[Slim 中关于 Closure 的问题]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/19/confusion-about-closure-in-slim" />
 		<id>urn:uuid:d0fd92ab-df21-349c-6ab3-180ef2418578</id>
 		<updated>2014-02-19T15:46:17+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 变量时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：&lt;/p&gt;
+		<summary type="html"><![CDATA[&lt;p&gt;在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -23,7 +27,7 @@ $app-&amp;gt;uuid = function(){
 $uuid = $app-&amp;gt;uuid;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;在这个例子中，我们把一个匿名函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个匿名函数：&lt;/p&gt;
+&lt;p&gt;在这个例子中，我们把一个 lambda 函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个 lambda 函数：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// 实例变量不能通过 $app-&amp;gt;uuid(); 方法调用
 $uuid = $app-&amp;gt;uuid;
@@ -48,7 +52,7 @@ $uuid();
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;如果我们需要存储原始的匿名函数，则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。&lt;/p&gt;
+&lt;p&gt;如果我们需要存储原始的闭包（Closure），则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。&lt;/p&gt;
 ]]></summary>
 	</entry>
 	<entry>
