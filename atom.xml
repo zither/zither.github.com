@@ -5,18 +5,11 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-21T16:10:28+08:00</updated>
+	<updated>2014-02-21T16:12:00+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
-	<entry>
-		<title type="html"><![CDATA[Testing for Nitrous]]></title>
-		<link href="http://blog.minimee.org/article/2014/02/21/testing-for-nitrous" />
-		<id>urn:uuid:4fdb5bc1-7ec7-3e29-f2e3-8745360b0341</id>
-		<updated>2014-02-21T07:39:46+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;我来测试的&lt;/p&gt;]]></summary>
-	</entry>
 	<entry>
 		<title type="html"><![CDATA[Slim 中关于 Closure 的问题]]></title>
 		<link href="http://blog.minimee.org/article/2014/02/19/confusion-about-closure-in-slim" />
