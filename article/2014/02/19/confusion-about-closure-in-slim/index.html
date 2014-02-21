@@ -37,27 +37,24 @@
 					</div>
 		<div class="content">
 			<p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
-
-<!--more-->
-
-<pre><code>$app = new \Slim\Slim();
+<p></p>
+<pre>
+<code>$app = new \Slim\Slim();
 $app-&gt;uuid = function(){
     return exec('uuidgen');
 };
 // 获取一个新的 UUID
-$uuid = $app-&gt;uuid;
-</code></pre>
-
+$uuid = $app-&gt;uuid;</code>
+</pre>
 <p>在这个例子中，我们把一个 lambda 函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个 lambda 函数：</p>
-
-<pre><code>// 实例变量不能通过 $app-&gt;uuid(); 方法调用
+<pre>
+<code>// 实例变量不能通过 $app-&gt;uuid(); 方法调用
 $uuid = $app-&gt;uuid;
-$uuid();
-</code></pre>
-
+$uuid();</code>
+</pre>
 <p>但是在 Slim 中不需要手动调用，它在 \Slim\Helper\Set 类中使用了自动调用：</p>
-
-<pre><code>public function get($key, $default = null)
+<pre>
+<code>public function get($key, $default = null)
 {
     if ($this-&gt;has($key)) {
         // 检测变量是否可以调用
@@ -70,11 +67,9 @@ $uuid();
             $this-&gt;data[$this-&gt;normalizeKey($key)];
     }
     return $default;
-}
-</code></pre>
-
-<p>如果我们需要存储原始的闭包（Closure），则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。</p>
-		</div>
+}</code>
+</pre>
+<p>如果我们需要存储原始的闭包（Closure），则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。</p>		</div>
 	</article>
 	<div class="bar">
 		<span class="new">
