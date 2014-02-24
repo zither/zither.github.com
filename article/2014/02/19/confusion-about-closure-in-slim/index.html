@@ -39,7 +39,7 @@
 			<p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
 <p></p>
 <pre>
-<code>$app = new \Slim\Slim();
+<code class="language-php">$app = new \Slim\Slim();
 $app-&gt;uuid = function(){
     return exec('uuidgen');
 };
@@ -48,13 +48,13 @@ $uuid = $app-&gt;uuid;</code>
 </pre>
 <p>在这个例子中，我们把一个 lambda 函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个 lambda 函数：</p>
 <pre>
-<code>// 实例变量不能通过 $app-&gt;uuid(); 方法调用
+<code class="language-php">// 实例变量不能通过 $app-&gt;uuid(); 方法调用
 $uuid = $app-&gt;uuid;
 $uuid();</code>
 </pre>
 <p>但是在 Slim 中不需要手动调用，它在 \Slim\Helper\Set 类中使用了自动调用：</p>
 <pre>
-<code>public function get($key, $default = null)
+<code class="language-php">public function get($key, $default = null)
 {
     if ($this-&gt;has($key)) {
         // 检测变量是否可以调用

@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-02-21T16:12:00+08:00</updated>
+	<updated>2014-02-24T11:42:57+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
@@ -18,7 +18,7 @@
 		<summary type="html"><![CDATA[&lt;p&gt;在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：&lt;/p&gt;
 &lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
 &lt;pre&gt;
-&lt;code&gt;$app = new \Slim\Slim();
+&lt;code class=&quot;language-php&quot;&gt;$app = new \Slim\Slim();
 $app-&amp;gt;uuid = function(){
     return exec(&#039;uuidgen&#039;);
 };
@@ -27,13 +27,13 @@ $uuid = $app-&amp;gt;uuid;&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;在这个例子中，我们把一个 lambda 函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个 lambda 函数：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code&gt;// 实例变量不能通过 $app-&amp;gt;uuid(); 方法调用
+&lt;code class=&quot;language-php&quot;&gt;// 实例变量不能通过 $app-&amp;gt;uuid(); 方法调用
 $uuid = $app-&amp;gt;uuid;
 $uuid();&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;但是在 Slim 中不需要手动调用，它在 \Slim\Helper\Set 类中使用了自动调用：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code&gt;public function get($key, $default = null)
+&lt;code class=&quot;language-php&quot;&gt;public function get($key, $default = null)
 {
     if ($this-&amp;gt;has($key)) {
         // 检测变量是否可以调用
