@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-03-13T11:09:09+08:00</updated>
+	<updated>2014-03-13T11:11:22+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
@@ -17,9 +17,10 @@
 		<updated>2014-03-13T10:26:53+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;前几天做了一个比较小的项目，大部分功能都涉及到 feed 解析。关于 feed 解析我之前也写过相关的代码，因为所需 feed 的情况都在自己的控制之内，当时使用的是自己写的一个解析类。这次项目要求要更加通用一些，所以在进行过程搜索了各种开源的 feed 解析库。&lt;/p&gt;
 &lt;p&gt;最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：&lt;a href=&quot;http://blog.webfuns.net/archives/1710.html&quot;&gt;SimplePie 将中文编码成 HTML Entities 的解决办法&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
 &lt;p&gt;文中已经说明出现这个问题的原因，并且给出了一个解决办法，不过修改方法不太清楚，这里详细说一下：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code&gt;// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
+&lt;code class=&quot;language-php&quot;&gt;// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
 class SimplePie_Sanitieze
 {
     // 忽略无关的内容

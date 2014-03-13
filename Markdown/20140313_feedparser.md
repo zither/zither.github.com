@@ -15,49 +15,53 @@
 
 最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：[SimplePie 将中文编码成 HTML Entities 的解决办法](http://blog.webfuns.net/archives/1710.html)。
 
+<!--more-->
+
 文中已经说明出现这个问题的原因，并且给出了一个解决办法，不过修改方法不太清楚，这里详细说一下：
 
-    // 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
-    class SimplePie_Sanitieze
+```php
+// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
+class SimplePie_Sanitieze
+{
+    // 忽略无关的内容
+    // ...
+    // ...
+
+    public function sanitize($data, $type, $base = '')
     {
-        // 忽略无关的内容
+        // 忽略无关内容
         // ...
         // ...
 
-        public function sanitize($data, $type, $base = '')
+        if ($type & (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML))
         {
-            // 忽略无关内容
+            $document = new DOMDocument();
+            $document->encoding = 'UTF-8';
+
+            // 增加一下两行代码
+            $unique_tag = '#' . uniqid() . '#';
+            $data = $unique_tag . $data . $unique_tag;
+            
+            $data = $this->preprocess($data, $type);
+            // 继续忽略无关内容
             // ...
             // ...
 
-            if ($type & (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML))
-            {
-                $document = new DOMDocument();
-                $document->encoding = 'UTF-8';
+            // 直接注释下面这两行代码
+            //$real_body = $document->getElementsByTagName('body')->item(0)->childNodes->item(0);
+            //$document->replaceChild($real_body, $document->firstChild);
 
-                // 增加一下两行代码
-                $unique_tag = '#' . uniqid() . '#';
-                $data = $unique_tag . $data . $unique_tag;
-                
-                $data = $this->preprocess($data, $type);
-                // 继续忽略无关内容
-                // ...
-                // ...
+            $data = trim($document->saveHTML());
 
-                // 直接注释下面这两行代码
-                //$real_body = $document->getElementsByTagName('body')->item(0)->childNodes->item(0);
-                //$document->replaceChild($real_body, $document->firstChild);
+            // 最后在添加下面这行代码
+            list($_, $data, $_) = explode($unique_tag, $data);
 
-                $data = trim($document->saveHTML());
-
-                // 最后在添加下面这行代码
-                list($_, $data, $_) = explode($unique_tag, $data);
-
-                // ...
-                // ...
-            }
+            // ...
+            // ...
         }
     }
+}
+```
 
 除了 SimplePie 之外还在 Github 上找到一个非常小的解析库：[FeedParser](https://github.com/dzeban/FeedParser)。这个库的功能相比 SimplePie 要简陋太多，不过好在它足够简单，源代码看完想怎么改就怎么改。FeedParser 的作者也是因为自己需要而写的，最后更新在 3 年之前，提供的接口是使用 XPath 硬查询的，所以如果有特殊的需求需要自己修改代码。我自己使用的时候也添加过一些简单的接口，代码放在：
 

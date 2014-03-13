@@ -38,9 +38,10 @@
 		<div class="content">
 			<p>前几天做了一个比较小的项目，大部分功能都涉及到 feed 解析。关于 feed 解析我之前也写过相关的代码，因为所需 feed 的情况都在自己的控制之内，当时使用的是自己写的一个解析类。这次项目要求要更加通用一些，所以在进行过程搜索了各种开源的 feed 解析库。</p>
 <p>最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：<a href="http://blog.webfuns.net/archives/1710.html">SimplePie 将中文编码成 HTML Entities 的解决办法</a>。</p>
+<p></p>
 <p>文中已经说明出现这个问题的原因，并且给出了一个解决办法，不过修改方法不太清楚，这里详细说一下：</p>
 <pre>
-<code>// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
+<code class="language-php">// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
 class SimplePie_Sanitieze
 {
     // 忽略无关的内容
