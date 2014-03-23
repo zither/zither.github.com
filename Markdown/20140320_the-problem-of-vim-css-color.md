@@ -2,7 +2,7 @@
     "type": "article",
     "title": "vim-css-color 严重降低 vim 启动速度",
     "url": "the-problem-of-vim-css-color",
-    "tag": "VIM",
+    "tag": "vim",
     "category": "Programming",
     "keywords": null,
     "date": "2014-03-20",
