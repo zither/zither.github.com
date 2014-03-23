@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-cn" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
+	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme,">
+	<title>谁动了我的 php.vim | MiniThinker</title>
+	
+	<link rel="stylesheet" href="/theme/main.css">
+</head>
+<body>
+	<div id="main">
+		<div class="border">
+			<header>
+				<h1><a href="/">MiniThinker</a></h1>
+				<h2>努力学习那些想要知道的东西</h2>
+			</header>
+			<div id="nav">
+				<a href="/">Home</a>
+				<a href="/about">About</a>
+			</div>
+			<div id="container"><div id="article">
+	<article>
+		<div class="title">谁动了我的 php.vim</div>
+		<div class="info">
+			<span class="date">2014-03-23</span>
+			-
+			<span class="category">
+				Category:
+				<a href="/category/Programming">Programming</a>			</span>
+			-
+			<span class="tag">
+				Tag: 
+																<a href="/tag/vim">vim</a>			</span>
+					</div>
+		<div class="content">
+			<p>最近发生了一个非常诡异的事情，我的 vim 语法高亮竟然自动变了！在<a href="http://blog.minimee.org/article/2014/03/20/the-problem-of-vim-css-color">前一篇博客</a>中我提到过：从我使用 vim 编辑器以来，color scheme 一直都是 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。它之前的模样可以在<a href="http://minimee.org/vim/">这篇介绍</a>中看到。</p>
+<p>从图片中可以看到 php 注释要比 php 普通代码的颜色要暗很多，不会吸引到视觉焦点，这也是我选择 color scheme 最重要的标准之一。但是最近它竟然自己把颜色给换了，难道注释也变得不甘寂寞了么？</p>
+<p></p>
+<p>从<a href="http://ww1.sinaimg.cn/large/86e701f8gw1eepv20rot2j21ao07xdgn.jpg">这张图片</a>可以看到，注释中部分文字改变了高亮颜色！奇怪的是最近我并没有任何更新 vim 的操作，我也不知道为什么变成了这样。在更换了多个 color scheme 之后发现，这个问题影响到了所有的 color scheme，也就是说问题与 color scheme 自身没有关系。而是 vim highlight groups 中混入了奇怪的东西。</p>
+<pre>
+<code class="language-vimL">hi Comment          guifg=#808080           gui=none
+hi Comment          ctermfg=243             cterm=none</code>
+</pre>
+<p>这几行代码是 lucius 配色中关于注释的颜色设置，现在我需要找到混在 Comment group 中的其他 group。这时可以祭出 <a href="http://www.vim.org/scripts/script.php?script_id=383">SyntaxAttr.vim</a> 这件大杀器，它的功能很简单，就是可以获取鼠标所在文字的 highlight group 信息。插件安装成功之后可以使用以下命令来获取 highlight group 信息：</p>
+<pre>
+<code class="language-vimL">:call SyntaxAttr()</code>
+</pre>
+<p>利用这个插件我找到了注释中高亮部分的 highlight group：</p>
+<pre>
+<code class="language-vimL">group: phpDocTags-&gt;PreProc guifg=#efefaf(#efefaf)
+group: phpDocCustomTags-&gt;Type guifg=#93e690(#93e690)</code>
+</pre>
+<p>很显然，在 lucius scheme 之中并没有定义与这两个 group 相关的设置，关于这两个 group 的定义可以在 vim 的 syntax/php.vim 中找到：</p>
+<pre>
+<code>syntax match  phpDocCustomTags  "@[a-zA-Z]*\(\s\+\|\n\|\r\)" containedin=phpComment
+syntax region phpDocTags  start="{@\(example...\|tutorial\)" end="}" containedin=phpComment
+syntax match  phpDocTags  "@\(abstract\....\|throws\)\(\s\+\)\?" containedin=phpComment</code>
+</pre>
+<p>最后为了让这两个不安分的 highlight group 低调一点，我直接在 lucius scheme 中添加了如下两行设置：</p>
+<pre>
+<code>hi phpDocTags       guifg=#808080                                   gui=none
+hi phpDocCustomTags guifg=#808080                                   gui=none</code>
+</pre>
+<p>然后整个 vim 又恢复到之前的宁静了。</p>		</div>
+	</article>
+	<div class="bar">
+		<span class="new">
+					</span>
+		<span class="old">
+			<a href="/article/2014/03/20/the-problem-of-vim-css-color">vim-css-color 严重降低 vim 启动速度 >></a>		</span>
+		<span class="count">
+			1 / 6		</span>
+	</div>
+	</div>
+</div>
+			<footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
+		</div>
+	</div>
+	<!-- Define and Load Javascript -->
+	<script src="/theme/main.js"></script>
+	</body>
+</html>
