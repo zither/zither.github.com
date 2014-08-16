@@ -5,11 +5,22 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-08-16T09:49:26+08:00</updated>
+	<updated>2014-08-16T10:59:19+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[如何开发网页游戏]]></title>
+		<link href="http://blog.minimee.org/article/2014/08/16/how-to-make-a-web-game" />
+		<id>urn:uuid:5f7f2f3a-e292-79d7-8ba0-2f713b106151</id>
+		<updated>2014-08-16T09:53:34+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;题目中的话是疑问句。我最近在想怎么做一个网页游戏，但是由于从未涉及过相关知识，这个过程对我来说有些陌生。&lt;/p&gt;
+&lt;p&gt;开发网页游戏的技术有很多种，最成熟的当属 flash 游戏，而当前热门的则应该是 HTML 5 以及 Unity 3D。从画面来说，现在的网页游戏已经可以媲美端游了。不过我的兴趣点却恰恰相反，我更喜欢 &lt;a href=&quot;http://candybox2.net/&quot;&gt;Candy box&lt;/a&gt; 以及 &lt;a href=&quot;http://www.linodas.com/&quot;&gt;Linodas&lt;/a&gt; 类似的文字游戏。&lt;/p&gt;
+&lt;p&gt;Candy box 好玩但由于是单机内容不够丰富，而 Linodas 内容丰富但行动点的设定很大程度上抑制了玩家的热情。这其中涉及到了游戏对于玩家之间的平衡问题。我希望有这样一款文字页游，游戏背景是不断变化的，可以持续性的玩下去，玩家之间可以有一定的交互，但是在线时长不会造成玩家之间的根本性的差距。换种方式说就是我一直当单机玩也可以体验绝大部分游戏乐趣，每天只用很少的时间来玩也不会被其他玩家碾压。&lt;/p&gt;
+&lt;p&gt;Linodas 的冒险模式应该就是在往这个方向努力，但是这个功能目前还未开放，每天把少量的行动点数用完就不能做其他事情了。所以我准备给自己写一个页游，尽可能的满足自己的需求。&lt;/p&gt;
+&lt;p&gt;新页游暂被设定为生存类，玩家随机出生在地图的某个位置，然后通过采集或猎杀来获取资源，不断制造工具，让自己活下去。这是一个很普通的生存类游戏设定，但是实现方式上还需要仔细的考虑。目前参考常规方式实现了一下&lt;a href=&quot;http://justadust.sinaapp.com/game&quot;&gt;地图 demo&lt;/a&gt;，但是不管是在移动操作还是体验上都比较差，频繁的点击以及过快的移动很容易迷失方向。(待续)&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[谁动了我的 php.vim]]></title>
 		<link href="http://blog.minimee.org/article/2014/03/23/who-changed-my-php-vim" />
@@ -170,19 +181,5 @@ $uuid();&lt;/code&gt;
 }&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;如果我们需要存储原始的闭包（Closure），则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[编程语言从哪里来]]></title>
-		<link href="http://blog.minimee.org/article/2014/02/17/what-is-a-programming-language" />
-		<id>urn:uuid:41897e6d-83f8-9cca-142e-2d3bce5ffd62</id>
-		<updated>2014-02-17T15:59:12+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;我学习的第一门编程语言是 ASP，想做一个个人网站，后来陆续接触到 PHP、C、Python、Scheme 等语言。因为一直都是自学，所以在学习过程中心里总是有很多疑惑。其中最大的疑惑就是现在这么多编程语言到底是从哪里来的？也许有些可笑，编程语言当然都是人写的。各种语言书籍中都会提到语言的发展，比如学习 PHP 时他们会告诉你 PHP 是用 C 语言写的。最初的 C 语言又是由 B 语言开发的。这些发展过程好像有迹可循，所以我忽略了一些重要的东西。&lt;/p&gt;
-&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
-&lt;p&gt;但是在接触到 LISP 和 Scheme 的时候上面的疑惑又出现了。Scheme 的语法很简单，所以大部分教程也相对简洁，很多时候都是让你用 Scheme 进行各种数字计算，或者是让你在屏幕上输出一句“Hello, world!”。然后他们会告诉你你现在已经可以用 Scheme 做任何想做的事情了。然后就没有然后了。&lt;/p&gt;
-&lt;p&gt;每次看到这样的教程都有掀桌的冲动有木有。不过从语言的发展上我们至少可以得到这样一个结论：一种语言最初都是由另一种语言编写的。所以它所有的能力最初都来自于编写它的语言，这样我们可以一直追溯到最早的程序语言：机器语言和汇编语言。&lt;/p&gt;
-&lt;p&gt;在这两者之间我们可以看到程序语言的分界线，即计算机最初只能识别机器语言而不能识别汇编语言。机器语言是用二进制代码表示的处理器指令集，最初的指令就是各种控制面板的开关而已。也就是说机器语言的能力来自于处理器，是最低级的语言。&lt;/p&gt;
-&lt;p&gt;汇编语言是由与指令集命令一一对应的助记符组成的。这是由于机器语言只包括“开”和“关”，或者说只包括“1”和“0”。你可以把它打孔到纸条或纸卡上，但它实在是太难记了，所以人们想到用各种英文单词来代替一长串数字指令。但这时计算机仍然不能识别它，在纸上编写的汇编代码仍然需要人工把助记符翻译成机器语言命令。&lt;/p&gt;
-&lt;p&gt;直到第一个汇编器的出现，我们可以把它简单的理解为用机器语言编写的汇编代码翻译程序。汇编器可以通过查表的方式把汇编代码一一翻译为机器码。这就意味着我们可以用汇编代码来输入指令，甚至是用汇编语言来编写汇编器了。对于想知道怎么用“0”和“1”来表示代码字母的朋友可以搜索了解下二进制和字符编码相关内容。&lt;/p&gt;
-&lt;p&gt;现在我们可以稍微明白一些专业术语将的是些什么内容了。比如之前听起来非常高大上的“反编译”或者“逆向工程”，其实就是把二进制机器码用反汇编器转换为汇编代码，然后理解计算逻辑，并试图用高级语言还原出来的过程。比如我们应该明白各种编程语言在功能上的差别到底在哪里，这是其实由实现他们的编译器或者解释器来决定的。所以当我们想问 Scheme 能做什么的时候，应该去看看 Scheme 的解释器或编译器提供了哪些功能。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
