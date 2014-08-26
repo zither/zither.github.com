@@ -5,13 +5,13 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-08-16T19:51:13+08:00</updated>
+	<updated>2014-08-26T12:50:28+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
 	<entry>
-		<title type="html"><![CDATA[如何开发页游之地图设定]]></title>
+		<title type="html"><![CDATA[尘埃开发记录之地图设定]]></title>
 		<link href="http://blog.minimee.org/article/2014/08/16/game-map" />
 		<id>urn:uuid:f737dd8c-91e5-cc30-39b1-c00bca1311ba</id>
 		<updated>2014-08-16T19:04:34+08:00</updated>
@@ -20,7 +20,7 @@
 &lt;p&gt;当然，在每个场景中可以采用 Linodas 中地城相似的设定，通过增加不同的子场景来让场景内容更加丰富。这部分需要在新的 demo 做出来之后再继续讨论。&lt;/p&gt;]]></summary>
 	</entry>
 	<entry>
-		<title type="html"><![CDATA[如何开发网页游戏]]></title>
+		<title type="html"><![CDATA[尘埃开发记录]]></title>
 		<link href="http://blog.minimee.org/article/2014/08/16/how-to-make-a-web-game" />
 		<id>urn:uuid:5f7f2f3a-e292-79d7-8ba0-2f713b106151</id>
 		<updated>2014-08-16T09:53:34+08:00</updated>

@@ -1,6 +1,6 @@
 {
     "type": "article",
-    "title": "如何开发网页游戏",
+    "title": "尘埃开发记录",
     "url": "how-to-make-a-web-game",
     "tag": "Game",
     "category": "Dust",
