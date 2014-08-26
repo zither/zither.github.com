@@ -5,11 +5,20 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-08-26T14:04:01+08:00</updated>
+	<updated>2014-08-26T14:06:02+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[尘埃开发记录之战斗模式]]></title>
+		<link href="http://blog.minimee.org/article/2014/08/26/battle-mode-of-dust" />
+		<id>urn:uuid:400576b2-8058-e801-ab80-91df1ad9aac7</id>
+		<updated>2014-08-26T12:57:21+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;尘埃的地图设定差不多已经确定，现在需要考虑的是战斗模式。通常游戏中的战斗以技能和装备为核心，游戏中的技能大都是以职业或者门派为区分，这部分相对固定，差距多由玩家操作决定。但是装备差别更大，强力的装备对玩家的吸引力更加强烈。&lt;/p&gt;
+&lt;p&gt;在炉石传说和 estiah 这样的卡牌游戏中则是以五花八门的卡牌为核心，玩家之间的伤害差别全由卡牌属性决定。尘埃作为休闲的网页游戏，在 PVE 或 PVP 中自然希望弱化“操作”的作用，让战斗更加自动一些，所以我自己更加倾向于采用类似 estiah 和 linodas 的战斗模式，也就是说希望玩家的大部分游戏时间都花在战斗前的各种“装备”或“卡牌”的收集上。&lt;/p&gt;
+&lt;p&gt;由于自动战斗的特殊性，采用回合制就无可避免，但是仍然可以通过一些特别的设定来增加战斗的策略性。&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[尘埃开发记录之地图设定]]></title>
 		<link href="http://blog.minimee.org/article/2014/08/16/game-map" />
@@ -89,66 +98,5 @@ hi phpDocCustomTags guifg=#808080                                   gui=none&lt;
 &lt;code class=&quot;language-vimL&quot;&gt;if !( has(&#039;gui_running&#039;) || &amp;amp;t_Co==256 ) | finish | endif&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[Feed 解析那些库]]></title>
-		<link href="http://blog.minimee.org/article/2014/03/13/feedparser" />
-		<id>urn:uuid:c6ee9e6a-221b-760e-a87f-ae3e66e03fdd</id>
-		<updated>2014-03-13T10:26:53+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;前几天做了一个比较小的项目，大部分功能都涉及到 feed 解析。关于 feed 解析我之前也写过相关的代码，因为所需 feed 的情况都在自己的控制之内，当时使用的是自己写的一个解析类。这次项目要求要更加通用一些，所以在进行过程搜索了各种开源的 feed 解析库。&lt;/p&gt;
-&lt;p&gt;最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：&lt;a href=&quot;http://blog.webfuns.net/archives/1710.html&quot;&gt;SimplePie 将中文编码成 HTML Entities 的解决办法&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
-&lt;p&gt;文中已经说明出现这个问题的原因，并且给出了一个解决办法，不过修改方法不太清楚，这里详细说一下：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;// 修改的内容在 SimplePie_Sanitize 类的 sanitize 方法中
-class SimplePie_Sanitieze
-{
-    // 忽略无关的内容
-    // ...
-    // ...
-
-    public function sanitize($data, $type, $base = &#039;&#039;)
-    {
-        // 忽略无关内容
-        // ...
-        // ...
-
-        if ($type &amp;amp; (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML))
-        {
-            $document = new DOMDocument();
-            $document-&amp;gt;encoding = &#039;UTF-8&#039;;
-
-            // 增加一下两行代码
-            $unique_tag = &#039;#&#039; . uniqid() . &#039;#&#039;;
-            $data = $unique_tag . $data . $unique_tag;
-
-            $data = $this-&amp;gt;preprocess($data, $type);
-            // 继续忽略无关内容
-            // ...
-            // ...
-
-            // 直接注释下面这两行代码
-            //$real_body = $document-&amp;gt;getElementsByTagName(&#039;body&#039;)-&amp;gt;item(0)-&amp;gt;childNodes-&amp;gt;item(0);
-            //$document-&amp;gt;replaceChild($real_body, $document-&amp;gt;firstChild);
-
-            $data = trim($document-&amp;gt;saveHTML());
-
-            // 最后在添加下面这行代码
-            list($_, $data, $_) = explode($unique_tag, $data);
-
-            // ...
-            // ...
-        }
-    }
-}&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;除了 SimplePie 之外还在 Github 上找到一个非常小的解析库：&lt;a href=&quot;https://github.com/dzeban/FeedParser&quot;&gt;FeedParser&lt;/a&gt;。这个库的功能相比 SimplePie 要简陋太多，不过好在它足够简单，源代码看完想怎么改就怎么改。FeedParser 的作者也是因为自己需要而写的，最后更新在 3 年之前，提供的接口是使用 XPath 硬查询的，所以如果有特殊的需求需要自己修改代码。我自己使用的时候也添加过一些简单的接口，代码放在：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code&gt;// FeedParser Github repo
-https://github.com/dzeban/FeedParser
-// 我小小修改过的
-https://github.com/zither/FeedParser&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;总的来说，FeedParser 适合自己玩，正规一些的项目可以考虑使用 SimplePie。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
