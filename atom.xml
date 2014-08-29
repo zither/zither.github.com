@@ -5,11 +5,32 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-08-27T15:51:23+08:00</updated>
+	<updated>2014-08-29T16:35:53+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[尘埃开发记录之战斗数据结构]]></title>
+		<link href="http://blog.minimee.org/article/2014/08/29/data-structure-of-battle" />
+		<id>urn:uuid:90430ed8-749e-1be8-3e31-7955da0ba32f</id>
+		<updated>2014-08-29T15:51:02+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;前面的日志中已经说过，尘埃现在采用的是自动回合制的战斗模式，玩家在战斗中不需要手动干涉。由于网页游戏的特性，尘埃的所有战斗过程全部在服务端完成，玩家是无法看到整个过程的。这就意味着需要在服务端生成一个完整的战斗记录，玩家要看到战斗过程就必须将记录传递到前端的战斗记录播放器中进行回放。&lt;/p&gt;
+&lt;p&gt;回合制大大的简化了战斗模式，同时也简化的战斗记录数据的结构。尘埃暂时还没有考虑各种复杂的装备和技能特效，在 Demo 中直接采用了最简单的处理方法，将战斗记录分为两部分：战斗成员（包括攻击和防御两方）以及回合数据。战斗成员就是参战双方的详细属性，比如名称、血量等，而回合数据是简化后的操作步骤。&lt;/p&gt;
+&lt;pre&gt;
+&lt;code&gt;0: {status:{attacker:[{id:2, name:勇敢的小鬼, hp:30, attack:3, defence:2,…}],…}}
+1: {type:battle, data:[attacker, 0, 0, 0, 3, 7]}
+2: {type:battle, data:[defender, 0, 0, 0, 1, 29]}
+3: {type:battle, data:[attacker, 0, 0, 0, 3, 4]}
+4: {type:battle, data:[defender, 0, 0, 0, 1, 28]}
+5: {type:battle, data:[attacker, 0, 0, 0, 3, 1]}
+6: {type:battle, data:[defender, 0, 0, 0, 1, 27]}
+7: {type:battle, data:[attacker, 0, 0, 0, 3, -2]}
+8: {type:message, data:勇敢的小鬼打败了老鼠。}&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;上面是一个简单的战斗记录示例，第 0 行是参战成员的详细信息，其中分为攻击方和防御方两个部分。第 1-7 行就是整个战斗的操作数据。整个战斗记录的回放过程可以点击图片查看：&lt;a href=&quot;http://ww2.sinaimg.cn/large/86e701f8gw1ejtkyk2521j20za0hm0v9.jpg&quot;&gt;战斗记录&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;战斗记录的回放基本都在前端进行控制，目前尘埃 Demo 的战斗回放采用的是 2 秒一个回合，当然如果有需要的话也可以把整个过程直接打印出来。不过随着之后各种战斗因素的加入，这个过程肯定会变得复杂起来。 &lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[尘埃开发记录之战斗模式]]></title>
 		<link href="http://blog.minimee.org/article/2014/08/26/battle-mode-of-dust" />
@@ -73,30 +94,5 @@ syntax match  phpDocTags  &quot;@\(abstract\....\|throws\)\(\s\+\)\?&quot; conta
 hi phpDocCustomTags guifg=#808080                                   gui=none&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;然后整个 vim 又恢复到之前的宁静了。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[vim-css-color 严重降低 vim 启动速度]]></title>
-		<link href="http://blog.minimee.org/article/2014/03/20/the-problem-of-vim-css-color" />
-		<id>urn:uuid:9e38c325-21d4-dbe7-2b06-db724cc6295a</id>
-		<updated>2014-03-20T12:11:09+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;因为一直使用 vim-gtk 的缘故，我其实很少使用 vim 进行编程，color scheme 更是一直使用 &lt;a href=&quot;http://www.vim.org/scripts/script.php?script_id=2536&quot;&gt;lucius&lt;/a&gt;。不过最近有些工作必须要在终端下完成，为了改善在 vim 中编程的体验，我还是决定升级下终端版本，并专门把 vim 的配色更换为 &lt;a href=&quot;https://github.com/chriskempson/tomorrow-theme&quot;&gt;Tomorrow-Night&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。&lt;/p&gt;
-&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
-&lt;p&gt;使用如下命令来查看 vim 的启动过程耗费的时间：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;vim --startuptime timefile test.php&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;这个命令会打开 test.php 文件并在当前目录生成一个名为 timefile 的启动日志文件。然后我在日志文件中找到了拖慢 vim 启动速度的真凶：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;191.477  004.767  004.767: sourcing /usr/share/vim/vim74/syntax/vb.vim
-4279.165  4087.443  4087.443: sourcing /home/chou/.vim/bundle/css_color.vim/syntax/css.vim&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;从日志中可以看到，大部分时间都被用于加载这个名为 css_color.vim 的插件。话说这个插件比较好玩，特别是对于经常接触前端的朋友，它可以自动修改文件中表示各种颜色格式文字（比如 #ffffff）的背景，然后让人可以直观的看到这些数字组成的颜色。我当即在 .vimrc 配置中去掉了这个插件，然后 vim 的启动速度恢复正常。&lt;/p&gt;
-&lt;p&gt;随手 google 了一下，发现非常多的人在 &lt;a href=&quot;https://github.com/skammer/vim-css-color/issues/3&quot;&gt;github issue&lt;/a&gt; 上提出了这个问题，但是作者未作任何回复。大致是由于插件的 rgb2xterm 函数效率过低。不过有好心的网友自己对这个问题进行了更新修复，更新后的插件可以在这里找到：&lt;a href=&quot;https://github.com/ap/vim-css-color&quot;&gt;&lt;a href=&quot;https://github.com/ap/vim-css-color&quot;&gt;https://github.com/ap/vim-css-color&lt;/a&gt;&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;之前在 88 色终端下并未发现这个问题是由于插件在开头添加了这样一行环境检测代码：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-vimL&quot;&gt;if !( has(&#039;gui_running&#039;) || &amp;amp;t_Co==256 ) | finish | endif&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
