@@ -24,6 +24,24 @@
 			<div id="container"><div id="page">
 		<article>
 		<div class="title">
+			<a href="/article/2014/09/10/new-version-of-mreader">重写了 Mreader</a>		</div>
+		<div class="info">
+			<span class="date">2014-09-10</span>
+			-
+			<span class="category">
+				Category: <a href="/category/Mreader">Mreader</a>			</span>
+			-
+			<span class="tag">
+				Tag: 
+																<a href="/tag/Programming">Programming</a>			</span>
+					</div>
+		<div class="content">
+			<p><a href="http://mreader.sinaapp.com">Mreader</a> 是我自己写的一个 Feed 聚合工具，第一个版本诞生于 2013 年 5 月。当时写 Mreader 的原因是 Google reader 即将关闭，虽然那段时间出现了非常多的 Google reader 替代品，但是由于稳定性的原因没有使用它们。后来就花了几天时间自己写了一个简陋的 Web 聚合，然后一直使用到 <a href="http://digg.com/reader">Digg reader</a> 的发布。</p>
+<p>Digg reader 算是 Google reader 的最佳替代品，我也一直使用到现在。不过最近国类又开始封锁国外的各种服务，在没有出墙的情况下，Digg reader 的良好体验被大大的降低了。然后我又一次想到了已经被搁置很久的 Mreader，决定花两天时间把它重写了一遍。基本的订阅功能今天已经完成了，前端方面基本直接 Copy 了我另一个小站的样式。</p>
+<p>现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。</p>		</div>
+        	</article>
+		<article>
+		<div class="title">
 			<a href="/article/2014/09/07/game-design">尘埃开发记录之游戏策划</a>		</div>
 		<div class="info">
 			<span class="date">2014-09-07</span>
@@ -107,24 +125,6 @@
 			<p>尘埃的地图设定差不多已经确定，现在需要考虑的是战斗模式。通常游戏中的战斗以技能和装备为核心，游戏中的技能大都是以职业或者门派为区分，这部分相对固定，差距多由玩家操作决定。但是装备差别更大，强力的装备对玩家的吸引力更加强烈。</p>
 <p>在炉石传说和 estiah 这样的卡牌游戏中则是以五花八门的卡牌为核心，玩家之间的伤害差别全由卡牌属性决定。尘埃作为休闲的网页游戏，在 PVE 或 PVP 中自然希望弱化“操作”的作用，让战斗更加自动一些，所以我自己更加倾向于采用类似 estiah 和 linodas 的战斗模式，也就是说希望玩家的大部分游戏时间都花在战斗前的各种“装备”或“卡牌”的收集上。</p>
 <p>由于自动战斗的特殊性，采用回合制就无可避免，但是仍然可以通过一些特别的设定来增加战斗的策略性。目前实现了一个非常简陋的战斗系统以及前端的战斗记录播放器，之后会依据该系统不断增加与其相关的系统设定，比如技能，装备系统。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/08/16/game-map">尘埃开发记录之地图设定</a>		</div>
-		<div class="info">
-			<span class="date">2014-08-16</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Dust">Dust</a>			</span>
-			-
-			<span class="tag">
-				Tag: 
-																<a href="/tag/Map">Map</a>			</span>
-					</div>
-		<div class="content">
-			<p>经过思考决定修改之前 Demo 中地图的一些相关设定。按照之前的设定，人物可以在地图中自由移动，地图属性的颗粒也相对较小（比如距离、类型）。这样设定的好处是可以让角色移动更加接近普通 RPG 中移动效果，服务器也可绘制更加精细的地图。但是从 Demo 的效果来看，这种实现体验并不好。脱离了地图的直观感受，玩家需要强制记忆地图坐标，完成一个简单任务也可能需要通过数次移动，更容易疲倦。</p>
-<p>我的目标是做一个休闲的文字页游，尽可能的缩减鼠标操作也是需求之一。为了减少角色移动带来的操作，需要放大地图格子的比例。在 Linodas 中地图是以城镇为中心的，如果一个城镇相当于一个格子的话，它的地图只有13格，也就是说角色不是在地城副本就是在城市中。我希望游戏中的世界能够更加“宽阔”一些，角色不仅仅是在城市中，也可以是在草原或者山谷。我把放大后的地图格子叫做“场景”，每一个格子就是一个场景。角色仍然可以在地图中移动，但是由于地图比例的放大，也会增加一些额外的东西来作为移动条件，比如食物和水。</p>
-<p>当然，在每个场景中可以采用 Linodas 中地城相似的设定，通过增加不同的子场景来让场景内容更加丰富。这部分需要在新的 demo 做出来之后再继续讨论。</p>		</div>
         	</article>
 		<div class="bar">
 		<span class="new">
