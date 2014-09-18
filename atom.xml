@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-09-18T19:51:48+08:00</updated>
+	<updated>2014-09-18T19:53:35+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
@@ -17,7 +17,7 @@
 		<updated>2014-09-18T19:14:13+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。&lt;/p&gt;
 &lt;p&gt;在玩莉诺达的过程中，也在思考尘埃的一些设定，比如战斗方式之类。并且花了两三天时间制作了一个&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;莉诺达斯木桩系统&lt;/a&gt;，不仅可以方便的进行卡组对比，也能了解背后的计算过程。不过由于本人玩了一个来月等级也才只有15级，非常多的高级卡片拿不上，所以有些卡片属性还不能完全支持。当然，以后等级上来了，相应的功能也会添加上去。&lt;/p&gt;
-&lt;p&gt;如果你有幸看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;http://linodas.sinaapp.com&lt;/a&gt;&lt;/a&gt;。&lt;/p&gt;]]></summary>
+&lt;p&gt;如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;http://linodas.sinaapp.com&lt;/a&gt;&lt;/a&gt;。&lt;/p&gt;]]></summary>
 	</entry>
 	<entry>
 		<title type="html"><![CDATA[重写了 Mreader]]></title>
