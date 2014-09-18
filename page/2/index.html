@@ -24,6 +24,24 @@
 			<div id="container"><div id="page">
 		<article>
 		<div class="title">
+			<a href="/article/2014/08/26/battle-mode-of-dust">尘埃开发记录之战斗模式</a>		</div>
+		<div class="info">
+			<span class="date">2014-08-26</span>
+			-
+			<span class="category">
+				Category: <a href="/category/Dust">Dust</a>			</span>
+			-
+			<span class="tag">
+				Tag: 
+																<a href="/tag/Game">Game</a>			</span>
+					</div>
+		<div class="content">
+			<p>尘埃的地图设定差不多已经确定，现在需要考虑的是战斗模式。通常游戏中的战斗以技能和装备为核心，游戏中的技能大都是以职业或者门派为区分，这部分相对固定，差距多由玩家操作决定。但是装备差别更大，强力的装备对玩家的吸引力更加强烈。</p>
+<p>在炉石传说和 estiah 这样的卡牌游戏中则是以五花八门的卡牌为核心，玩家之间的伤害差别全由卡牌属性决定。尘埃作为休闲的网页游戏，在 PVE 或 PVP 中自然希望弱化“操作”的作用，让战斗更加自动一些，所以我自己更加倾向于采用类似 estiah 和 linodas 的战斗模式，也就是说希望玩家的大部分游戏时间都花在战斗前的各种“装备”或“卡牌”的收集上。</p>
+<p>由于自动战斗的特殊性，采用回合制就无可避免，但是仍然可以通过一些特别的设定来增加战斗的策略性。目前实现了一个非常简陋的战斗系统以及前端的战斗记录播放器，之后会依据该系统不断增加与其相关的系统设定，比如技能，装备系统。</p>		</div>
+        	</article>
+		<article>
+		<div class="title">
 			<a href="/article/2014/08/16/game-map">尘埃开发记录之地图设定</a>		</div>
 		<div class="info">
 			<span class="date">2014-08-16</span>
@@ -99,27 +117,6 @@
 <p>我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。</p>
 <p>		</div>
         		<a class="more" href="/article/2014/03/20/the-problem-of-vim-css-color">
-			Read more
-		</a>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/03/13/feedparser">Feed 解析那些库</a>		</div>
-		<div class="info">
-			<span class="date">2014-03-13</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-			-
-			<span class="tag">
-				Tag: 
-																<a href="/tag/PHP">PHP</a>			</span>
-					</div>
-		<div class="content">
-			<p>前几天做了一个比较小的项目，大部分功能都涉及到 feed 解析。关于 feed 解析我之前也写过相关的代码，因为所需 feed 的情况都在自己的控制之内，当时使用的是自己写的一个解析类。这次项目要求要更加通用一些，所以在进行过程搜索了各种开源的 feed 解析库。</p>
-<p>最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：<a href="http://blog.webfuns.net/archives/1710.html">SimplePie 将中文编码成 HTML Entities 的解决办法</a>。</p>
-<p>		</div>
-        		<a class="more" href="/article/2014/03/13/feedparser">
 			Read more
 		</a>
         	</article>
