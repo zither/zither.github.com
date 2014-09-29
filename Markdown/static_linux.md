@@ -1,6 +1,6 @@
 {
     "type": "static",
-    "title": "Linux",
+    "title": "Linux 折腾记",
     "url": "linux",
     "message": false
 }
