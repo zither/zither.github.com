@@ -5,11 +5,24 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-09-26T18:11:03+08:00</updated>
+	<updated>2014-09-29T16:18:38+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[新一轮晒桌面开始]]></title>
+		<link href="http://blog.minimee.org/article/2014/09/29/new-system-screenshot" />
+		<id>urn:uuid:a54bfe5c-8807-78e8-5d19-98bf17d4eac6</id>
+		<updated>2014-09-29T15:26:06+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;&lt;img alt=&quot;openbox&quot; src=&quot;http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。&lt;/p&gt;
+&lt;p&gt;无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。&lt;/p&gt;
+&lt;p&gt;因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。&lt;/p&gt;
+&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;lubuntu&quot; src=&quot;http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[Mreader for android]]></title>
 		<link href="http://blog.minimee.org/article/2014/09/25/mreader-for-android" />
@@ -48,15 +61,5 @@
 &lt;p&gt;出现这个问题还是由于之前没有接触过游戏开发的原因，仍然用网页开发的那套做法，上来就开发相关的页面，而最重要的游戏策划部分反而没有什么头绪。现在要做的就是马上停止编码相关的工作，然后开始补充策划部分。&lt;/p&gt;
 &lt;p&gt;因为尘埃并不是完全 clone 现存的一些游戏，所以在游戏玩法以及数值策划部分没有什么可以完全照搬的，这就要求我必须去了解游戏策划的各个部分。特别是数值策划，经验曲线，人物属性怎么设定，装备平衡怎么测量，这些都需要重新学习。&lt;/p&gt;
 &lt;p&gt;然后还需要对尘埃的世界观进行补足，东方玄幻没有西幻那样成熟的世界体系，除了处于停摆状态的&lt;a href=&quot;http://sj.163.com/&quot;&gt;「沧海灵荒」&lt;/a&gt;之外，我还没有发现其他的网站或讨论组。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[尘埃开发记录之世界观]]></title>
-		<link href="http://blog.minimee.org/article/2014/09/01/wordview-of-dust" />
-		<id>urn:uuid:3247ebd3-3315-b5e4-2d2f-661079b2ec86</id>
-		<updated>2014-09-01T15:54:46+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;尘埃已经完成了简单的背包以及物品合成功能，在地图中探索可以遇到不同的动物（怪物？），成功击杀之后有机率掉落一些物品。怪物掉落通常是游戏中各种装备和物品的基本来源，不过考虑到之前设计的合成功能，尘埃中的怪物只掉落各种材料。装备则需要玩家不断收集各种材料，然后通过合成功能合成而来。&lt;/p&gt;
-&lt;p&gt;装备合成部分牵扯的东西比较多，首当其冲的便是装备属性。装备属性又涉及到人物属性、升级系统（成长功能），甚至是整个游戏的世界观设定。&lt;/p&gt;
-&lt;p&gt;在第一篇开发记录中我把尘埃设定为一个生存类游戏，但是随着地图实现以及人物移动方式的变动，使得程序不再适合该设定。通过回忆曾经玩过的一些游戏或者看过的一些小说，又找到两个不同的游戏背景。一个是借鉴网易天下贰的游戏世界观，另一个则是仙侠小说中的修真世界观。&lt;/p&gt;
-&lt;p&gt;天下贰算是我玩得最久的一款网游，具有完整的背景设定、人物属性以及装备设定可以借鉴。而仙侠的修真世界也是非常吸引我的一个因素，不仅可以衍生出不同的酷炫生活技能（比如炼丹、阵法），还可以借鉴其与游戏不同的成长系统（比如炼气、筑基）。因此这部分还需要仔细斟酌才好决定。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
