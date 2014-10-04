@@ -9,6 +9,18 @@
 
 从 Debian 转向 Lubuntu，具体原因见[新一轮晒桌面开始](/article/2014/09/29/new-system-screenshot)。 --2014-09-29
 
+**Nginx 502 Bad Gateway**
+
+默认配置之下访问 web 目录可能出项「502 Bad Gateway」的错误
+
+    // 需要修改 nginx 的 www.conf
+    // No such file or directory 错误，在 listen = 127.0.0.1:9000 后增加下列
+    listen = /var/run/php5-fpm.sock
+    // Permissoion denied 错误，需启用以下设置
+    listen.owner = www-data
+    listen.group = www-data
+    listen.mode = 0660
+
 **Lubuntu 下为 openbox 右键菜单增加应用列表**
 
 新装 Lubuntu 之后，在 openbox 环境下右键菜单没有应用列表，解决办法如下：
