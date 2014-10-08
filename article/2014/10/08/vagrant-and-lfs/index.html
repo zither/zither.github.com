@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-cn" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
+	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme,">
+	<title>Vagrant 与 LFS | MiniThinker</title>
+	
+	<link rel="stylesheet" href="/theme/main.css">
+</head>
+<body>
+	<div id="main">
+		<div class="border">
+			<header>
+				<h1><a href="/">MiniThinker</a></h1>
+				<h2>努力学习那些想要知道的东西</h2>
+			</header>
+			<div id="nav">
+				<a href="/">Home</a>
+				<a href="/linux">Linux</a>
+				<a href="/about">About</a>
+			</div>
+			<div id="container"><div id="article">
+	<article>
+		<div class="title">Vagrant 与 LFS</div>
+		<div class="info">
+			<span class="date">2014-10-08</span>
+			-
+			<span class="category">
+				Category:
+				<a href="/category/Programming">Programming</a>			</span>
+
+					</div>
+		<div class="content">
+			<p>这几天一直在折腾迁移之前的开发环境。我现在使用的系统只划分了 /、/home、/boot 以及 swap 这几个分区，开发环境则沿用了 Apache 的 /var/www 目录。这样带来的问题是每次系统崩溃需要重装时就必须用 live CD 进行备份数据，重装后还需要还原开发环境，我希望以后能尽量避免类似的情况。另外最近可能还有跨平台的开发需求，这也提高了保证开发环境一致性的难度，所以决定把开发环境迁移到 Vagrant 上来。</p>
+<p>Vagrant 是一款构建虚拟开发环境的工具，可以简单的把它理解成一个集成开发环境的虚拟机。我们可以把代码目录放在宿主系统上，而代码的运行环境则由 Vagrant 来提供。Vagrant 的安装与配置非常简单，大致过程可以参照 Segmentfault 的文章：「<a href="http://segmentfault.com/blog/fenbox/1190000000264347">使用 Vagrant 打造跨平台开发环境</a>」。现在我已经把自己最常用的 LNMP 开发环境通过 Vagrant 打包，然后把开发目录迁移到了 /home 分区下面，整个过程非常顺利。</p>
+<p>另外，我花了近 30 个小时的时间达成了成功安装 LFS 系统的成就。在迁移完开发环境之后我发现 Vagrant 包竟然有近 600M，后来在寻找更小巧的 Base 镜像时发现了一个超小的 LFS 镜像，这让我对 LFS 的兴趣大增。恰好国内恰好有完整的 LFS 安装手册，为了以后能更好的使用  linux，我决定在虚拟机里把整个安装过程跑一遍，好处多多。</p>
+<p>这里有几点关于安装 LFS 的心得可以记录一下。如果是第一次尝试安装的话，强烈推荐下载包含完整源码的 live CD，我安装的时候直接下了一个 mini 镜像，源码都是安装时再下载，导致频繁的在宿主环境与 chroot 环境中切换，并且手册中给出的下载地址很多已失效，还需要搜索相关的 LFS mirror，非常费时。按照手册的步骤完整基本上不会出现太大的问题，我只在第六章安装 file 和 man-db 时遇到了 zlib.h 和 db.h 等头文件无法找到的问题，自己把 /usr/include 加入到 C_INCLUDE_PATH 和 CPLUS_INCLUDE_PATH 环境变量即可。</p>
+<p>其实最可能遇到的问题应该是安装完成之后的网络设置部分，很多人都可能遇到 eth0 dosent exist 的问题。这里需要在编译 kernel 时添加相关驱动模块的支持。解决这个问题最简单的办法就是在宿主系统上使用 <code>lspci | grep -i Ethernet</code> 命令查看网卡参数，然后在 kernel 里选择合适的模块。其实究其根本，还是因为平常使用中很少会涉及到内核部分，对其众多的参数没有基本的了解。</p>		</div>
+	</article>
+	<div class="bar">
+		<span class="new">
+					</span>
+		<span class="old">
+			<a href="/article/2014/09/29/new-system-screenshot">新一轮晒桌面开始 >></a>		</span>
+		<span class="count">
+			1 / 17		</span>
+	</div>
+	</div>
+</div>
+			<footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
+		</div>
+	</div>
+	<!-- Define and Load Javascript -->
+    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/theme/main.js"></script>
+	</body>
+</html>
