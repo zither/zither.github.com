@@ -5,11 +5,21 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-10-09T13:44:41+08:00</updated>
+	<updated>2014-10-13T16:33:56+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[Youdao firefox alpha]]></title>
+		<link href="http://blog.minimee.org/article/2014/10/13/youdao-firefox-alpha" />
+		<id>urn:uuid:e5d0565c-106a-3a7e-5403-8c43c5096e33</id>
+		<updated>2014-10-13T15:25:17+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;Chromium 升级到版本 37 后在 linux 下的变现欠佳。特别是在字体方面，就算在 Chromium 中设置了相关的字体，也不能完全得到改善。不过 Firefox 32 的表现却与之相反，启动速度、浏览器界面与字体渲染都令人非常满意，所以在 Chromium 相关问题未得到解决的情况下，我会将 Firefox 作为默认浏览器。之前在 Chromium 中使用的大部分插件也有对应的 Firefox 版本，没有迁移障碍。不过翻译插件的迁移就没有那么顺利了。&lt;/p&gt;
+&lt;p&gt;之前在 Chromium 中主要使用有道词典的划词插件以及网友开发的 Halo 词典，这两者都没有对应的 Firefox 版本。Firefox 自身的翻译插件基本上都是基于 Google 翻译，以目前的网络环境来看，没翻墙的情况下差不多都已残废。我在 Firefox 插件列表中找到了一个叫 Youdao-firefox 的翻译插件，界面和快捷键还比较适合，但是试用的时候发现无法会出现无法翻译的问题，把插件解包了大致看了一下源代码，它依然使用的是 Google 翻译的接口，这是几个意思啊？&lt;/p&gt;
+&lt;p&gt;既然没能找到好用的翻译插件，那就只能自己动手了，&lt;a href=&quot;https://github.com/zither/youdao-firefox&quot;&gt;Youdao-firefox-alpha&lt;/a&gt; 就这样诞生了。我在 Youdao-firefox 的基础上，将 Google 翻译接口调整为有道词典的接口，删掉了仅对 Google 有用的多语言翻译配置，以及除中英以外的其他国际化支持。在界面和快捷键上仍然与原版一致，在选中单词过后按下 alt + z 就会弹出翻译框。暂时我只添加了有道翻译的基本释意，所以在翻译结果中不能看到网络释意，以后是否会支持还未决定。&lt;/p&gt;
+&lt;p&gt;插件包不准备放到官方网站上去，所以如果你也需要的话可以在 &lt;a href=&quot;https://github.com/zither/youdao-firefox/releases&quot;&gt;Github&lt;/a&gt; 上下载已经打包好的插件。当然，你也可以 fork 之后增加自己需要的功能，然后重新打包。&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[Vagrant 与 LFS]]></title>
 		<link href="http://blog.minimee.org/article/2014/10/08/vagrant-and-lfs" />
@@ -61,14 +71,5 @@ end&lt;/code&gt;
 		<summary type="html"><![CDATA[&lt;p&gt;自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。&lt;/p&gt;
 &lt;p&gt;在玩莉诺达的过程中，也在思考尘埃的一些设定，比如战斗方式之类。并且花了两三天时间制作了一个&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;莉诺达斯木桩系统&lt;/a&gt;，不仅可以方便的进行卡组对比，也能了解背后的计算过程。不过由于本人玩了一个来月等级也才只有15级，非常多的高级卡片拿不上，所以有些卡片属性还不能完全支持。当然，以后等级上来了，相应的功能也会添加上去。&lt;/p&gt;
 &lt;p&gt;如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;http://linodas.sinaapp.com&lt;/a&gt;&lt;/a&gt;。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[重写了 Mreader]]></title>
-		<link href="http://blog.minimee.org/article/2014/09/10/new-version-of-mreader" />
-		<id>urn:uuid:98e69108-463f-4bcf-8201-fe64438c70b7</id>
-		<updated>2014-09-10T17:44:01+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;&lt;a href=&quot;http://mreader.sinaapp.com&quot;&gt;Mreader&lt;/a&gt; 是我自己写的一个 Feed 聚合工具，第一个版本诞生于 2013 年 5 月。当时写 Mreader 的原因是 Google reader 即将关闭，虽然那段时间出现了非常多的 Google reader 替代品，但是由于稳定性的原因没有使用它们。后来就花了几天时间自己写了一个简陋的 Web 聚合，然后一直使用到 &lt;a href=&quot;http://digg.com/reader&quot;&gt;Digg reader&lt;/a&gt; 的发布。&lt;/p&gt;
-&lt;p&gt;Digg reader 算是 Google reader 的最佳替代品，我也一直使用到现在。不过最近国类又开始封锁国外的各种服务，在没有出墙的情况下，Digg reader 的良好体验被大大的降低了。然后我又一次想到了已经被搁置很久的 Mreader，决定花两天时间把它重写了一遍。基本的订阅功能今天已经完成了，前端方面基本直接 Copy 了我另一个小站的样式。&lt;/p&gt;
-&lt;p&gt;现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
