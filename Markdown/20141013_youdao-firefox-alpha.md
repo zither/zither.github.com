@@ -2,7 +2,7 @@
     "type": "article",
     "title": "Youdao firefox alpha",
     "url": "youdao-firefox-alpha",
-    "category": "Programming",
+    "category": "Firefox",
     "keywords": null,
     "date": "2014-10-13",
     "time": "15:25:17",

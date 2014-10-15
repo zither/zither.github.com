@@ -2,7 +2,6 @@
     "type": "article",
     "title": "重写了 Mreader",
     "url": "new-version-of-mreader",
-    "tag": "Programming",
     "category": "Mreader",
     "keywords": null,
     "date": "2014-09-10",

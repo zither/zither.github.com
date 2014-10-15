@@ -2,7 +2,7 @@
     "type": "article",
     "title": "新一轮晒桌面开始",
     "url": "new-system-screenshot",
-    "category": "Life",
+    "category": "Linux",
     "keywords": null,
     "date": "2014-09-29",
     "time": "15:26:06",
