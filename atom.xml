@@ -5,11 +5,79 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2014-10-15T22:35:01+08:00</updated>
+	<updated>2014-11-02T12:21:54+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[手动更新 VirtualBox Guest Additions]]></title>
+		<link href="http://blog.minimee.org/article/2014/11/02/update-virtualbox-guest-additions" />
+		<id>urn:uuid:c6dc1a15-c137-92df-9bd2-13aabd0ff791</id>
+		<updated>2014-11-02T10:59:22+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;在使用 Vagrant 作为开发环境一段时间后，发现 Vagrant 也并不能做到完全的无缝迁移。昨天更新系统软件之后，在运行 Vagrant 时提示了 VirtualBox Guest Additions 版本不匹配的警告。这个问题一般是由 VirtualBox 更新引起的，在我们的 Vagrant 环境中，Guest Additions 版本不同最可能出现的问题就是无法挂载共享文件夹。&lt;/p&gt;
+&lt;p&gt;上面的问题可以通过升级 Vagrant box 里的 Guest Additions 来解决，升级也可以采用自动和手动两种方式。&lt;/p&gt;
+&lt;p&gt;Vagrant 的 Vbguest plugin 可以在启动时自动检测 Guest Additions 的版本，如果版本不同则自动更新同步，具体教程可以参考这篇教程：&lt;a href=&quot;http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/&quot;&gt;Vagrant Tip: Sync VirtualBox Guest Additions&lt;/a&gt;。我测试了一下这个插件，整个更新过程基本上是不需要人为操作，但是由于国内的网络问题，可能在下载新版本 Guest Additions(60MB+) 时需要等待比较长的时间。&lt;/p&gt;
+&lt;p&gt;不过我最后还是采用了手动更新，因为使用 Vagrant 的目的是尽量不折腾，就没必要在解决由于依赖引起的问题时引入新的依赖隐患。Guest Additions 的介绍和手动更新方法在 VirtualBox 的文档 &lt;a href=&quot;https://www.virtualbox.org/manual/ch04.html&quot;&gt;Chapter 4. Guest Additions&lt;/a&gt; 中写得非常详细了。在这里只是把步骤做一个简单的记录，方便以后需要时查看。&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;# 在 Vagrant box 中安装更新依赖
+vagrant@precise32:~$ sudo apt-get install linux-headers-$(uname -r) build-essential dkms
+# 下载新版本的 Guest Additions
+vagrant@precise32:~$ wget http://download.virtualbox.org/virtualbox/4.3.10/VBoxGuestAdditions_4.3.10.iso
+# 挂载镜像
+vagrant@precise32:~$ sudo mount VBoxGuestAdditions_4.3.10.iso -o loop,ro /mnt
+# 卸载旧版本，可省略
+vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run uninstall
+# 安装新版本
+vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;手动安装的过程也非常简单，但是不论是手动还是自动安装完成之后，启动时都可能会遇到以下这两个问题：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;Failed to mount folders in Linux guest. This is usually because
+the &quot;vboxsf&quot; file system is not available. Please verify that
+the guest additions are properly installed in the guest and
+can work properly. The command attempted was:
+
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` /vagrant /vagrant
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` /vagrant /vagrant&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;这个问题普遍反映在 Guest Additions 4.3.10 版本中，可以通过这个命令解决：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;vagrant@precise32:~$ sudo ln -sv /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions \
+/usr/lib/VBoxGuestAdditions&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;另外一个问题则表现为在新版安装成功之后依然会提示版本不匹配，VirtualBox 检测到的仍然是已经卸载掉的旧版本。首先需要确认新版本已经安装成功，检测是否已经安装了 vboxguest ：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code&gt;vagrant@precise32:~$ lsmod | grep -i vbox
+vboxsf                 42523  1 
+vboxguest             219244  2 vboxsf
+vboxvideo              12550  0 
+drm                   197692  1 vboxvideo&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;查看 vboxguest 版本：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;vagrant@precise32:~$ modinfo vboxguest
+filename:       /lib/modules/3.2.0-23-generic-pae/updates/dkms/vboxguest.ko
+version:        4.3.10
+license:        GPL
+description:    Oracle VM VirtualBox Guest Additions for Linux Module
+author:         Oracle Corporation
+srcversion:     FDAC0A8218FE4AEFD8732E8
+alias:          pci:v000080EEd0000CAFEsv00000000sd00000000bc*sc*i*
+depends:        
+vermagic:       3.2.0-23-generic-pae SMP mod_unload modversions 686 &lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;查看 guestproperty 中的版本号（id 可以在项目目录的 .vagrant/machines/default/virtualbox/id 中查看）：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;MiniThinker@localhost:~$ VBoxManage guestproperty get &amp;lt;id&amp;gt; /VirtualBox/GuestAdd/Version
+Value: 4.2&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;前面确认已经成功安装新版本，VBoxManage 仍然检测到的是旧版本，手动设置更新版本号：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-bash&quot;&gt;MiniThinker@localhost:~$ VBoxManage guestproperty set &amp;lt;id&amp;gt; /VirtualBox/GuestAdd/Version&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;在问题解决后重新打包整个环境即可，如果不怕麻烦的话，可以卸载和删掉更新过程中安装和下载的文件。&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[Youdao firefox alpha]]></title>
 		<link href="http://blog.minimee.org/article/2014/10/13/youdao-firefox-alpha" />
@@ -62,14 +130,5 @@ end&lt;/code&gt;
 &lt;p&gt;这款应用的开发完全是在计划之外，突然想给 Mreader 开发一个专属应用，然后就直接开始了。从脑袋中有了想法到应用雏形的完成只用了一天时间。由于之前完全没有 Android 开发经验，也没有学过 Java，整个开发过程完全是由需求驱动，不停的各种搜索学习。应用雏形是在 Eclipse 中完成的，大致了解之后又迁移到了 Android studio。&lt;/p&gt;
 &lt;p&gt;应用虽然简单，学到的东西却不少。在短短的几天时间里了解了安卓开发的环境搭建，开发流程以及安卓应用大致结构，我可以说手里又多了一把锤子了么？其实应用开发和网页开发有着非常多的共同之处，这也是能快速上手的关键原因。另外，搜索用多了就会知道中文内容的质量低到了什么程度，以后还是直接用英文搜索技术问题吧。&lt;/p&gt;
 &lt;p&gt;最后需要感谢 &lt;a href=&quot;http://ffra.deviantart.com/art/MAXIMAL-Icons-Updated-387287801?q=gallery%3AFFra/43722907&amp;amp;qo=2&quot;&gt;FFra&lt;/a&gt;，Mreader for android 直接使用了 Ta 设计的应用图标，非常漂亮。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[莉诺达斯木桩系统]]></title>
-		<link href="http://blog.minimee.org/article/2014/09/18/Combat-Simulation-System-of-Linodas" />
-		<id>urn:uuid:35daa28f-c6ba-fac1-76f3-024b2e0007b1</id>
-		<updated>2014-09-18T19:14:13+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。&lt;/p&gt;
-&lt;p&gt;在玩莉诺达的过程中，也在思考尘埃的一些设定，比如战斗方式之类。并且花了两三天时间制作了一个&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;莉诺达斯木桩系统&lt;/a&gt;，不仅可以方便的进行卡组对比，也能了解背后的计算过程。不过由于本人玩了一个来月等级也才只有15级，非常多的高级卡片拿不上，所以有些卡片属性还不能完全支持。当然，以后等级上来了，相应的功能也会添加上去。&lt;/p&gt;
-&lt;p&gt;如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;&lt;a href=&quot;http://linodas.sinaapp.com&quot;&gt;http://linodas.sinaapp.com&lt;/a&gt;&lt;/a&gt;。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
