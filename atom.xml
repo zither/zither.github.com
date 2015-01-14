@@ -5,7 +5,7 @@
 	<link href="http://blog.minimee.org/atom.xml" rel="self" />
 	<link href="http://blog.minimee.org/" />
 	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2015-01-14T14:00:26+08:00</updated>
+	<updated>2015-01-14T15:02:54+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.minimee.org/</uri>
@@ -17,9 +17,9 @@
 		<updated>2015-01-14T13:45:40+08:00</updated>
 		<summary type="html"><![CDATA[&lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;$Y = function($f){
-    $x = function($h) use($f){
-        return function($n) use($h, $f){
-            return $f($h($h))-&amp;gt;__invoke($n);
+    $x = function($s) use($f){
+        return function($n) use($s, $f){
+            return $f($s($s))-&amp;gt;__invoke($n);
         };
     };
     return $x($x);

@@ -12,9 +12,9 @@
 
 ```php
 $Y = function($f){
-    $x = function($h) use($f){
-        return function($n) use($h, $f){
-            return $f($h($h))->__invoke($n);
+    $x = function($s) use($f){
+        return function($n) use($s, $f){
+            return $f($s($s))->__invoke($n);
         };
     };
     return $x($x);
