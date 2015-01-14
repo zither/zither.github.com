@@ -25,6 +25,32 @@
 			<div id="container"><div id="page">
 		<article>
 		<div class="title">
+			<a href="/article/2014/08/29/data-structure-of-battle">尘埃开发记录之战斗数据结构</a>		</div>
+		<div class="info">
+			<span class="date">2014-08-29</span>
+			-
+			<span class="category">
+				Category: <a href="/category/Dust">Dust</a>			</span>
+					</div>
+		<div class="content">
+			<p>前面的日志中已经说过，尘埃现在采用的是自动回合制的战斗模式，玩家在战斗中不需要手动干涉。由于网页游戏的特性，尘埃的所有战斗过程全部在服务端完成，玩家是无法看到整个过程的。这就意味着需要在服务端生成一个完整的战斗记录，玩家要看到战斗过程就必须将记录传递到前端的战斗记录播放器中进行回放。</p>
+<p>回合制大大的简化了战斗模式，同时也简化的战斗记录数据的结构。尘埃暂时还没有考虑各种复杂的装备和技能特效，在 Demo 中直接采用了最简单的处理方法，将战斗记录分为两部分：战斗成员（包括攻击和防御两方）以及回合数据。战斗成员就是参战双方的详细属性，比如名称、血量等，而回合数据是简化后的操作步骤。</p>
+<pre>
+<code>0: {status:{attacker:[{id:2, name:勇敢的小鬼, hp:30, attack:3, defence:2,…}],…}}
+1: {type:battle, data:[attacker, 0, 0, 0, 3, 7]}
+2: {type:battle, data:[defender, 0, 0, 0, 1, 29]}
+3: {type:battle, data:[attacker, 0, 0, 0, 3, 4]}
+4: {type:battle, data:[defender, 0, 0, 0, 1, 28]}
+5: {type:battle, data:[attacker, 0, 0, 0, 3, 1]}
+6: {type:battle, data:[defender, 0, 0, 0, 1, 27]}
+7: {type:battle, data:[attacker, 0, 0, 0, 3, -2]}
+8: {type:message, data:勇敢的小鬼打败了老鼠。}</code>
+</pre>
+<p>上面是一个简单的战斗记录示例，第 0 行是参战成员的详细信息，其中分为攻击方和防御方两个部分。第 1-7 行就是整个战斗的操作数据。整个战斗记录的回放过程可以点击图片查看：<a href="http://ww2.sinaimg.cn/large/86e701f8gw1ejtkyk2521j20za0hm0v9.jpg">战斗记录</a>。</p>
+<p>战斗记录的回放基本都在前端进行控制，目前尘埃 Demo 的战斗回放采用的是 2 秒一个回合，当然如果有需要的话也可以把整个过程直接打印出来。不过随着之后各种战斗因素的加入，这个过程肯定会变得复杂起来。 </p>		</div>
+        	</article>
+		<article>
+		<div class="title">
 			<a href="/article/2014/08/26/battle-mode-of-dust">尘埃开发记录之战斗模式</a>		</div>
 		<div class="info">
 			<span class="date">2014-08-26</span>
@@ -81,23 +107,6 @@
 <p>从图片中可以看到 php 注释要比 php 普通代码的颜色要暗很多，不会吸引到视觉焦点，这也是我选择 color scheme 最重要的标准之一。但是最近它竟然自己把颜色给换了，难道注释也变得不甘寂寞了么？</p>
 <p>		</div>
         		<a class="more" href="/article/2014/03/23/who-changed-my-php-vim">
-			Read more
-		</a>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/03/20/the-problem-of-vim-css-color">vim-css-color 严重降低 vim 启动速度</a>		</div>
-		<div class="info">
-			<span class="date">2014-03-20</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-					</div>
-		<div class="content">
-			<p>因为一直使用 vim-gtk 的缘故，我其实很少使用 vim 进行编程，color scheme 更是一直使用 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。不过最近有些工作必须要在终端下完成，为了改善在 vim 中编程的体验，我还是决定升级下终端版本，并专门把 vim 的配色更换为 <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow-Night</a>。</p>
-<p>我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。</p>
-<p>		</div>
-        		<a class="more" href="/article/2014/03/20/the-problem-of-vim-css-color">
 			Read more
 		</a>
         	</article>

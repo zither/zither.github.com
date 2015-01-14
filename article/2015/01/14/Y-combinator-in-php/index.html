@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-cn" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
+	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme,">
+	<title>Y combinator in PHP | MiniThinker</title>
+	
+	<link rel="stylesheet" href="/theme/main.css">
+</head>
+<body>
+	<div id="main">
+		<div class="border">
+			<header>
+				<h1><a href="/">MiniThinker</a></h1>
+				<h2>努力学习那些想要知道的东西</h2>
+			</header>
+			<div id="nav">
+				<a href="/">Home</a>
+				<a href="/linux">Linux</a>
+				<a href="/about">About</a>
+			</div>
+			<div id="container"><div id="article">
+	<article>
+		<div class="title">Y combinator in PHP</div>
+		<div class="info">
+			<span class="date">2015-01-14</span>
+			-
+			<span class="category">
+				Category:
+				<a href="/category/Programming">Programming</a>			</span>
+
+					</div>
+		<div class="content">
+			<pre>
+<code class="language-php">$Y = function($f){
+    $x = function($h) use($f){
+        return function($n) use($h, $f){
+            return $f($h($h))-&gt;__invoke($n);
+        };
+    };
+    return $x($x);
+};
+
+$factorial = $Y(function($recurse){
+    return function($x) use($recurse){
+        return $x === 0 ? 1 : $x * $recurse($x - 1);  
+    };         
+});
+
+echo $factorial(6); // 720</code>
+</pre>
+<p>花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。</p>		</div>
+	</article>
+	<div class="bar">
+		<span class="new">
+					</span>
+		<span class="old">
+			<a href="/article/2014/11/02/update-virtualbox-guest-additions">手动更新 VirtualBox Guest Additions >></a>		</span>
+		<span class="count">
+			1 / 20		</span>
+	</div>
+	</div>
+</div>
+			<footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
+		</div>
+	</div>
+	<!-- Define and Load Javascript -->
+    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/theme/main.js"></script>
+	</body>
+</html>

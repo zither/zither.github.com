@@ -25,6 +25,22 @@
 			<div id="container"><div id="page">
 		<article>
 		<div class="title">
+			<a href="/article/2014/09/25/mreader-for-android">Mreader for android</a>		</div>
+		<div class="info">
+			<span class="date">2014-09-25</span>
+			-
+			<span class="category">
+				Category: <a href="/category/Programming">Programming</a>			</span>
+					</div>
+		<div class="content">
+			<p><img alt="Mreader for android" src="http://ww2.sinaimg.cn/large/86e701f8gw1ekoleq5h14j20xc0m8413.jpg" /></p>
+<p>经过这几天的折腾，我的第一个 Android app 诞生了。它是之前重写过的 <a href="http://mreader.sinaapp.com">Mreader</a> 的安卓版本，因此也是一个只能我自己使用的安卓应用。它实现了几个非常简单的功能，可以获取 Mreader 订阅中的未读文章以及星标文章列表，点击列表后可以直接在应用中查看文章内容。</p>
+<p>这款应用的开发完全是在计划之外，突然想给 Mreader 开发一个专属应用，然后就直接开始了。从脑袋中有了想法到应用雏形的完成只用了一天时间。由于之前完全没有 Android 开发经验，也没有学过 Java，整个开发过程完全是由需求驱动，不停的各种搜索学习。应用雏形是在 Eclipse 中完成的，大致了解之后又迁移到了 Android studio。</p>
+<p>应用虽然简单，学到的东西却不少。在短短的几天时间里了解了安卓开发的环境搭建，开发流程以及安卓应用大致结构，我可以说手里又多了一把锤子了么？其实应用开发和网页开发有着非常多的共同之处，这也是能快速上手的关键原因。另外，搜索用多了就会知道中文内容的质量低到了什么程度，以后还是直接用英文搜索技术问题吧。</p>
+<p>最后需要感谢 <a href="http://ffra.deviantart.com/art/MAXIMAL-Icons-Updated-387287801?q=gallery%3AFFra/43722907&amp;qo=2">FFra</a>，Mreader for android 直接使用了 Ta 设计的应用图标，非常漂亮。</p>		</div>
+        	</article>
+		<article>
+		<div class="title">
 			<a href="/article/2014/09/18/Combat-Simulation-System-of-Linodas">莉诺达斯木桩系统</a>		</div>
 		<div class="info">
 			<span class="date">2014-09-18</span>
@@ -80,32 +96,6 @@
 <p>装备合成部分牵扯的东西比较多，首当其冲的便是装备属性。装备属性又涉及到人物属性、升级系统（成长功能），甚至是整个游戏的世界观设定。</p>
 <p>在第一篇开发记录中我把尘埃设定为一个生存类游戏，但是随着地图实现以及人物移动方式的变动，使得程序不再适合该设定。通过回忆曾经玩过的一些游戏或者看过的一些小说，又找到两个不同的游戏背景。一个是借鉴网易天下贰的游戏世界观，另一个则是仙侠小说中的修真世界观。</p>
 <p>天下贰算是我玩得最久的一款网游，具有完整的背景设定、人物属性以及装备设定可以借鉴。而仙侠的修真世界也是非常吸引我的一个因素，不仅可以衍生出不同的酷炫生活技能（比如炼丹、阵法），还可以借鉴其与游戏不同的成长系统（比如炼气、筑基）。因此这部分还需要仔细斟酌才好决定。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/08/29/data-structure-of-battle">尘埃开发记录之战斗数据结构</a>		</div>
-		<div class="info">
-			<span class="date">2014-08-29</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Dust">Dust</a>			</span>
-					</div>
-		<div class="content">
-			<p>前面的日志中已经说过，尘埃现在采用的是自动回合制的战斗模式，玩家在战斗中不需要手动干涉。由于网页游戏的特性，尘埃的所有战斗过程全部在服务端完成，玩家是无法看到整个过程的。这就意味着需要在服务端生成一个完整的战斗记录，玩家要看到战斗过程就必须将记录传递到前端的战斗记录播放器中进行回放。</p>
-<p>回合制大大的简化了战斗模式，同时也简化的战斗记录数据的结构。尘埃暂时还没有考虑各种复杂的装备和技能特效，在 Demo 中直接采用了最简单的处理方法，将战斗记录分为两部分：战斗成员（包括攻击和防御两方）以及回合数据。战斗成员就是参战双方的详细属性，比如名称、血量等，而回合数据是简化后的操作步骤。</p>
-<pre>
-<code>0: {status:{attacker:[{id:2, name:勇敢的小鬼, hp:30, attack:3, defence:2,…}],…}}
-1: {type:battle, data:[attacker, 0, 0, 0, 3, 7]}
-2: {type:battle, data:[defender, 0, 0, 0, 1, 29]}
-3: {type:battle, data:[attacker, 0, 0, 0, 3, 4]}
-4: {type:battle, data:[defender, 0, 0, 0, 1, 28]}
-5: {type:battle, data:[attacker, 0, 0, 0, 3, 1]}
-6: {type:battle, data:[defender, 0, 0, 0, 1, 27]}
-7: {type:battle, data:[attacker, 0, 0, 0, 3, -2]}
-8: {type:message, data:勇敢的小鬼打败了老鼠。}</code>
-</pre>
-<p>上面是一个简单的战斗记录示例，第 0 行是参战成员的详细信息，其中分为攻击方和防御方两个部分。第 1-7 行就是整个战斗的操作数据。整个战斗记录的回放过程可以点击图片查看：<a href="http://ww2.sinaimg.cn/large/86e701f8gw1ejtkyk2521j20za0hm0v9.jpg">战斗记录</a>。</p>
-<p>战斗记录的回放基本都在前端进行控制，目前尘埃 Demo 的战斗回放采用的是 2 秒一个回合，当然如果有需要的话也可以把整个过程直接打印出来。不过随着之后各种战斗因素的加入，这个过程肯定会变得复杂起来。 </p>		</div>
         	</article>
 		<div class="bar">
 		<span class="new">
