@@ -2,18 +2,18 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title><![CDATA[MiniThinker]]></title>
 	<subtitle>努力学习那些想要知道的东西</subtitle>
-	<link href="http://blog.minimee.org/atom.xml" rel="self" />
-	<link href="http://blog.minimee.org/" />
-	<id>urn:uuid:6b18cbf9-83ff-86cd-1c01-f6fa3c1a351c</id>
-	<updated>2015-01-14T15:02:54+08:00</updated>
+	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
+	<link href="http://blog.shouhuiben.net/" />
+	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
+	<updated>2015-01-16T15:11:22+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
-		<uri>http://blog.minimee.org/</uri>
+		<uri>http://blog.shouhuiben.net/</uri>
 	</author>
 	<entry>
 		<title type="html"><![CDATA[Y combinator in PHP]]></title>
-		<link href="http://blog.minimee.org/article/2015/01/14/Y-combinator-in-php" />
-		<id>urn:uuid:ec0ac503-9866-4e19-3334-70a5a457353f</id>
+		<link href="http://blog.shouhuiben.net/article/2015/01/14/Y-combinator-in-php" />
+		<id>urn:uuid:7a82866a-30ca-4389-11a8-056a44733566</id>
 		<updated>2015-01-14T13:45:40+08:00</updated>
 		<summary type="html"><![CDATA[&lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;$Y = function($f){
@@ -37,8 +37,8 @@ echo $factorial(6); // 720&lt;/code&gt;
 	</entry>
 	<entry>
 		<title type="html"><![CDATA[手动更新 VirtualBox Guest Additions]]></title>
-		<link href="http://blog.minimee.org/article/2014/11/02/update-virtualbox-guest-additions" />
-		<id>urn:uuid:c6dc1a15-c137-92df-9bd2-13aabd0ff791</id>
+		<link href="http://blog.shouhuiben.net/article/2014/11/02/update-virtualbox-guest-additions" />
+		<id>urn:uuid:8006baa1-d4d8-a0c1-9595-8c3fe7df9f18</id>
 		<updated>2014-11-02T10:59:22+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;在使用 Vagrant 作为开发环境一段时间后，发现 Vagrant 也并不能做到完全的无缝迁移。昨天更新系统软件之后，在运行 Vagrant 时提示了 VirtualBox Guest Additions 版本不匹配的警告。这个问题一般是由 VirtualBox 更新引起的，在我们的 Vagrant 环境中，Guest Additions 版本不同最可能出现的问题就是无法挂载共享文件夹。&lt;/p&gt;
 &lt;p&gt;上面的问题可以通过升级 Vagrant box 里的 Guest Additions 来解决，升级也可以采用自动和手动两种方式。&lt;/p&gt;
@@ -105,8 +105,8 @@ Value: 4.2&lt;/code&gt;
 	</entry>
 	<entry>
 		<title type="html"><![CDATA[Youdao firefox alpha]]></title>
-		<link href="http://blog.minimee.org/article/2014/10/13/youdao-firefox-alpha" />
-		<id>urn:uuid:e5d0565c-106a-3a7e-5403-8c43c5096e33</id>
+		<link href="http://blog.shouhuiben.net/article/2014/10/13/youdao-firefox-alpha" />
+		<id>urn:uuid:4698458b-c3cd-d4cb-2845-a8c0003e4074</id>
 		<updated>2014-10-13T15:25:17+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;Chromium 升级到版本 37 后在 linux 下的变现欠佳。特别是在字体方面，就算在 Chromium 中设置了相关的字体，也不能完全得到改善。不过 Firefox 32 的表现却与之相反，启动速度、浏览器界面与字体渲染都令人非常满意，所以在 Chromium 相关问题未得到解决的情况下，我会将 Firefox 作为默认浏览器。之前在 Chromium 中使用的大部分插件也有对应的 Firefox 版本，没有迁移障碍。不过翻译插件的迁移就没有那么顺利了。&lt;/p&gt;
 &lt;p&gt;之前在 Chromium 中主要使用有道词典的划词插件以及网友开发的 Halo 词典，这两者都没有对应的 Firefox 版本。Firefox 自身的翻译插件基本上都是基于 Google 翻译，以目前的网络环境来看，没翻墙的情况下差不多都已残废。我在 Firefox 插件列表中找到了一个叫 Youdao-firefox 的翻译插件，界面和快捷键还比较适合，但是试用的时候发现无法会出现无法翻译的问题，把插件解包了大致看了一下源代码，它依然使用的是 Google 翻译的接口，这是几个意思啊？&lt;/p&gt;
@@ -115,8 +115,8 @@ Value: 4.2&lt;/code&gt;
 	</entry>
 	<entry>
 		<title type="html"><![CDATA[Vagrant 与 LFS]]></title>
-		<link href="http://blog.minimee.org/article/2014/10/08/vagrant-and-lfs" />
-		<id>urn:uuid:7722530e-26d1-615a-a3c6-3c8aa51cf774</id>
+		<link href="http://blog.shouhuiben.net/article/2014/10/08/vagrant-and-lfs" />
+		<id>urn:uuid:fbf5c2ab-0435-893f-d914-006df4ebe9de</id>
 		<updated>2014-10-08T11:45:20+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;这几天一直在折腾迁移之前的开发环境。我现在使用的系统只划分了 /、/home、/boot 以及 swap 这几个分区，开发环境则沿用了 Apache 的 /var/www 目录。这样带来的问题是每次系统崩溃需要重装时就必须用 live CD 进行备份数据，重装后还需要还原开发环境，我希望以后能尽量避免类似的情况。另外最近可能还有跨平台的开发需求，这也提高了保证开发环境一致性的难度，所以决定把开发环境迁移到 Vagrant 上来。&lt;/p&gt;
 &lt;p&gt;Vagrant 是一款构建虚拟开发环境的工具，可以简单的把它理解成一个集成开发环境的虚拟机。我们可以把代码目录放在宿主系统上，而代码的运行环境则由 Vagrant 来提供。Vagrant 的安装与配置非常简单，大致过程可以参照 Segmentfault 的文章：「&lt;a href=&quot;http://segmentfault.com/blog/fenbox/1190000000264347&quot;&gt;使用 Vagrant 打造跨平台开发环境&lt;/a&gt;」。现在我已经把自己最常用的 LNMP 开发环境通过 Vagrant 打包，然后把开发目录迁移到了 /home 分区下面，整个过程非常顺利。&lt;/p&gt;
@@ -134,8 +134,8 @@ end&lt;/code&gt;
 	</entry>
 	<entry>
 		<title type="html"><![CDATA[新一轮晒桌面开始]]></title>
-		<link href="http://blog.minimee.org/article/2014/09/29/new-system-screenshot" />
-		<id>urn:uuid:a54bfe5c-8807-78e8-5d19-98bf17d4eac6</id>
+		<link href="http://blog.shouhuiben.net/article/2014/09/29/new-system-screenshot" />
+		<id>urn:uuid:d0b80756-3220-55e6-df9b-4da2999d9d32</id>
 		<updated>2014-09-29T15:26:06+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;&lt;img alt=&quot;openbox&quot; src=&quot;http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。&lt;/p&gt;
