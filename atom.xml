@@ -5,11 +5,73 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-01-16T15:11:22+08:00</updated>
+	<updated>2015-01-26T13:02:17+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[Simple Qiniu SDK 使用说明]]></title>
+		<link href="http://blog.shouhuiben.net/article/2015/01/26/how-to-use-simple-qiniu-sdk" />
+		<id>urn:uuid:bfa3f512-e9ed-cb3b-1319-8e8d50740b98</id>
+		<updated>2015-01-26T11:06:51+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;为了解决&lt;a href=&quot;http://www.shouhuiben.com&quot;&gt;「手绘本」&lt;/a&gt;的头像托管问题，前几天重写了一遍 &lt;a href=&quot;https://github.com/zither/simple-qiniu-sdk&quot;&gt;Simple Qiniu SDK&lt;/a&gt;，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;define(&#039;ROOT&#039;, __DIR__);
+define(&#039;DS&#039;, DIRECTORY_SEPARATOR);
+
+// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+require ROOT . DS . &quot;Autoload.php&quot;;
+Autoload::addNamespace(&#039;Qiniu&#039;, dirname(ROOT) . DS . &#039;src/Qiniu&#039;);
+Autoload::register();
+
+$accessKey = &#039;accessKey&#039;;
+$secretKey = &#039;secretKey&#039;;
+$qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
+
+$bucket = $qiniu-&amp;gt;getBucket(&#039;sketch&#039;);
+list($return, $error) = $bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;]);
+echo is_null($error) ? json_encode($return) : json_encode($error);&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;$bucket = $qiuniu-&amp;gt;getBucket(&#039;sketch&#039;);
+// 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
+$bucket-&amp;gt;setPolicy(array(
+    &#039;saveKey&#039; =&amp;gt; time() . &#039;.jpg&#039;,
+    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key),&quot;name&quot;: $(fname)}&#039;,
+    &#039;expires&#039; =&amp;gt; 3600
+));&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;你同样可以上传远程图片并为其指定保存名称：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;put(&#039;http://example.com/avatar.jpg&#039;, &#039;avatar.png&#039;, \Qiniu\Bucket::EXTR_OVERWRITE);&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;setPolicy(array(
+    // 通过 returnBody 的形式返回魔术变量
+    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot; : $(x:user)}&#039;,                  
+));
+$uploadParams = array(
+    // 文件地址
+    &#039;file&#039; =&amp;gt; $_FILES[&#039;file&#039;][&#039;tmp_name&#039;],
+    // 自定义魔术变量
+    &#039;x:user&#039; =&amp;gt; &#039;Simple Qiniu SDK&#039;
+);
+$bucket-&amp;gt;put($uploadParams, &#039;avatar.png&#039;);&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;如果你希望采用&lt;a href=&quot;http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html&quot;&gt;表单上传模式&lt;/a&gt;，你可以使用 getUpToken 方法来获取上传令牌：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-html&quot;&gt;&amp;lt;form action=&quot;http://upload.qiniu.com/&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&amp;gt;
+    &amp;lt;input name=&quot;file&quot; type=&quot;file&quot; /&amp;gt;
+    &amp;lt;input name=&quot;x:user&quot; type=&quot;hidden&quot; value=&quot;Simple Qiniu SDK&quot;&amp;gt;
+    &amp;lt;input name=&quot;token&quot; type=&quot;hidden&quot; value=&quot;&amp;lt;?=$bucket-&amp;gt;getUpToken()?&amp;gt;&quot;&amp;gt;
+    &amp;lt;button id=&quot;upload&quot; type=&quot;submit&quot;&amp;gt;上传到七牛&amp;lt;/button&amp;gt;
+&amp;lt;/form&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用&lt;a href=&quot;http://developer.qiniu.com/docs/v6/sdk/php-sdk.html&quot;&gt;官方 SDK&lt;/a&gt;。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。 &lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[Y combinator in PHP]]></title>
 		<link href="http://blog.shouhuiben.net/article/2015/01/14/Y-combinator-in-php" />
@@ -131,18 +193,5 @@ end&lt;/code&gt;
 &lt;p&gt;另外，我花了近 30 个小时的时间达成了成功安装 LFS 系统的成就。在迁移完开发环境之后我发现 Vagrant 包竟然有近 600M，后来在寻找更小巧的 Base 镜像时发现了一个超小的 LFS 镜像，这让我对 LFS 的兴趣大增。恰好国内恰好有完整的 LFS 安装手册，为了以后能更好的使用  linux，我决定在虚拟机里把整个安装过程跑一遍，好处多多。&lt;/p&gt;
 &lt;p&gt;这里有几点关于安装 LFS 的心得可以记录一下。如果是第一次尝试安装的话，强烈推荐下载包含完整源码的 live CD，我安装的时候直接下了一个 mini 镜像，源码都是安装时再下载，导致频繁的在宿主环境与 chroot 环境中切换，并且手册中给出的下载地址很多已失效，还需要搜索相关的 LFS mirror，非常费时。按照手册的步骤完整基本上不会出现太大的问题，我只在第六章安装 file 和 man-db 时遇到了 zlib.h 和 db.h 等头文件无法找到的问题，自己把 /usr/include 加入到 C_INCLUDE_PATH 和 CPLUS_INCLUDE_PATH 环境变量即可。&lt;/p&gt;
 &lt;p&gt;其实最可能遇到的问题应该是安装完成之后的网络设置部分，很多人都可能遇到 eth0 dosent exist 的问题。这里需要在编译 kernel 时添加相关驱动模块的支持。解决这个问题最简单的办法就是在宿主系统上使用 &lt;code&gt;lspci | grep -i Ethernet&lt;/code&gt; 命令查看网卡参数，然后在 kernel 里选择合适的模块。其实究其根本，还是因为平常使用中很少会涉及到内核部分，对其众多的参数没有基本的了解。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[新一轮晒桌面开始]]></title>
-		<link href="http://blog.shouhuiben.net/article/2014/09/29/new-system-screenshot" />
-		<id>urn:uuid:d0b80756-3220-55e6-df9b-4da2999d9d32</id>
-		<updated>2014-09-29T15:26:06+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;&lt;img alt=&quot;openbox&quot; src=&quot;http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。&lt;/p&gt;
-&lt;p&gt;无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。&lt;/p&gt;
-&lt;p&gt;因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。&lt;/p&gt;
-&lt;p&gt;&amp;lt;!--more--&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&quot;lubuntu&quot; src=&quot;http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
