@@ -53,7 +53,7 @@ $bucket->put('http://example.com/avatar.jpg', 'avatar.png', \Qiniu\Bucket::EXTR_
 ```php
 $bucket->setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
-    'returnBody' => '{"key": $(key), "user" : $(x:user)}',                  
+    'returnBody' => '{"key": $(key), "user": $(x:user)}',                  
 ));
 $uploadParams = array(
     // 文件地址

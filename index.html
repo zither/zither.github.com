@@ -69,7 +69,7 @@ $bucket-&gt;setPolicy(array(
 <pre>
 <code class="language-php">$bucket-&gt;setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
-    'returnBody' =&gt; '{"key": $(key), "user" : $(x:user)}',                  
+    'returnBody' =&gt; '{"key": $(key), "user": $(x:user)}',                  
 ));
 $uploadParams = array(
     // 文件地址

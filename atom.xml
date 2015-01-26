@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-01-26T13:02:17+08:00</updated>
+	<updated>2015-01-26T13:08:21+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -51,7 +51,7 @@ $bucket-&amp;gt;setPolicy(array(
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
-    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot; : $(x:user)}&#039;,                  
+    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot;: $(x:user)}&#039;,                  
 ));
 $uploadParams = array(
     // 文件地址
