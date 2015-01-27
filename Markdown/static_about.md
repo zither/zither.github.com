@@ -9,4 +9,4 @@
 
 [Mreader](http://mreader.sinaapp.com)，非常简单的 Feed 聚合阅读小站，为自己量身定制。
 
-[恋恋手绘本](http://shouhuiben.sinaapp.com)，我的 Forever Project，一个让人坚持绘画的小社区。
+[恋恋手绘本](http://www.shouhuiben.com)，我的 Forever Project，一个让人坚持绘画的小社区。
