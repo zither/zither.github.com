@@ -42,10 +42,10 @@ $bucket->setPolicy(array(
 ));
 ```
 
-你同样可以上传远程图片并为其指定保存名称：
+你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：
 
 ```php
-$bucket->put('http://example.com/avatar.jpg', 'avatar.png', \Qiniu\Bucket::EXTR_OVERWRITE);
+$bucket->put($_FILES['file']['tmp_name'], 'avatar.png', \Qiniu\Bucket::EXTR_OVERWRITE);
 ```
 
 你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：

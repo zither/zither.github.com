@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-01-27T09:56:25+08:00</updated>
+	<updated>2015-01-27T10:51:14+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -43,9 +43,9 @@ $bucket-&amp;gt;setPolicy(array(
     &#039;expires&#039; =&amp;gt; 3600
 ));&lt;/code&gt;
 &lt;/pre&gt;
-&lt;p&gt;你同样可以上传远程图片并为其指定保存名称：&lt;/p&gt;
+&lt;p&gt;你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;put(&#039;http://example.com/avatar.jpg&#039;, &#039;avatar.png&#039;, \Qiniu\Bucket::EXTR_OVERWRITE);&lt;/code&gt;
+&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;], &#039;avatar.png&#039;, \Qiniu\Bucket::EXTR_OVERWRITE);&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：&lt;/p&gt;
 &lt;pre&gt;
