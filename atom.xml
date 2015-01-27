@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-01-26T13:32:32+08:00</updated>
+	<updated>2015-01-27T09:56:25+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -30,8 +30,8 @@ $secretKey = &#039;secretKey&#039;;
 $qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
 
 $bucket = $qiniu-&amp;gt;getBucket(&#039;sketch&#039;);
-list($return, $error) = $bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;]);
-echo is_null($error) ? json_encode($return) : json_encode($error);&lt;/code&gt;
+$response = $bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;]);
+echo $response-&amp;gt;getContent();&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：&lt;/p&gt;
 &lt;pre&gt;

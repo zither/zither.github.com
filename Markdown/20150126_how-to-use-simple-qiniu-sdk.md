@@ -26,8 +26,8 @@ $secretKey = 'secretKey';
 $qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
 
 $bucket = $qiniu->getBucket('sketch');
-list($return, $error) = $bucket->put($_FILES['file']['tmp_name']);
-echo is_null($error) ? json_encode($return) : json_encode($error);
+$response = $bucket->put($_FILES['file']['tmp_name']);
+echo $response->getContent();
 ```
 
 这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：
