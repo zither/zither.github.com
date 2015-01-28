@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-01-27T13:14:53+08:00</updated>
+	<updated>2015-01-28T11:25:11+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -17,12 +17,9 @@
 		<updated>2015-01-26T11:06:51+08:00</updated>
 		<summary type="html"><![CDATA[&lt;p&gt;为了解决&lt;a href=&quot;http://www.shouhuiben.com&quot;&gt;「手绘本」&lt;/a&gt;的头像托管问题，前几天重写了一遍 &lt;a href=&quot;https://github.com/zither/simple-qiniu-sdk&quot;&gt;Simple Qiniu SDK&lt;/a&gt;，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;define(&#039;ROOT&#039;, __DIR__);
-define(&#039;DS&#039;, DIRECTORY_SEPARATOR);
-
-// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
-require ROOT . DS . &quot;Autoload.php&quot;;
-Autoload::addNamespace(&#039;Qiniu&#039;, dirname(ROOT) . DS . &#039;src/Qiniu&#039;);
+&lt;code class=&quot;language-php&quot;&gt;// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+require __DIR__ . &quot;/Autoload.php&quot;;
+Autoload::addNamespace(&#039;Qiniu&#039;, dirname(__DIR__) . &#039;/src/Qiniu&#039;);
 Autoload::register();
 
 $accessKey = &#039;accessKey&#039;;
@@ -38,7 +35,7 @@ echo $response-&amp;gt;getContent();&lt;/code&gt;
 &lt;code class=&quot;language-php&quot;&gt;$bucket = $qiuniu-&amp;gt;getBucket(&#039;sketch&#039;);
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket-&amp;gt;setPolicy(array(
-    &#039;saveKey&#039; =&amp;gt; time() . &#039;.jpg&#039;,
+    &#039;saveKey&#039; =&amp;gt; sprintf(&quot;%s.jpg&quot;, time()),
     &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key),&quot;name&quot;: $(fname)}&#039;,
     &#039;expires&#039; =&amp;gt; 3600
 ));&lt;/code&gt;
@@ -54,12 +51,12 @@ $bucket-&amp;gt;setPolicy(array(
     &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot;: $(x:user)}&#039;,                  
 ));
 $uploadParams = array(
-    // 文件地址
-    &#039;file&#039; =&amp;gt; $_FILES[&#039;file&#039;][&#039;tmp_name&#039;],
+    // 文件保存名称
+    &#039;key&#039; =&amp;gt; &#039;avatar.png&#039;,
     // 自定义魔术变量
     &#039;x:user&#039; =&amp;gt; &#039;Simple Qiniu SDK&#039;
 );
-$bucket-&amp;gt;put($uploadParams, &#039;avatar.png&#039;);&lt;/code&gt;
+$bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;], $uploadParams);&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;如果你希望采用&lt;a href=&quot;http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html&quot;&gt;表单上传模式&lt;/a&gt;，你可以使用 getUpToken 方法来获取上传令牌：&lt;/p&gt;
 &lt;pre&gt;

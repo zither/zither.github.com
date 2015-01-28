@@ -35,12 +35,9 @@
 		<div class="content">
 			<p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
 <pre>
-<code class="language-php">define('ROOT', __DIR__);
-define('DS', DIRECTORY_SEPARATOR);
-
-// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
-require ROOT . DS . "Autoload.php";
-Autoload::addNamespace('Qiniu', dirname(ROOT) . DS . 'src/Qiniu');
+<code class="language-php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+require __DIR__ . "/Autoload.php";
+Autoload::addNamespace('Qiniu', dirname(__DIR__) . '/src/Qiniu');
 Autoload::register();
 
 $accessKey = 'accessKey';
@@ -56,7 +53,7 @@ echo $response-&gt;getContent();</code>
 <code class="language-php">$bucket = $qiuniu-&gt;getBucket('sketch');
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket-&gt;setPolicy(array(
-    'saveKey' =&gt; time() . '.jpg',
+    'saveKey' =&gt; sprintf("%s.jpg", time()),
     'returnBody' =&gt; '{"key": $(key),"name": $(fname)}',
     'expires' =&gt; 3600
 ));</code>
@@ -72,12 +69,12 @@ $bucket-&gt;setPolicy(array(
     'returnBody' =&gt; '{"key": $(key), "user": $(x:user)}',                  
 ));
 $uploadParams = array(
-    // 文件地址
-    'file' =&gt; $_FILES['file']['tmp_name'],
+    // 文件保存名称
+    'key' =&gt; 'avatar.png',
     // 自定义魔术变量
     'x:user' =&gt; 'Simple Qiniu SDK'
 );
-$bucket-&gt;put($uploadParams, 'avatar.png');</code>
+$bucket-&gt;put($_FILES['file']['tmp_name'], $uploadParams);</code>
 </pre>
 <p>如果你希望采用<a href="http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html">表单上传模式</a>，你可以使用 getUpToken 方法来获取上传令牌：</p>
 <pre>

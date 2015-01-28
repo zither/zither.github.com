@@ -13,12 +13,9 @@
 为了解决[「手绘本」](http://www.shouhuiben.com)的头像托管问题，前几天重写了一遍 [Simple Qiniu SDK](https://github.com/zither/simple-qiniu-sdk)，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：
 
 ```php
-define('ROOT', __DIR__);
-define('DS', DIRECTORY_SEPARATOR);
-
 // Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
-require ROOT . DS . "Autoload.php";
-Autoload::addNamespace('Qiniu', dirname(ROOT) . DS . 'src/Qiniu');
+require __DIR__ . "/Autoload.php";
+Autoload::addNamespace('Qiniu', dirname(__DIR__) . '/src/Qiniu');
 Autoload::register();
 
 $accessKey = 'accessKey';
@@ -36,7 +33,7 @@ echo $response->getContent();
 $bucket = $qiuniu->getBucket('sketch');
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket->setPolicy(array(
-    'saveKey' => time() . '.jpg',
+    'saveKey' => sprintf("%s.jpg", time()),
     'returnBody' => '{"key": $(key),"name": $(fname)}',
     'expires' => 3600
 ));
@@ -56,12 +53,12 @@ $bucket->setPolicy(array(
     'returnBody' => '{"key": $(key), "user": $(x:user)}',                  
 ));
 $uploadParams = array(
-    // 文件地址
-    'file' => $_FILES['file']['tmp_name'],
+    // 文件保存名称
+    'key' => 'avatar.png',
     // 自定义魔术变量
     'x:user' => 'Simple Qiniu SDK'
 );
-$bucket->put($uploadParams, 'avatar.png');
+$bucket->put($_FILES['file']['tmp_name'], $uploadParams);
 ```
 
 如果你希望采用[表单上传模式](http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html)，你可以使用 getUpToken 方法来获取上传令牌：
