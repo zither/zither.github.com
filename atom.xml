@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-12T17:42:40+08:00</updated>
+	<updated>2015-02-12T17:53:05+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -50,10 +50,10 @@ require &quot;Encryptor.php&quot;;
 require &quot;Cipher.php&quot;;
 require &quot;Rc4crypt.php&quot;;
 
-$website = &quot;www.google.com&quot;;
-$data = pack(&quot;C2&quot;, 0x03, strlen($website));
-$data .= $website . pack(&quot;n&quot;, 0x50);
-$data .= sprintf(&quot;GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n&quot;, $website);&lt;/code&gt;
+$domain = &quot;www.google.com&quot;;
+$data = pack(&quot;C2&quot;, 0x03, strlen($domain));
+$data .= $domain . pack(&quot;n&quot;, 0x50);
+$data .= sprintf(&quot;GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n&quot;, $domain);&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件非常简单，这里只简单说明一下。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Shadowsocks 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。&lt;/p&gt;
 &lt;p&gt;我直接跳过了与浏览器协商的部分，我们假设浏览器发出的请求是访问 Google 首页，为了摆出科学的姿势，我们不能在本地对 Domain 进行 DNS 解析，所以 Header 的内容是这样的：&lt;/p&gt;

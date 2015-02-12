@@ -56,10 +56,10 @@ require "Encryptor.php";
 require "Cipher.php";
 require "Rc4crypt.php";
 
-$website = "www.google.com";
-$data = pack("C2", 0x03, strlen($website));
-$data .= $website . pack("n", 0x50);
-$data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $website);
+$domain = "www.google.com";
+$data = pack("C2", 0x03, strlen($domain));
+$data .= $domain . pack("n", 0x50);
+$data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $domain);
 ```
 
 我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件非常简单，这里只简单说明一下。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Shadowsocks 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。
