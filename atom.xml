@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-12T17:53:05+08:00</updated>
+	<updated>2015-02-12T18:10:21+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -21,7 +21,7 @@
 &lt;code&gt;+--------------------------------------------------------------+
 |             1                2                 3             |
 +  browser ------- ss-local ------- ss-server ------- DST host +
-|           socks          shadowsock          socks           |
+|           socks         shadowsocks          socks           |
 +--------------------------------------------------------------+&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;从上面我们可以看出，shadowsock 将一个 socks 代理拆分为 local socks（1） 以及 server socks（3） 两个代理，这两个阶段使用 socks 协议来传递原始数据。而 local socks 与 server socks 之间（2）传输的则是经过加密的数据，我们暂且称其为 shadowsocks 协议。&lt;/p&gt;
