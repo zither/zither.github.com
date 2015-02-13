@@ -173,12 +173,11 @@ The document has moved
 &lt;A HREF="http://www.google.co.jp/?gfe_rd=cr&amp;amp;ei=f27dVNmCGY2nmQW83YBo"&gt;here&lt;/A&gt;.
 &lt;/BODY&gt;&lt;/HTML&gt;</code>
 </pre>
-<p>这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。</p>
+<p>这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。在请求完成之后就可以关闭通道了：</p>
 <pre>
 <code class="language-php">stream_socket_shutdown($remote, STREAM_SHUT_RDWR);
 fclose($remote);</code>
 </pre>
-<p>在请求完成之后就可以关闭通道了。</p>
 <p>到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：<a href="https://github.com/clue/php-socks-react"><a href="https://github.com/clue/php-socks-react">https://github.com/clue/php-socks-react</a></a>。</p>		</div>
 	</article>
 	<div class="bar">

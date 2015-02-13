@@ -177,13 +177,11 @@ The document has moved
 </BODY></HTML>
 ```
 
-这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。
+这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。在请求完成之后就可以关闭通道了：
 
 ```php
 stream_socket_shutdown($remote, STREAM_SHUT_RDWR);
 fclose($remote);
 ```
-
-在请求完成之后就可以关闭通道了。
 
 到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：[https://github.com/clue/php-socks-react](https://github.com/clue/php-socks-react)。
