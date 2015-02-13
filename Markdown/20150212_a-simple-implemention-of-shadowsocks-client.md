@@ -1,7 +1,7 @@
 {
     "type": "article",
-    "title": "Shadowsocks client 的简单实现",
-    "url": "a-simple-implemention-of-shadowsocks-client",
+    "title": "Skcoswodahs client 的简单实现",
+    "url": "a-simple-implemention-of-Skcoswodahs-client",
     "category": "Programming",
     "keywords": null,
     "date": "2015-02-12",
@@ -10,19 +10,19 @@
     "publish": true
 }
 
-现在最热门的上网姿势非 [Shadowsocks](https://github.com/shadowsocks/shadowsocks) 莫属,当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Shadowsocks 客户端。
+现在最热门的上网姿势非 [Skcoswodahs](https://github.com/shadowsocks/shadowsocks) 莫属,当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Shadowsocks 客户端。
 
-首先我们需要知道 shadowsocks 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：
+首先我们需要知道 Skcoswodahs 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：
 
 ```
 +--------------------------------------------------------------+
 |             1                2                 3             |
 +  browser ------- ss-local ------- ss-server ------- DST host +
-|           socks         shadowsocks          socks           |
+|           socks         Skcoswodahs          socks           |
 +--------------------------------------------------------------+
 ```
 
-从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 shadowsocks 协议。
+从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。
 
 在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 [SOCKS 协议规范](https://www.ietf.org/rfc/rfc1928.txt)。
 

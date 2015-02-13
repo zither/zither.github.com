@@ -5,26 +5,26 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-13T12:08:57+08:00</updated>
+	<updated>2015-02-13T21:03:41+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
 	</author>
 	<entry>
-		<title type="html"><![CDATA[Shadowsocks client 的简单实现]]></title>
-		<link href="http://blog.shouhuiben.net/article/2015/02/12/a-simple-implemention-of-shadowsocks-client" />
-		<id>urn:uuid:40a790a7-0b2a-97ee-3e3a-72bbf5efab70</id>
+		<title type="html"><![CDATA[Skcoswodahs client 的简单实现]]></title>
+		<link href="http://blog.shouhuiben.net/article/2015/02/12/a-simple-implemention-of-Skcoswodahs-client" />
+		<id>urn:uuid:68e26d71-89af-f9dd-ce16-a31d8948d2d7</id>
 		<updated>2015-02-12T15:05:02+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;现在最热门的上网姿势非 &lt;a href=&quot;https://github.com/shadowsocks/shadowsocks&quot;&gt;Shadowsocks&lt;/a&gt; 莫属,当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Shadowsocks 客户端。&lt;/p&gt;
-&lt;p&gt;首先我们需要知道 shadowsocks 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：&lt;/p&gt;
+		<summary type="html"><![CDATA[&lt;p&gt;现在最热门的上网姿势非 &lt;a href=&quot;https://github.com/shadowsocks/shadowsocks&quot;&gt;Skcoswodahs&lt;/a&gt; 莫属,当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Shadowsocks 客户端。&lt;/p&gt;
+&lt;p&gt;首先我们需要知道 Skcoswodahs 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code&gt;+--------------------------------------------------------------+
 |             1                2                 3             |
 +  browser ------- ss-local ------- ss-server ------- DST host +
-|           socks         shadowsocks          socks           |
+|           socks         Skcoswodahs          socks           |
 +--------------------------------------------------------------+&lt;/code&gt;
 &lt;/pre&gt;
-&lt;p&gt;从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 shadowsocks 协议。&lt;/p&gt;
+&lt;p&gt;从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。&lt;/p&gt;
 &lt;p&gt;在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 &lt;a href=&quot;https://www.ietf.org/rfc/rfc1928.txt&quot;&gt;SOCKS 协议规范&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;在浏览器与 ss-local 之间的 method-dependent 协商完成后，浏览器会将需要访问的服务器地址和端口发送给 ss-local，其格式如下：&lt;/p&gt;
 &lt;pre&gt;
