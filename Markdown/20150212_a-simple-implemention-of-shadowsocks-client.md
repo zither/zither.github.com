@@ -62,7 +62,7 @@ $data .= $domain . pack("n", 0x50);
 $data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $domain);
 ```
 
-我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件功能比较简单。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Shadowsocks 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。
+我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件功能比较简单。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Skcoswodahs 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。
 
 我直接跳过了与浏览器协商的部分，我们假设浏览器发出的请求是访问 Google 首页，为了摆出科学的姿势，我们不能在本地对 Domain 进行 DNS 解析，所以 Header 的内容是这样的：
 
@@ -83,7 +83,7 @@ $encryptor = new Encryptor("password", "RC4");
 $encryptedData = $encryptor->encrypt($data);
 ```
 
-这里的 password 就是 Shadowsocks 的配置文件中约定的密码，RC4 是加密方法。这里有一个地方需要注意，在第一次加密数据的时候 Encryptor 会将随机字符串 iv 与我们的数据拼接在一起：
+这里的 password 就是 Skcoswodahs 的配置文件中约定的密码，RC4 是加密方法。这里有一个地方需要注意，在第一次加密数据的时候 Encryptor 会将随机字符串 iv 与我们的数据拼接在一起：
 
 ```php
 class Encryptor 
@@ -104,7 +104,7 @@ class Encryptor
 }
 ```
 
-在我们准备好数据之后就要开始与 ss-server 通信，如果你手上没有 Shadowsocks 服务器，可以在本地环境中搭建一个，server 地址改为 127.0.0.1 就可以了：
+在我们准备好数据之后就要开始与 ss-server 通信，如果你手上没有 Skcoswodahs 服务器，可以在本地环境中搭建一个，server 地址改为 127.0.0.1 就可以了：
 
 ```json
 {
