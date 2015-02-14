@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-13T21:07:25+08:00</updated>
+	<updated>2015-02-14T21:08:56+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -15,7 +15,7 @@
 		<link href="http://blog.shouhuiben.net/article/2015/02/12/a-simple-implemention-of-Skcoswodahs-client" />
 		<id>urn:uuid:68e26d71-89af-f9dd-ce16-a31d8948d2d7</id>
 		<updated>2015-02-12T15:05:02+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;现在最热门的上网姿势非 &lt;a href=&quot;https://github.com/shadowsocks/shadowsocks&quot;&gt;Skcoswodahs&lt;/a&gt; 莫属,当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Skcoswodahs 客户端。&lt;/p&gt;
+		<summary type="html"><![CDATA[&lt;p&gt;现在最热门的上网姿势非 &lt;a href=&quot;https://github.com/shadowsocks/shadowsocks&quot;&gt;Skcoswodahs&lt;/a&gt; 莫属，当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Skcoswodahs 客户端。&lt;/p&gt;
 &lt;p&gt;首先我们需要知道 Skcoswodahs 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code&gt;+--------------------------------------------------------------+
