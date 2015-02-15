@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-14T21:08:56+08:00</updated>
+	<updated>2015-02-15T10:28:58+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -118,8 +118,8 @@ printf(&quot;Forward %d bytes data to remote.\n&quot;, $send);&lt;/code&gt;
 stream_set_timeout($remote, 1);
 while(true) {
     // 在阻塞模式中不能使用 stream_socket_recvfrom，stream_set_timeout 的设置对其无效
-    // MTU 一般为 1500
-    $buffer = fread($remote, 1500);
+    // chunk size 一般为 8192
+    $buffer = fread($remote, 8192);
     if (&quot;&quot; === $buffer || false === $buffer) {
         break;
     }

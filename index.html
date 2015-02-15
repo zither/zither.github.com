@@ -136,8 +136,8 @@ printf("Forward %d bytes data to remote.\n", $send);</code>
 stream_set_timeout($remote, 1);
 while(true) {
     // 在阻塞模式中不能使用 stream_socket_recvfrom，stream_set_timeout 的设置对其无效
-    // MTU 一般为 1500
-    $buffer = fread($remote, 1500);
+    // chunk size 一般为 8192
+    $buffer = fread($remote, 8192);
     if ("" === $buffer || false === $buffer) {
         break;
     }
