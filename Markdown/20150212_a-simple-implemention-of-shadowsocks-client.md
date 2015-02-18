@@ -17,12 +17,12 @@
 ```
 +--------------------------------------------------------------+
 |             1                2                 3             |
-+  browser ------- ss-local ------- ss-server ------- DST host +
++  browser ------- ss-local ------- ss-server -------  Google  +
 |           socks         Skcoswodahs          socks           |
 +--------------------------------------------------------------+
 ```
 
-从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。
+从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 ss-local 以及 ss-server 两个代理，阶段1和阶段3传递的都是原始数据。而 ss-local 与 ss-server 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。
 
 在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 [SOCKS 协议规范](https://www.ietf.org/rfc/rfc1928.txt)。
 

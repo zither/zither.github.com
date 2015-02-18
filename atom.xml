@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-17T11:54:24+08:00</updated>
+	<updated>2015-02-18T18:25:27+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -20,11 +20,11 @@
 &lt;pre&gt;
 &lt;code&gt;+--------------------------------------------------------------+
 |             1                2                 3             |
-+  browser ------- ss-local ------- ss-server ------- DST host +
++  browser ------- ss-local ------- ss-server -------  Google  +
 |           socks         Skcoswodahs          socks           |
 +--------------------------------------------------------------+&lt;/code&gt;
 &lt;/pre&gt;
-&lt;p&gt;从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 local SOCKS（1） 以及 server SOCKS（3） 两个代理，这两个阶段传递的都是原始数据。而 local SOCKS 与 server SOCKS 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。&lt;/p&gt;
+&lt;p&gt;从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 ss-local 以及 ss-server 两个代理，阶段1和阶段3传递的都是原始数据。而 ss-local 与 ss-server 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。&lt;/p&gt;
 &lt;p&gt;在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 &lt;a href=&quot;https://www.ietf.org/rfc/rfc1928.txt&quot;&gt;SOCKS 协议规范&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;在浏览器与 ss-local 之间的 method-dependent 协商完成后，浏览器会将需要访问的服务器地址和端口发送给 ss-local，其格式如下：&lt;/p&gt;
 &lt;pre&gt;
