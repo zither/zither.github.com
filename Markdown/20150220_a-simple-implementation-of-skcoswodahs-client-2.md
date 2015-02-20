@@ -30,9 +30,9 @@ $subCiphertext1 = substr($ciphertext, 0, 16);
 $subCiphertext2 = substr($ciphertext, 16);
 
 printf(
-"------ UPDATE MODE ------\nsubPlaintext1: %s\nsubPlaintext2: %s\n",
-$decryptor->decrypt($subCiphertext1),
-$decryptor->decrypt($subCiphertext2)
+    "------ UPDATE MODE ------\nsubPlaintext1: %s\nsubPlaintext2: %s\n",
+    $decryptor->decrypt($subCiphertext1),
+    $decryptor->decrypt($subCiphertext2)
 );
 
 // output
