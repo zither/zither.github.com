@@ -1,7 +1,7 @@
 {
     "type": "article",
     "title": "Skcoswodahs client 的简单实现",
-    "url": "a-simple-implemention-of-Skcoswodahs-client",
+    "url": "a-simple-implementation-of-Skcoswodahs-client",
     "category": "Programming",
     "keywords": null,
     "date": "2015-02-12",
