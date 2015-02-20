@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-20T17:16:37+08:00</updated>
+	<updated>2015-02-20T17:18:53+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -90,10 +90,10 @@ psslocal -c ~/skcoswodahs/config.json&lt;/code&gt;
 &lt;p&gt;需要注意的是，header 部分只需要在建立通道的时候发送一次，通道建立之后直接传递加密的请求数据即可。ss-server 在收到数据后会直接解密，读取 ATYP 字段，根据其类型解析 header 部分，如果数据的整个长度超过 header 的长度，剩下的部分就会作为请求的内容。ss-server 会将从目标服务器获取的数据加密后通过通道转发回我们的客户端，我们需要将数据解密后返回给浏览器。&lt;/p&gt;
 &lt;p&gt;从整个通信过程来说，我们的客户端其实就是带有加密解密功能的 SOCKS server。除了 SOCKS server 最基本的功能以外，需要我们动手就是加密解密功能了。现在我们开始写代码：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;//source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
+&lt;code class=&quot;language-php&quot;&gt;//Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require &quot;Encryptor.php&quot;;
 require &quot;Cipher.php&quot;;
-// 问题修正：http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
+// Update:http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
 require &quot;Rc4crypt.php&quot;;
 
 $domain = &quot;www.google.com&quot;;
