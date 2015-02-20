@@ -64,7 +64,7 @@
 <p>需要注意的是，header 部分只需要在建立通道的时候发送一次，通道建立之后直接传递加密的请求数据即可。ss-server 在收到数据后会直接解密，读取 ATYP 字段，根据其类型解析 header 部分，如果数据的整个长度超过 header 的长度，剩下的部分就会作为请求的内容。ss-server 会将从目标服务器获取的数据加密后通过通道转发回我们的客户端，我们需要将数据解密后返回给浏览器。</p>
 <p>从整个通信过程来说，我们的客户端其实就是带有加密解密功能的 SOCKS server。除了 SOCKS server 最基本的功能以外，需要我们动手就是加密解密功能了。现在我们开始写代码：</p>
 <pre>
-<code class="language-php">//Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
+<code class="language-php">// Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require "Encryptor.php";
 require "Cipher.php";
 // Update:http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/

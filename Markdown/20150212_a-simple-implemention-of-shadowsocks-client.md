@@ -51,7 +51,7 @@ ATYP，DST.ADDR 和 DST.PORT 这三个字段（Header）是需要通过我们的
 从整个通信过程来说，我们的客户端其实就是带有加密解密功能的 SOCKS server。除了 SOCKS server 最基本的功能以外，需要我们动手就是加密解密功能了。现在我们开始写代码：
 
 ```php
-//Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
+// Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require "Encryptor.php";
 require "Cipher.php";
 // Update:http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
