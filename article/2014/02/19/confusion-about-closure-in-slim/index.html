@@ -34,23 +34,21 @@
 
 					</div>
 		<div class="content">
-			<p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
+			<p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 时就需要特别注意。这里直接使用用官方文档中的例子来说明：</p>
 <p></p>
 <pre>
 <code class="language-php">$app = new \Slim\Slim();
 $app-&gt;uuid = function(){
     return exec('uuidgen');
 };
-// 获取一个新的 UUID
 $uuid = $app-&gt;uuid;</code>
 </pre>
-<p>在这个例子中，我们把一个 lambda 函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个 lambda 函数：</p>
+<p>在这个例子中，我们把一个匿名函数赋值给了名为 uuid 的变量，通常我们需要手动调用这个函数：</p>
 <pre>
-<code class="language-php">// 实例变量不能通过 $app-&gt;uuid(); 方法调用
-$uuid = $app-&gt;uuid;
+<code class="language-php">$uuid = $app-&gt;uuid;
 $uuid();</code>
 </pre>
-<p>但是在 Slim 中不需要手动调用，它在 \Slim\Helper\Set 类中使用了自动调用：</p>
+<p>但是在 Slim 中是不需要手动调用，\Slim\Helper\Set 类会自动检查是否可调用：</p>
 <pre>
 <code class="language-php">public function get($key, $default = null)
 {
@@ -67,7 +65,7 @@ $uuid();</code>
     return $default;
 }</code>
 </pre>
-<p>如果我们需要存储原始的闭包（Closure），则必须使用 \Slim\Helper\Set 的 protect 的方法。这虽然节省了一些操作代码，但是在不了解 Slim 的情况下会带来一些麻烦。</p>		</div>
+<p>如果我们需要存储原始的匿名函数，则必须使用 \Slim\Helper\Set 的 protect 的方法，它会在我们定义的函数外面再包裹一层匿名函数（闭包）。</p>		</div>
 	</article>
 	<div class="bar">
 		<span class="new">
