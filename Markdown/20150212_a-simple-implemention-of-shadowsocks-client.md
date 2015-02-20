@@ -54,6 +54,7 @@ ATYP，DST.ADDR 和 DST.PORT 这三个字段（Header）是需要通过我们的
 //source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require "Encryptor.php";
 require "Cipher.php";
+// 问题修正：http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
 require "Rc4crypt.php";
 
 $domain = "www.google.com";

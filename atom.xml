@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-20T17:13:23+08:00</updated>
+	<updated>2015-02-20T17:16:37+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -42,7 +42,7 @@ $decryptor-&amp;gt;decrypt($subCiphertext2)
 //subPlaintext1: 0123456789abcdef
 //subPlaintext2: ghijklmnopqrstuvwxyz&lt;/code&gt;
 &lt;/pre&gt;
-&lt;p&gt;为了验证可用性，我用 PHP 写了一个只支持 RC4 的客户端：&lt;a href=&quot;http://pan.baidu.com/s/1sjuiJH7&quot;&gt;Psslocal.phar&lt;/a&gt;，下载后可以得到一个 Phar 包，用 PHP 执行它即可：&lt;/p&gt;
+&lt;p&gt;为了验证可用性，我用 PHP 写了一个只支持 RC4 的 Skcoswodahs 客户端：&lt;a href=&quot;http://pan.baidu.com/s/1sjuiJH7&quot;&gt;Psslocal.phar&lt;/a&gt;，下载后可以得到一个 Phar 包，用 PHP 执行它即可：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code&gt;// 客户端中使用了 mcrypt_create_iv 函数来生成 iv，运行前注意加载 MCrypt 拓展
 php psslocal.phar -c ~/skcoswodahs/config.json
@@ -93,6 +93,7 @@ psslocal -c ~/skcoswodahs/config.json&lt;/code&gt;
 &lt;code class=&quot;language-php&quot;&gt;//source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require &quot;Encryptor.php&quot;;
 require &quot;Cipher.php&quot;;
+// 问题修正：http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
 require &quot;Rc4crypt.php&quot;;
 
 $domain = &quot;www.google.com&quot;;

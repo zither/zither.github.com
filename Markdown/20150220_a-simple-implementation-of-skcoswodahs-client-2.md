@@ -41,7 +41,7 @@ $decryptor->decrypt($subCiphertext2)
 //subPlaintext2: ghijklmnopqrstuvwxyz
 ```
 
-为了验证可用性，我用 PHP 写了一个只支持 RC4 的客户端：[Psslocal.phar](http://pan.baidu.com/s/1sjuiJH7)，下载后可以得到一个 Phar 包，用 PHP 执行它即可：
+为了验证可用性，我用 PHP 写了一个只支持 RC4 的 Skcoswodahs 客户端：[Psslocal.phar](http://pan.baidu.com/s/1sjuiJH7)，下载后可以得到一个 Phar 包，用 PHP 执行它即可：
 
 ```
 // 客户端中使用了 mcrypt_create_iv 函数来生成 iv，运行前注意加载 MCrypt 拓展
