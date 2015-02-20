@@ -25,6 +25,20 @@
 			<div id="container"><div id="page">
 		<article>
 		<div class="title">
+			<a href="/article/2014/08/16/game-map">尘埃开发记录之地图设定</a>		</div>
+		<div class="info">
+			<span class="date">2014-08-16</span>
+			-
+			<span class="category">
+				Category: <a href="/category/Dust">Dust</a>			</span>
+					</div>
+		<div class="content">
+			<p>经过思考决定修改之前 Demo 中地图的一些相关设定。按照之前的设定，人物可以在地图中自由移动，地图属性的颗粒也相对较小（比如距离、类型）。这样设定的好处是可以让角色移动更加接近普通 RPG 中移动效果，服务器也可绘制更加精细的地图。但是从 Demo 的效果来看，这种实现体验并不好。脱离了地图的直观感受，玩家需要强制记忆地图坐标，完成一个简单任务也可能需要通过数次移动，更容易疲倦。</p>
+<p>我的目标是做一个休闲的文字页游，尽可能的缩减鼠标操作也是需求之一。为了减少角色移动带来的操作，需要放大地图格子的比例。在 Linodas 中地图是以城镇为中心的，如果一个城镇相当于一个格子的话，它的地图只有13格，也就是说角色不是在地城副本就是在城市中。我希望游戏中的世界能够更加“宽阔”一些，角色不仅仅是在城市中，也可以是在草原或者山谷。我把放大后的地图格子叫做“场景”，每一个格子就是一个场景。角色仍然可以在地图中移动，但是由于地图比例的放大，也会增加一些额外的东西来作为移动条件，比如食物和水。</p>
+<p>当然，在每个场景中可以采用 Linodas 中地城相似的设定，通过增加不同的子场景来让场景内容更加丰富。这部分需要在新的 demo 做出来之后再继续讨论。</p>		</div>
+        	</article>
+		<article>
+		<div class="title">
 			<a href="/article/2014/08/16/how-to-make-a-web-game">尘埃开发记录</a>		</div>
 		<div class="info">
 			<span class="date">2014-08-16</span>
@@ -87,22 +101,6 @@
 <p>最先关注到的解析库是 SimplePie，它的功能比较齐全，基本上支持全格式的 feed 解析，还包括了转码缓存等功能。不过在解析中文订阅的时候会出现将中文编码为 HTML Entities 的问题。随手 google 了一下，发现有人已经遇到过相同的问题：<a href="http://blog.webfuns.net/archives/1710.html">SimplePie 将中文编码成 HTML Entities 的解决办法</a>。</p>
 <p>		</div>
         		<a class="more" href="/article/2014/03/13/feedparser">
-			Read more
-		</a>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/02/19/confusion-about-closure-in-slim">Slim 中关于 Closure 的问题</a>		</div>
-		<div class="info">
-			<span class="date">2014-02-19</span>
-			-
-			<span class="category">
-				Category: <a href="/category/PHP">PHP</a>			</span>
-					</div>
-		<div class="content">
-			<p>在翻译 Slim 框架文档的依赖注入（Dependency Injection）部分时发现一个可能会让人迷惑的地方。Slim 框架的所有变量都储存在 \Slim\Helper\Set 类的实例中，我们可以像平常一样向 Slim 中注入需要的变量。但是在注入 Closure 或 lambda 时就会和想象中不太一样。这里直接使用用官方文档中的例子来说明：</p>
-<p>		</div>
-        		<a class="more" href="/article/2014/02/19/confusion-about-closure-in-slim">
 			Read more
 		</a>
         	</article>
