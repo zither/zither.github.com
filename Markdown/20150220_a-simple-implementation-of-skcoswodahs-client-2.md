@@ -19,6 +19,7 @@
 ```php
 // Source: https://github.com/zither/RC4-PHP
 require __DIR__ . "/src/RC4.php";
+
 $password = md5("password", true);
 $plaintext = "0123456789abcdefghijklmnopqrstuvwxyz";
 

@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-25T11:45:44+08:00</updated>
+	<updated>2015-02-25T12:48:36+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -21,6 +21,7 @@
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;// Source: https://github.com/zither/RC4-PHP
 require __DIR__ . &quot;/src/RC4.php&quot;;
+
 $password = md5(&quot;password&quot;, true);
 $plaintext = &quot;0123456789abcdefghijklmnopqrstuvwxyz&quot;;
 
