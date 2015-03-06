@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
+	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme,">
+	<title>Memo View Component | ZJmee</title>
+	
+	<link rel="stylesheet" href="/theme/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">ZJmee</a></h1>
+        <h2>努力学习那些想要知道的东西</h2>
+    </header>
+    <div id="nav">
+        <a href="/">Home</a>
+        <a href="/linux">Linux</a>
+        <a href="/about">About</a>
+    </div>
+	<div id="main">
+		<div class="border">
+			<div id="container"><div id="article">
+	<article>
+		<div class="title">Memo View Component</div>
+		<div class="info">
+			<span class="date">2015-03-06</span>
+			-
+			<span class="category">
+				Category:
+				<a href="/category/Memo">Memo</a>			</span>
+
+					</div>
+		<div class="content">
+			<p>最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的就是 <a href="https://github.com/zither/Memo">Memo View Component</a>。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。</p>
+<p>Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：</p>
+<pre>
+<code class="language-php">// file templates/base.php
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;?=$this-&gt;section('title')?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;?=$this-&gt;section('content')?&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+<p>base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：</p>
+<pre>
+<code class="language-php">// file templates/index.php
+&lt;?php $this-&gt;layout('base'); ?&gt;
+
+&lt;?php $this-&gt;open('title'); ?&gt;
+    &lt;title&gt;Memo Framework&lt;/title&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+
+&lt;?php $this-&gt;open('content'); ?&gt;
+    &lt;h1&gt;Memo&lt;/h1&gt;
+    &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+    &lt;?=$this-&gt;section('github')?&gt;
+&lt;?php $this-&gt;close(); ?&gt;</code>
+</pre>
+<p>在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。</p>
+<p>然后我们可以使用 Memo View 来载入之前定义的模板：</p>
+<pre>
+<code class="language-php">// file index.php
+require __DIR__ . "/Memo/src/Memo/View.php";
+
+use Memo\View;
+
+$view = new View(array(
+    "template" =&gt; "index",
+    "folders" =&gt; array(__DIR__ . "/templates/")
+));
+$view-&gt;display();</code>
+</pre>
+<p>Memo View 的 constructor 可以接受一个数组作为初始化参数，<code>template</code> 是模板名，<code>folders</code> 是模板目录。<code>folders</code> 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：</p>
+<pre>
+<code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Memo Framework&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Memo&lt;/h1&gt;
+        &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+<p>在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：</p>
+<pre>
+<code class="language-php">// file templates/github.php
+&lt;?php $this-&gt;layout('index'); ?&gt;
+
+&lt;?php $this-&gt;open('title'); ?&gt;
+    &lt;title&gt;Fork me on Github&lt;/title&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+
+&lt;?php $this-&gt;open('github'); ?&gt;
+    &lt;p&gt;Github: &lt;a href="&lt;?=$repo?&gt;"&gt;&lt;?=$this-&gt;toUpper($repo)?&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;?php $this-&gt;close(); ?&gt;</code>
+</pre>
+<p>在 github 模板中又设置了一次 title secion 的内容，并且在 github section 中使用了 $repo 变量 以及 toUpper 方法。</p>
+<pre>
+<code class="language-php">// file index.php
+require __DIR__ . "/Memo/src/Memo/View.php";
+
+use Memo\View;
+
+class Helper 
+{
+    public function toUpper($string)
+    {
+        return strtoupper($string);
+    }
+}
+
+$view = new View(array(
+    "template" =&gt; "github",
+    "helper" =&gt; new Helper(),
+    "folders" =&gt; array(__DIR__ . "/templates/")
+));
+$view-&gt;assign("repo", "https://github.com/zither/Memo");
+
+// 可以通过 $view-&gt;render() 方法来获取内容
+echo $view-&gt;render();</code>
+</pre>
+<p>上面的代码中我们新增了一个 <code>helper</code> 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：</p>
+<pre>
+<code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Fork me on Github&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Memo&lt;/h1&gt;
+        &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+        &lt;p&gt;Github: &lt;a href="https://github.com/zither/Memo"&gt;HTTPS://GITHUB.COM/ZITHER/MEMO&lt;/a&gt;&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+<p>从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。</p>		</div>
+	</article>
+	<div class="bar">
+		<span class="new">
+					</span>
+		<span class="old">
+			<a href="/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2">Skcoswodahs client 的简单实现（续） >></a>		</span>
+		<span class="count">
+			1 / 24		</span>
+	</div>
+	</div>
+</div>
+		</div>
+	</div>
+    <footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
+	<!-- Define and Load Javascript -->
+    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/theme/main.js"></script>
+	</body>
+</html>

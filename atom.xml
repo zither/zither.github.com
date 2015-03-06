@@ -5,11 +5,126 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-02-28T13:40:06+08:00</updated>
+	<updated>2015-03-06T17:45:46+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
 	</author>
+	<entry>
+		<title type="html"><![CDATA[Memo View Component]]></title>
+		<link href="http://blog.shouhuiben.net/article/2015/03/06/how-to-use-memo-view-component" />
+		<id>urn:uuid:ab1122c3-4a31-bcb1-3850-a5b17c77860e</id>
+		<updated>2015-03-06T14:55:07+08:00</updated>
+		<summary type="html"><![CDATA[&lt;p&gt;最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的就是 &lt;a href=&quot;https://github.com/zither/Memo&quot;&gt;Memo View Component&lt;/a&gt;。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。&lt;/p&gt;
+&lt;p&gt;Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;// file templates/base.php
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+        &amp;lt;?=$this-&amp;gt;section(&#039;title&#039;)?&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;?=$this-&amp;gt;section(&#039;content&#039;)?&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;// file templates/index.php
+&amp;lt;?php $this-&amp;gt;layout(&#039;base&#039;); ?&amp;gt;
+
+&amp;lt;?php $this-&amp;gt;open(&#039;title&#039;); ?&amp;gt;
+    &amp;lt;title&amp;gt;Memo Framework&amp;lt;/title&amp;gt;
+&amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;
+
+&amp;lt;?php $this-&amp;gt;open(&#039;content&#039;); ?&amp;gt;
+    &amp;lt;h1&amp;gt;Memo&amp;lt;/h1&amp;gt;
+    &amp;lt;p&amp;gt;Memo is a PHP micro framework.&amp;lt;/p&amp;gt;
+    &amp;lt;?=$this-&amp;gt;section(&#039;github&#039;)?&amp;gt;
+&amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。&lt;/p&gt;
+&lt;p&gt;然后我们可以使用 Memo View 来载入之前定义的模板：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;// file index.php
+require __DIR__ . &quot;/Memo/src/Memo/View.php&quot;;
+
+use Memo\View;
+
+$view = new View(array(
+    &quot;template&quot; =&amp;gt; &quot;index&quot;,
+    &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
+));
+$view-&amp;gt;display();&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;Memo View 的 constructor 可以接受一个数组作为初始化参数，&lt;code&gt;template&lt;/code&gt; 是模板名，&lt;code&gt;folders&lt;/code&gt; 是模板目录。&lt;code&gt;folders&lt;/code&gt; 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-html&quot;&gt;&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+        &amp;lt;title&amp;gt;Memo Framework&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;Memo&amp;lt;/h1&amp;gt;
+        &amp;lt;p&amp;gt;Memo is a PHP micro framework.&amp;lt;/p&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;// file templates/github.php
+&amp;lt;?php $this-&amp;gt;layout(&#039;index&#039;); ?&amp;gt;
+
+&amp;lt;?php $this-&amp;gt;open(&#039;title&#039;); ?&amp;gt;
+    &amp;lt;title&amp;gt;Fork me on Github&amp;lt;/title&amp;gt;
+&amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;
+
+&amp;lt;?php $this-&amp;gt;open(&#039;github&#039;); ?&amp;gt;
+    &amp;lt;p&amp;gt;Github: &amp;lt;a href=&quot;&amp;lt;?=$repo?&amp;gt;&quot;&amp;gt;&amp;lt;?=$this-&amp;gt;toUpper($repo)?&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;在 github 模板中又设置了一次 title secion 的内容，并且在 github section 中使用了 $repo 变量 以及 toUpper 方法。&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-php&quot;&gt;// file index.php
+require __DIR__ . &quot;/Memo/src/Memo/View.php&quot;;
+
+use Memo\View;
+
+class Helper 
+{
+    public function toUpper($string)
+    {
+        return strtoupper($string);
+    }
+}
+
+$view = new View(array(
+    &quot;template&quot; =&amp;gt; &quot;github&quot;,
+    &quot;helper&quot; =&amp;gt; new Helper(),
+    &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
+));
+$view-&amp;gt;assign(&quot;repo&quot;, &quot;https://github.com/zither/Memo&quot;);
+
+// 可以通过 $view-&amp;gt;render() 方法来获取内容
+echo $view-&amp;gt;render();&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;上面的代码中我们新增了一个 &lt;code&gt;helper&lt;/code&gt; 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：&lt;/p&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-html&quot;&gt;&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+        &amp;lt;title&amp;gt;Fork me on Github&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;Memo&amp;lt;/h1&amp;gt;
+        &amp;lt;p&amp;gt;Memo is a PHP micro framework.&amp;lt;/p&amp;gt;
+        &amp;lt;p&amp;gt;Github: &amp;lt;a href=&quot;https://github.com/zither/Memo&quot;&amp;gt;HTTPS://GITHUB.COM/ZITHER/MEMO&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。&lt;/p&gt;]]></summary>
+	</entry>
 	<entry>
 		<title type="html"><![CDATA[Skcoswodahs client 的简单实现（续）]]></title>
 		<link href="http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2" />
@@ -293,73 +408,5 @@ $factorial = $Y(function($recurse){
 echo $factorial(6); // 720&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。&lt;/p&gt;]]></summary>
-	</entry>
-	<entry>
-		<title type="html"><![CDATA[手动更新 VirtualBox Guest Additions]]></title>
-		<link href="http://blog.shouhuiben.net/article/2014/11/02/update-virtualbox-guest-additions" />
-		<id>urn:uuid:8006baa1-d4d8-a0c1-9595-8c3fe7df9f18</id>
-		<updated>2014-11-02T10:59:22+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;在使用 Vagrant 作为开发环境一段时间后，发现 Vagrant 也并不能做到完全的无缝迁移。昨天更新系统软件之后，在运行 Vagrant 时提示了 VirtualBox Guest Additions 版本不匹配的警告。这个问题一般是由 VirtualBox 更新引起的，在我们的 Vagrant 环境中，Guest Additions 版本不同最可能出现的问题就是无法挂载共享文件夹。&lt;/p&gt;
-&lt;p&gt;上面的问题可以通过升级 Vagrant box 里的 Guest Additions 来解决，升级也可以采用自动和手动两种方式。&lt;/p&gt;
-&lt;p&gt;Vagrant 的 Vbguest plugin 可以在启动时自动检测 Guest Additions 的版本，如果版本不同则自动更新同步，具体教程可以参考这篇教程：&lt;a href=&quot;http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/&quot;&gt;Vagrant Tip: Sync VirtualBox Guest Additions&lt;/a&gt;。我测试了一下这个插件，整个更新过程基本上是不需要人为操作，但是由于国内的网络问题，可能在下载新版本 Guest Additions(60MB+) 时需要等待比较长的时间。&lt;/p&gt;
-&lt;p&gt;不过我最后还是采用了手动更新，因为使用 Vagrant 的目的是尽量不折腾，就没必要在解决由于依赖引起的问题时引入新的依赖隐患。Guest Additions 的介绍和手动更新方法在 VirtualBox 的文档 &lt;a href=&quot;https://www.virtualbox.org/manual/ch04.html&quot;&gt;Chapter 4. Guest Additions&lt;/a&gt; 中写得非常详细了。在这里只是把步骤做一个简单的记录，方便以后需要时查看。&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;# 在 Vagrant box 中安装更新依赖
-vagrant@precise32:~$ sudo apt-get install linux-headers-$(uname -r) build-essential dkms
-# 下载新版本的 Guest Additions
-vagrant@precise32:~$ wget http://download.virtualbox.org/virtualbox/4.3.10/VBoxGuestAdditions_4.3.10.iso
-# 挂载镜像
-vagrant@precise32:~$ sudo mount VBoxGuestAdditions_4.3.10.iso -o loop,ro /mnt
-# 卸载旧版本，可省略
-vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run uninstall
-# 安装新版本
-vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;手动安装的过程也非常简单，但是不论是手动还是自动安装完成之后，启动时都可能会遇到以下这两个问题：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;Failed to mount folders in Linux guest. This is usually because
-the &quot;vboxsf&quot; file system is not available. Please verify that
-the guest additions are properly installed in the guest and
-can work properly. The command attempted was:
-
-mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` /vagrant /vagrant
-mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` /vagrant /vagrant&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;这个问题普遍反映在 Guest Additions 4.3.10 版本中，可以通过这个命令解决：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;vagrant@precise32:~$ sudo ln -sv /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions \
-/usr/lib/VBoxGuestAdditions&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;另外一个问题则表现为在新版安装成功之后依然会提示版本不匹配，VirtualBox 检测到的仍然是已经卸载掉的旧版本。首先需要确认新版本已经安装成功，检测是否已经安装了 vboxguest ：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code&gt;vagrant@precise32:~$ lsmod | grep -i vbox
-vboxsf                 42523  1 
-vboxguest             219244  2 vboxsf
-vboxvideo              12550  0 
-drm                   197692  1 vboxvideo&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;查看 vboxguest 版本：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;vagrant@precise32:~$ modinfo vboxguest
-filename:       /lib/modules/3.2.0-23-generic-pae/updates/dkms/vboxguest.ko
-version:        4.3.10
-license:        GPL
-description:    Oracle VM VirtualBox Guest Additions for Linux Module
-author:         Oracle Corporation
-srcversion:     FDAC0A8218FE4AEFD8732E8
-alias:          pci:v000080EEd0000CAFEsv00000000sd00000000bc*sc*i*
-depends:        
-vermagic:       3.2.0-23-generic-pae SMP mod_unload modversions 686 &lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;查看 guestproperty 中的版本号（id 可以在项目目录的 .vagrant/machines/default/virtualbox/id 中查看）：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;MiniThinker@localhost:~$ VBoxManage guestproperty get &amp;lt;id&amp;gt; /VirtualBox/GuestAdd/Version
-Value: 4.2&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;前面确认已经成功安装新版本，VBoxManage 仍然检测到的是旧版本，手动设置更新版本号：&lt;/p&gt;
-&lt;pre&gt;
-&lt;code class=&quot;language-bash&quot;&gt;MiniThinker@localhost:~$ VBoxManage guestproperty set &amp;lt;id&amp;gt; /VirtualBox/GuestAdd/Version&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;在问题解决后重新打包整个环境即可，如果不怕麻烦的话，可以卸载和删掉更新过程中安装和下载的文件。&lt;/p&gt;]]></summary>
 	</entry>
 </feed>
