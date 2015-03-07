@@ -10,7 +10,7 @@
     "publish": true
 }
 
-最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的就是 [Memo View Component](https://github.com/zither/Memo)。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。
+最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的是 [Memo View Component](https://github.com/zither/Memo)。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。
 
 Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：
 

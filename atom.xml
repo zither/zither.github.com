@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-03-07T12:48:34+08:00</updated>
+	<updated>2015-03-07T18:06:31+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -15,7 +15,7 @@
 		<link href="http://blog.shouhuiben.net/article/2015/03/06/how-to-use-memo-view-component" />
 		<id>urn:uuid:ab1122c3-4a31-bcb1-3850-a5b17c77860e</id>
 		<updated>2015-03-06T14:55:07+08:00</updated>
-		<summary type="html"><![CDATA[&lt;p&gt;最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的就是 &lt;a href=&quot;https://github.com/zither/Memo&quot;&gt;Memo View Component&lt;/a&gt;。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。&lt;/p&gt;
+		<summary type="html"><![CDATA[&lt;p&gt;最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的是 &lt;a href=&quot;https://github.com/zither/Memo&quot;&gt;Memo View Component&lt;/a&gt;。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。&lt;/p&gt;
 &lt;p&gt;Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;// file templates/base.php
