@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-03-06T18:01:10+08:00</updated>
+	<updated>2015-03-07T12:48:34+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -52,11 +52,15 @@ require __DIR__ . &quot;/Memo/src/Memo/View.php&quot;;
 
 use Memo\View;
 
-$view = new View(array(
-    &quot;template&quot; =&amp;gt; &quot;index&quot;,
-    &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
-));
-$view-&amp;gt;display();&lt;/code&gt;
+try {
+    $view = new View(array(
+        &quot;template&quot; =&amp;gt; &quot;index&quot;,
+        &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
+    ));
+    $view-&amp;gt;display();
+} catch (Exception $e) {
+    echo $e-&amp;gt;getMessage(), PHP_EOL;
+}&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;Memo View 的 constructor 可以接受一个数组作为初始化参数，&lt;code&gt;template&lt;/code&gt; 是模板名，&lt;code&gt;folders&lt;/code&gt; 是模板目录。&lt;code&gt;folders&lt;/code&gt; 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：&lt;/p&gt;
 &lt;pre&gt;
@@ -99,15 +103,18 @@ class Helper
     }
 }
 
-$view = new View(array(
-    &quot;template&quot; =&amp;gt; &quot;github&quot;,
-    &quot;helper&quot; =&amp;gt; new Helper(),
-    &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
-));
-$view-&amp;gt;assign(&quot;repo&quot;, &quot;https://github.com/zither/Memo&quot;);
-
-// 可以通过 $view-&amp;gt;render() 方法来获取内容
-echo $view-&amp;gt;render();&lt;/code&gt;
+try {
+    $view = new View(array(
+        &quot;template&quot; =&amp;gt; &quot;github&quot;,
+        &quot;helper&quot; =&amp;gt; new Helper(),
+        &quot;folders&quot; =&amp;gt; array(__DIR__ . &quot;/templates/&quot;)
+    ));
+    $view-&amp;gt;assign(&quot;repo&quot;, &quot;https://github.com/zither/Memo&quot;);
+    // 可以通过 $view-&amp;gt;render() 方法来获取内容
+    echo $view-&amp;gt;render();
+} catch (Exception $e) {
+    echo $e-&amp;gt;getMessage(), PHP_EOL;
+}&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;上面的代码中我们新增了一个 &lt;code&gt;helper&lt;/code&gt; 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：&lt;/p&gt;
 &lt;pre&gt;

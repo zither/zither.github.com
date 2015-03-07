@@ -54,11 +54,15 @@ require __DIR__ . "/Memo/src/Memo/View.php";
 
 use Memo\View;
 
-$view = new View(array(
-    "template" => "index",
-    "folders" => array(__DIR__ . "/templates/")
-));
-$view->display();
+try {
+    $view = new View(array(
+        "template" => "index",
+        "folders" => array(__DIR__ . "/templates/")
+    ));
+    $view->display();
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
 ```
 
 Memo View 的 constructor 可以接受一个数组作为初始化参数，`template` 是模板名，`folders` 是模板目录。`folders` 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：
@@ -107,15 +111,18 @@ class Helper
     }
 }
 
-$view = new View(array(
-    "template" => "github",
-    "helper" => new Helper(),
-    "folders" => array(__DIR__ . "/templates/")
-));
-$view->assign("repo", "https://github.com/zither/Memo");
-
-// 可以通过 $view->render() 方法来获取内容
-echo $view->render();
+try {
+    $view = new View(array(
+        "template" => "github",
+        "helper" => new Helper(),
+        "folders" => array(__DIR__ . "/templates/")
+    ));
+    $view->assign("repo", "https://github.com/zither/Memo");
+    // 可以通过 $view->render() 方法来获取内容
+    echo $view->render();
+} catch (Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
 ```
 
 上面的代码中我们新增了一个 `helper` 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：
