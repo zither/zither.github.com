@@ -5,7 +5,7 @@
 	<link href="http://blog.shouhuiben.net/atom.xml" rel="self" />
 	<link href="http://blog.shouhuiben.net/" />
 	<id>urn:uuid:383ccd36-a683-4898-15fd-9525d3a970f7</id>
-	<updated>2015-03-09T15:07:42+08:00</updated>
+	<updated>2015-03-09T15:32:14+08:00</updated>
 	<author>
 		<name><![CDATA[Minimee]]></name>
 		<uri>http://blog.shouhuiben.net/</uri>
@@ -22,26 +22,26 @@
 &amp;lt;html&amp;gt;
     &amp;lt;head&amp;gt;
         &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
-        &amp;lt;?=$this-&amp;gt;section(&#039;title&#039;)?&amp;gt;
+        &amp;lt;?=$this-&amp;gt;section(&quot;title&quot;)?&amp;gt;
     &amp;lt;/head&amp;gt;
     &amp;lt;body&amp;gt;
-        &amp;lt;?=$this-&amp;gt;section(&#039;content&#039;)?&amp;gt;
+        &amp;lt;?=$this-&amp;gt;section(&quot;content&quot;)?&amp;gt;
     &amp;lt;/body&amp;gt;
 &amp;lt;/html&amp;gt;&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;// file templates/index.php
-&amp;lt;?php $this-&amp;gt;layout(&#039;base&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;layout(&quot;base&quot;); ?&amp;gt;
 
-&amp;lt;?php $this-&amp;gt;open(&#039;title&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;open(&quot;title&quot;); ?&amp;gt;
     &amp;lt;title&amp;gt;Memo Framework&amp;lt;/title&amp;gt;
 &amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;
 
-&amp;lt;?php $this-&amp;gt;open(&#039;content&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;open(&quot;content&quot;); ?&amp;gt;
     &amp;lt;h1&amp;gt;Memo&amp;lt;/h1&amp;gt;
     &amp;lt;p&amp;gt;Memo is a PHP micro framework.&amp;lt;/p&amp;gt;
-    &amp;lt;?=$this-&amp;gt;section(&#039;github&#039;)?&amp;gt;
+    &amp;lt;?=$this-&amp;gt;section(&quot;github&quot;)?&amp;gt;
 &amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。&lt;/p&gt;
@@ -78,13 +78,13 @@ try {
 &lt;p&gt;在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;// file templates/github.php
-&amp;lt;?php $this-&amp;gt;layout(&#039;index&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;layout(&quot;index&quot;); ?&amp;gt;
 
-&amp;lt;?php $this-&amp;gt;open(&#039;title&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;open(&quot;title&quot;); ?&amp;gt;
     &amp;lt;title&amp;gt;Fork me on Github&amp;lt;/title&amp;gt;
 &amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;
 
-&amp;lt;?php $this-&amp;gt;open(&#039;github&#039;); ?&amp;gt;
+&amp;lt;?php $this-&amp;gt;open(&quot;github&quot;); ?&amp;gt;
     &amp;lt;p&amp;gt;Github: &amp;lt;a href=&quot;&amp;lt;?=$repo?&amp;gt;&quot;&amp;gt;&amp;lt;?=$this-&amp;gt;toUpper($repo)?&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
 &amp;lt;?php $this-&amp;gt;close(); ?&amp;gt;&lt;/code&gt;
 &lt;/pre&gt;
@@ -341,44 +341,44 @@ fclose($remote);&lt;/code&gt;
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
 require __DIR__ . &quot;/Autoload.php&quot;;
-Autoload::addNamespace(&#039;Qiniu&#039;, dirname(__DIR__) . &#039;/src/Qiniu&#039;);
+Autoload::addNamespace(&quot;Qiniu&quot;, dirname(__DIR__) . &quot;/src/Qiniu&quot;);
 Autoload::register();
 
-$accessKey = &#039;accessKey&#039;;
-$secretKey = &#039;secretKey&#039;;
+$accessKey = &quot;accessKey&quot;;
+$secretKey = &quot;secretKey&quot;;
 $qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
 
-$bucket = $qiniu-&amp;gt;getBucket(&#039;sketch&#039;);
-$response = $bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;]);
+$bucket = $qiniu-&amp;gt;getBucket(&quot;sketch&quot;);
+$response = $bucket-&amp;gt;put($_FILES[&quot;file&quot;][&quot;tmp_name&quot;]);
 echo $response-&amp;gt;getContent();&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;$bucket = $qiuniu-&amp;gt;getBucket(&#039;sketch&#039;);
+&lt;code class=&quot;language-php&quot;&gt;$bucket = $qiuniu-&amp;gt;getBucket(&quot;sketch&quot;);
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket-&amp;gt;setPolicy(array(
-    &#039;saveKey&#039; =&amp;gt; sprintf(&quot;%s.jpg&quot;, time()),
-    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key),&quot;name&quot;: $(fname)}&#039;,
-    &#039;expires&#039; =&amp;gt; 3600
+    &quot;saveKey&quot; =&amp;gt; sprintf(&quot;%s.jpg&quot;, time()),
+    &quot;returnBody&quot; =&amp;gt; &#039;{&quot;key&quot;: $(key),&quot;name&quot;: $(fname)}&#039;,
+    &quot;expires&quot; =&amp;gt; 3600
 ));&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：&lt;/p&gt;
 &lt;pre&gt;
-&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;], &#039;avatar.png&#039;, \Qiniu\Bucket::EXTR_OVERWRITE);&lt;/code&gt;
+&lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;put($_FILES[&quot;file&quot;][&quot;tmp_name&quot;], &quot;avatar.png&quot;, \Qiniu\Bucket::EXTR_OVERWRITE);&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：&lt;/p&gt;
 &lt;pre&gt;
 &lt;code class=&quot;language-php&quot;&gt;$bucket-&amp;gt;setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
-    &#039;returnBody&#039; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot;: $(x:user)}&#039;,                  
+    &quot;returnBody&quot; =&amp;gt; &#039;{&quot;key&quot;: $(key), &quot;user&quot;: $(x:user)}&#039;,                  
 ));
 $uploadParams = array(
     // 文件保存名称
-    &#039;key&#039; =&amp;gt; &#039;avatar.png&#039;,
+    &quot;key&quot; =&amp;gt; &quot;avatar.png&quot;,
     // 自定义魔术变量
-    &#039;x:user&#039; =&amp;gt; &#039;Simple Qiniu SDK&#039;
+    &quot;x:user&quot; =&amp;gt; &quot;Simple Qiniu SDK&quot;
 );
-$bucket-&amp;gt;put($_FILES[&#039;file&#039;][&#039;tmp_name&#039;], $uploadParams);&lt;/code&gt;
+$bucket-&amp;gt;put($_FILES[&quot;file&quot;][&quot;tmp_name&quot;], $uploadParams);&lt;/code&gt;
 &lt;/pre&gt;
 &lt;p&gt;如果你希望采用&lt;a href=&quot;http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html&quot;&gt;表单上传模式&lt;/a&gt;，你可以使用 getUpToken 方法来获取上传令牌：&lt;/p&gt;
 &lt;pre&gt;

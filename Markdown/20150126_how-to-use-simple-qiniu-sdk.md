@@ -15,34 +15,34 @@
 ```php
 // Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
 require __DIR__ . "/Autoload.php";
-Autoload::addNamespace('Qiniu', dirname(__DIR__) . '/src/Qiniu');
+Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
 Autoload::register();
 
-$accessKey = 'accessKey';
-$secretKey = 'secretKey';
+$accessKey = "accessKey";
+$secretKey = "secretKey";
 $qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
 
-$bucket = $qiniu->getBucket('sketch');
-$response = $bucket->put($_FILES['file']['tmp_name']);
+$bucket = $qiniu->getBucket("sketch");
+$response = $bucket->put($_FILES["file"]["tmp_name"]);
 echo $response->getContent();
 ```
 
 这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：
 
 ```php
-$bucket = $qiuniu->getBucket('sketch');
+$bucket = $qiuniu->getBucket("sketch");
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket->setPolicy(array(
-    'saveKey' => sprintf("%s.jpg", time()),
-    'returnBody' => '{"key": $(key),"name": $(fname)}',
-    'expires' => 3600
+    "saveKey" => sprintf("%s.jpg", time()),
+    "returnBody" => '{"key": $(key),"name": $(fname)}',
+    "expires" => 3600
 ));
 ```
 
 你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：
 
 ```php
-$bucket->put($_FILES['file']['tmp_name'], 'avatar.png', \Qiniu\Bucket::EXTR_OVERWRITE);
+$bucket->put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);
 ```
 
 你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：
@@ -50,15 +50,15 @@ $bucket->put($_FILES['file']['tmp_name'], 'avatar.png', \Qiniu\Bucket::EXTR_OVER
 ```php
 $bucket->setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
-    'returnBody' => '{"key": $(key), "user": $(x:user)}',                  
+    "returnBody" => '{"key": $(key), "user": $(x:user)}',                  
 ));
 $uploadParams = array(
     // 文件保存名称
-    'key' => 'avatar.png',
+    "key" => "avatar.png",
     // 自定义魔术变量
-    'x:user' => 'Simple Qiniu SDK'
+    "x:user" => "Simple Qiniu SDK"
 );
-$bucket->put($_FILES['file']['tmp_name'], $uploadParams);
+$bucket->put($_FILES["file"]["tmp_name"], $uploadParams);
 ```
 
 如果你希望采用[表单上传模式](http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html)，你可以使用 getUpToken 方法来获取上传令牌：

@@ -41,26 +41,26 @@
 &lt;html&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
-        &lt;?=$this-&gt;section('title')?&gt;
+        &lt;?=$this-&gt;section("title")?&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;?=$this-&gt;section('content')?&gt;
+        &lt;?=$this-&gt;section("content")?&gt;
     &lt;/body&gt;
 &lt;/html&gt;</code>
 </pre>
 <p>base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：</p>
 <pre>
 <code class="language-php">// file templates/index.php
-&lt;?php $this-&gt;layout('base'); ?&gt;
+&lt;?php $this-&gt;layout("base"); ?&gt;
 
-&lt;?php $this-&gt;open('title'); ?&gt;
+&lt;?php $this-&gt;open("title"); ?&gt;
     &lt;title&gt;Memo Framework&lt;/title&gt;
 &lt;?php $this-&gt;close(); ?&gt;
 
-&lt;?php $this-&gt;open('content'); ?&gt;
+&lt;?php $this-&gt;open("content"); ?&gt;
     &lt;h1&gt;Memo&lt;/h1&gt;
     &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
-    &lt;?=$this-&gt;section('github')?&gt;
+    &lt;?=$this-&gt;section("github")?&gt;
 &lt;?php $this-&gt;close(); ?&gt;</code>
 </pre>
 <p>在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。</p>
@@ -97,13 +97,13 @@ try {
 <p>在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：</p>
 <pre>
 <code class="language-php">// file templates/github.php
-&lt;?php $this-&gt;layout('index'); ?&gt;
+&lt;?php $this-&gt;layout("index"); ?&gt;
 
-&lt;?php $this-&gt;open('title'); ?&gt;
+&lt;?php $this-&gt;open("title"); ?&gt;
     &lt;title&gt;Fork me on Github&lt;/title&gt;
 &lt;?php $this-&gt;close(); ?&gt;
 
-&lt;?php $this-&gt;open('github'); ?&gt;
+&lt;?php $this-&gt;open("github"); ?&gt;
     &lt;p&gt;Github: &lt;a href="&lt;?=$repo?&gt;"&gt;&lt;?=$this-&gt;toUpper($repo)?&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;?php $this-&gt;close(); ?&gt;</code>
 </pre>

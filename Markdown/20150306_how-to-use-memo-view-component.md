@@ -19,10 +19,10 @@ Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base �
 <html>
     <head>
         <meta charset="utf-8">
-        <?=$this->section('title')?>
+        <?=$this->section("title")?>
     </head>
     <body>
-        <?=$this->section('content')?>
+        <?=$this->section("content")?>
     </body>
 </html>
 ```
@@ -31,16 +31,16 @@ base 模板中的 section 方法相当于一个占位符，具体内容需要子
 
 ```php
 // file templates/index.php
-<?php $this->layout('base'); ?>
+<?php $this->layout("base"); ?>
 
-<?php $this->open('title'); ?>
+<?php $this->open("title"); ?>
     <title>Memo Framework</title>
 <?php $this->close(); ?>
 
-<?php $this->open('content'); ?>
+<?php $this->open("content"); ?>
     <h1>Memo</h1>
     <p>Memo is a PHP micro framework.</p>
-    <?=$this->section('github')?>
+    <?=$this->section("github")?>
 <?php $this->close(); ?>
 ```
 
@@ -84,13 +84,13 @@ Memo View 的 constructor 可以接受一个数组作为初始化参数，`templ
 
 ```php
 // file templates/github.php
-<?php $this->layout('index'); ?>
+<?php $this->layout("index"); ?>
 
-<?php $this->open('title'); ?>
+<?php $this->open("title"); ?>
     <title>Fork me on Github</title>
 <?php $this->close(); ?>
 
-<?php $this->open('github'); ?>
+<?php $this->open("github"); ?>
     <p>Github: <a href="<?=$repo?>"><?=$this->toUpper($repo)?></a></p>
 <?php $this->close(); ?>
 ```
