@@ -1,42 +1,77 @@
-<!doctype html>
-<html lang="zh-cn">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
-	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme">
-	<title>ZJmee</title>
-	
-	<link rel="stylesheet" href="/theme/main.css">
-</head>
-<body>
-    <header>
-        <h1><a href="/">ZJmee</a></h1>
-        <h2>努力学习那些想要知道的东西</h2>
-    </header>
-    <div id="nav">
-        <a href="/">Home</a>
-        <a href="/linux">Linux</a>
-        <a href="/about">About</a>
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+    <head>
+        <meta charset="utf-8">
+<title>ZJmee 机械迷城</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ZJmee 的代码幻境。">
+<meta name="author" content="ZJmee">
+<meta name="generator" content="Spress" />
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:image" content="/assets/img/logo.png">
+    <meta name="twitter:title" content="ZJmee 机械迷城">
+    <meta name="twitter:description" content="ZJmee 的代码幻境。">
+    <meta name="twitter:creator" content="@ilorn">
+
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZJmee 机械迷城">
+<meta property="og:description" content="ZJmee 的代码幻境。">
+<meta property="og:url" content="/index.html">
+<meta property="og:site_name" content="ZJMEE 机械迷城">
+
+<link href="/rss.xml" type="application/rss+xml" rel="alternate" title="ZJMEE 机械迷城 Feed">
+<link rel="icon" type="image/png" href="/assets/img/logo.png">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
+
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="/assets/css/style.css" rel="stylesheet" media="screen">
+
+<link rel="stylesheet" href="/assets/css/obsidian.css">
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+            <a class="label label-primary" href="/">ZJMEE 机械迷城</a>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        <li><a href="/">
+        Home</a>
+    </li>
+        <li><a href="/linux">
+        Linux</a>
+    </li>
+    </ul>
+      </div><!--/.nav-collapse -->
     </div>
-	<div id="main">
-		<div class="border">
-			<div id="container"><div id="page">
-		<article>
-		<div class="title">
-			<a href="/article/2015/03/06/how-to-use-memo-view-component">Memo View Component</a>		</div>
-		<div class="info">
-			<span class="date">2015-03-06</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Memo">Memo</a>			</span>
-					</div>
-		<div class="content">
-			<p>最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的是 <a href="https://github.com/zither/Memo">Memo View Component</a>。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。</p>
+</div>
+            <div class="container">
+                                <article class="post">
+    <header>
+        <h1>
+            <a href="/2015/03/06/how-to-use-memo-view-component.html">Memo View Component</a>
+        </h1>
+    </header>
+    
+    <p>最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的是 <a href="https://github.com/zither/Memo">Memo View Component</a>。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。</p>
+
 <p>Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：</p>
-<pre>
-<code class="language-php">// file templates/base.php
+
+<pre><code class="php">// file templates/base.php
 &lt;html&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
@@ -45,11 +80,12 @@
     &lt;body&gt;
         &lt;?=$this-&gt;section("content")?&gt;
     &lt;/body&gt;
-&lt;/html&gt;</code>
-</pre>
+&lt;/html&gt;
+</code></pre>
+
 <p>base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：</p>
-<pre>
-<code class="language-php">// file templates/index.php
+
+<pre><code class="php">// file templates/index.php
 &lt;?php $this-&gt;layout("base"); ?&gt;
 
 &lt;?php $this-&gt;open("title"); ?&gt;
@@ -60,12 +96,14 @@
     &lt;h1&gt;Memo&lt;/h1&gt;
     &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
     &lt;?=$this-&gt;section("github")?&gt;
-&lt;?php $this-&gt;close(); ?&gt;</code>
-</pre>
+&lt;?php $this-&gt;close(); ?&gt;
+</code></pre>
+
 <p>在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。</p>
+
 <p>然后我们可以使用 Memo View 来载入之前定义的模板：</p>
-<pre>
-<code class="language-php">// file index.php
+
+<pre><code class="php">// file index.php
 require __DIR__ . "/Memo/src/Memo/View.php";
 
 use Memo\View;
@@ -78,11 +116,12 @@ try {
     $view-&gt;display();
 } catch (Exception $e) {
     echo $e-&gt;getMessage(), PHP_EOL;
-}</code>
-</pre>
+}
+</code></pre>
+
 <p>Memo View 的 constructor 可以接受一个数组作为初始化参数，<code>template</code> 是模板名，<code>folders</code> 是模板目录。<code>folders</code> 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：</p>
-<pre>
-<code class="language-html">&lt;html&gt;
+
+<pre><code class="html">&lt;html&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;title&gt;Memo Framework&lt;/title&gt;
@@ -91,11 +130,12 @@ try {
         &lt;h1&gt;Memo&lt;/h1&gt;
         &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
     &lt;/body&gt;
-&lt;/html&gt;</code>
-</pre>
+&lt;/html&gt;
+</code></pre>
+
 <p>在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：</p>
-<pre>
-<code class="language-php">// file templates/github.php
+
+<pre><code class="php">// file templates/github.php
 &lt;?php $this-&gt;layout("index"); ?&gt;
 
 &lt;?php $this-&gt;open("title"); ?&gt;
@@ -104,11 +144,12 @@ try {
 
 &lt;?php $this-&gt;open("github"); ?&gt;
     &lt;p&gt;Github: &lt;a href="&lt;?=$repo?&gt;"&gt;&lt;?=$this-&gt;toUpper($repo)?&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;?php $this-&gt;close(); ?&gt;</code>
-</pre>
+&lt;?php $this-&gt;close(); ?&gt;
+</code></pre>
+
 <p>在 github 模板中又设置了一次 title secion 的内容，并且在 github section 中使用了 $repo 变量 以及 toUpper 方法。</p>
-<pre>
-<code class="language-php">// file index.php
+
+<pre><code class="php">// file index.php
 require __DIR__ . "/Memo/src/Memo/View.php";
 
 use Memo\View;
@@ -132,11 +173,12 @@ try {
     echo $view-&gt;render();
 } catch (Exception $e) {
     echo $e-&gt;getMessage(), PHP_EOL;
-}</code>
-</pre>
+}
+</code></pre>
+
 <p>上面的代码中我们新增了一个 <code>helper</code> 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：</p>
-<pre>
-<code class="language-html">&lt;html&gt;
+
+<pre><code class="html">&lt;html&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;title&gt;Fork me on Github&lt;/title&gt;
@@ -146,25 +188,28 @@ try {
         &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
         &lt;p&gt;Github: &lt;a href="https://github.com/zither/Memo"&gt;HTTPS://GITHUB.COM/ZITHER/MEMO&lt;/a&gt;&lt;/p&gt;
     &lt;/body&gt;
-&lt;/html&gt;</code>
-</pre>
-<p>从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2">Skcoswodahs client 的简单实现（续）</a>		</div>
-		<div class="info">
-			<span class="date">2015-02-20</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-					</div>
-		<div class="content">
-			<p>考虑到之前的那篇<a href="/article/2015/02/12/a-simple-implementation-of-Skcoswodahs-client/">「Skcoswodahs client 的简单实现」</a>中使用了一些不恰当的第三方库，导致一些朋友在完善客户端的时候遇到了问题，特意写了这篇文章来说明一下。</p>
+&lt;/html&gt;
+</code></pre>
+
+<p>从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2.html">Skcoswodahs client 的简单实现（续）</a>
+        </h1>
+    </header>
+    
+    <p>考虑到之前的那篇<a href="/article/2015/02/12/a-simple-implementation-of-Skcoswodahs-client/">「Skcoswodahs client 的简单实现」</a>中使用了一些不恰当的第三方库，导致一些朋友在完善客户端的时候遇到了问题，特意写了这篇文章来说明一下。</p>
+
 <p>在上一篇文章中，为了方便我直接使用了 <a href="http://sourceforge.net/projects/rc4crypt/">RC4Crypt</a> 这个简单的 RC4 实现。但是这个库是不能真的用到客户端中去：它不支持 update 操作，每次加密或解密的时候都会重置 S box，如果连续操作的话就会出现乱码。</p>
+
 <p>所以我重新了实现了一个带状态的 <a href="https://github.com/zither/RC4-PHP">RC4-PHP</a> 类，用来代替之前的 RC4Crypt，使用说明如下：</p>
-<pre>
-<code class="language-php">// Source: https://github.com/zither/RC4-PHP
+
+<pre><code class="php">// Source: https://github.com/zither/RC4-PHP
 require __DIR__ . "/src/RC4.php";
 
 $password = md5("password", true);
@@ -186,64 +231,77 @@ printf(
 // output
 //------ UPDATE MODE ------
 //subPlaintext1: 0123456789abcdef
-//subPlaintext2: ghijklmnopqrstuvwxyz</code>
-</pre>
+//subPlaintext2: ghijklmnopqrstuvwxyz
+</code></pre>
+
 <p>为了验证可用性，我用 PHP 写了一个只支持 RC4 的 Skcoswodahs 客户端：<a href="http://pan.baidu.com/s/1sjuiJH7">Psslocal.phar</a>，下载后可以得到一个 Phar 包，用 PHP 执行它即可：</p>
-<pre>
-<code>// 客户端中使用了 mcrypt_create_iv 函数来生成 iv，运行前注意加载 MCrypt 拓展
+
+<pre><code>// 客户端中使用了 mcrypt_create_iv 函数来生成 iv，运行前注意加载 MCrypt 拓展
 php psslocal.phar -c ~/skcoswodahs/config.json
 // 或者
 sudo mv psslocal.phar /usr/local/bin/psslocal
 sudo chmod u+x /usr/local/bin/psslocal
-psslocal -c ~/skcoswodahs/config.json</code>
-</pre>
+psslocal -c ~/skcoswodahs/config.json
+</code></pre>
+
 <p>这个客户端只是随手找的一个 SOCKS5 库改的，代码不敢恭维，测试即可，请勿当真。</p>
+
 <p>其实用 PHP 来写 Skcoswodahs 客户端并不是一个很好的选择，抛开性能不说，在实现各种加密算法的时候都会遇到很多问题：PHP 官方自带的 Openssl 拓展不支持 context 设置和 update 操作； MCrypt 拓展各版本支持的算法不全，比如在新版本中移除了 RC4 支持。当然这些问题都可以通过安装第三方拓展来解决，但是这样就大大降低了客户端的通用性。</p>
+
 <p>如果你只熟悉 PHP 语言，那么我推荐你改写 Skcoswodahs 服务端，在服务端可以使用各种高性能框架，加密算法的支持也可以通过拓展解决，那么写客户端时要面临的问题都不复存在了。</p>
+
 <p>----- 2015年02月25日更新 -----</p>
-<p>我试着基于 Swoole + Openssl + Openssl-incremental 拓展实现了一个 PHP 版的 Skcoswodahs 服务端，在几天的单人测试中没有出现任何问题，一直维持着极低的 CUP 和 内存使用率。由于 Swoole 拓展自身的一些特性需求，在实现多端口的动态监听时会有些麻烦，但如果只监听多个固定端口还是非常方便的。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2015/02/12/a-simple-implementation-of-Skcoswodahs-client">Skcoswodahs client 的简单实现</a>		</div>
-		<div class="info">
-			<span class="date">2015-02-12</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-					</div>
-		<div class="content">
-			<p>现在最热门的上网姿势非 <a href="https://github.com/shadowsocks/shadowsocks">Skcoswodahs</a> 莫属，当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Skcoswodahs 客户端。</p>
+
+<p>我试着基于 Swoole + Openssl + Openssl-incremental 拓展实现了一个 PHP 版的 Skcoswodahs 服务端，在几天的单人测试中没有出现任何问题，一直维持着极低的 CUP 和 内存使用率。由于 Swoole 拓展自身的一些特性需求，在实现多端口的动态监听时会有些麻烦，但如果只监听多个固定端口还是非常方便的。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2015/02/12/a-simple-implemention-of-shadowsocks-client.html">Skcoswodahs client 的简单实现</a>
+        </h1>
+    </header>
+    
+    <p>现在最热门的上网姿势非 <a href="https://github.com/shadowsocks/shadowsocks">Skcoswodahs</a> 莫属，当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Skcoswodahs 客户端。</p>
+
 <p>首先我们需要知道 Skcoswodahs 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：</p>
-<pre>
-<code>+--------------------------------------------------------------+
+
+<pre><code>+--------------------------------------------------------------+
 |             1                2                 3             |
 +  browser ------- ss-local ------- ss-server -------  Google  +
 |           SOCKS                  Skcoswodahs                 |
-+--------------------------------------------------------------+</code>
-</pre>
++--------------------------------------------------------------+
+</code></pre>
+
 <p>从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 ss-local 以及 ss-server 两个代理，阶段1和阶段3传递的都是原始数据。而 ss-local 与 ss-server 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。</p>
+
 <p>在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 <a href="https://www.ietf.org/rfc/rfc1928.txt">SOCKS 协议规范</a>。</p>
+
 <p>在浏览器与 ss-local 之间的 method-dependent 协商完成后，浏览器会将需要访问的服务器地址和端口发送给 ss-local，其格式如下：</p>
-<pre>
-<code> +----+-----+-------+------+----------+----------+
+
+<pre><code> +----+-----+-------+------+----------+----------+
  |VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
  +----+-----+-------+------+----------+----------+
  | 1  |  1  | X'00' |  1   | Variable |    2     |
- +----+-----+-------+------+----------+----------+</code>
-</pre>
+ +----+-----+-------+------+----------+----------+
+</code></pre>
+
 <p>ATYP，DST.ADDR 和 DST.PORT 这三个字段（Header）是需要通过我们的客户端转发到 ss-server 的。在我们与 ss-server 连接成功后可以完成与浏览器 SOCKS 协商的剩下部分。浏览器再将 HTTP 请求发送到我们的客户端。我们可以直接将之前的 Header 和 HTTP 请求内容拼接在一起进行加密，然后通过之前建立的连接发送的 ss-server。加密数据的格式如下：</p>
-<pre>
-<code> +------+----------+----------+----------+
+
+<pre><code> +------+----------+----------+----------+
  | ATYP | DST.ADDR | DST.PORT |   HTTP   | 
  +------+----------+----------+----------+
  |  1   | Variable |    2     | Variable |
- +------+----------+----------+----------+</code>
-</pre>
+ +------+----------+----------+----------+
+</code></pre>
+
 <p>需要注意的是，header 部分只需要在建立通道的时候发送一次，通道建立之后直接传递加密的请求数据即可。ss-server 在收到数据后会直接解密，读取 ATYP 字段，根据其类型解析 header 部分，如果数据的整个长度超过 header 的长度，剩下的部分就会作为请求的内容。ss-server 会将从目标服务器获取的数据加密后通过通道转发回我们的客户端，我们需要将数据解密后返回给浏览器。</p>
+
 <p>从整个通信过程来说，我们的客户端其实就是带有加密解密功能的 SOCKS server。除了 SOCKS server 最基本的功能以外，需要我们动手就是加密解密功能了。现在我们开始写代码：</p>
-<pre>
-<code class="language-php">// Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
+
+<pre><code class="php">// Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
 require "Encryptor.php";
 require "Cipher.php";
 // Update:http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
@@ -252,26 +310,31 @@ require "Rc4crypt.php";
 $domain = "www.google.com";
 $data = pack("C2", 0x03, strlen($domain));
 $data .= $domain . pack("n", 0x50);
-$data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $domain);</code>
-</pre>
+$data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $domain);
+</code></pre>
+
 <p>我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件功能比较简单。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Skcoswodahs 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。</p>
+
 <p>我直接跳过了与浏览器协商的部分，我们假设浏览器发出的请求是访问 Google 首页，为了摆出科学的姿势，我们不能在本地对 Domain 进行 DNS 解析，所以 Header 的内容是这样的：</p>
-<pre>
-<code> +------+------+----------------+----------+
+
+<pre><code> +------+------+----------------+----------+
  | ATYP | ALEN |    DST.ADDR    | DST.PORT | 
  +------+------+----------------+----------+
  | 0x03 | 0x0E | www.google.com |   0x50   |
- +------+------+----------------+----------+</code>
-</pre>
+ +------+------+----------------+----------+
+</code></pre>
+
 <p>上面表示的是 ATYP 为完整域名（0x03）时的格式，ALEN 用一个字节指定域名的长度，DST.PORT 用两个字节指定端口。SOCKS 还支持 IP4（0x01）和 IP6（0x04），对应的格式可以直接在 <a href="https://www.ietf.org/rfc/rfc1928.txt">SOCKS 协议规范</a>中了解。为了避免 ss-server 在解析 Header 时出现错误，ATYP,ALEN 以及 DST.PORT 这几个重要的部分我们通过 pack 函数以二进制的形式包装到字符串中。最后我们在 Header 后面附加一个简单的 HTTP 请求，这样我们就完成了一个虚拟请求的数据构成。</p>
+
 <p>现在我们可以将数据进行加密了：</p>
-<pre>
-<code class="language-php">$encryptor = new Encryptor("password", "RC4");
-$encryptedData = $encryptor-&gt;encrypt($data);</code>
-</pre>
+
+<pre><code class="php">$encryptor = new Encryptor("password", "RC4");
+$encryptedData = $encryptor-&gt;encrypt($data);
+</code></pre>
+
 <p>这里的 password 就是 Skcoswodahs 的配置文件中约定的密码，RC4 是加密方法。这里有一个地方需要注意，在第一次加密数据的时候 Encryptor 会将随机字符串 iv 与我们的数据拼接在一起：</p>
-<pre>
-<code class="language-php">class Encryptor 
+
+<pre><code class="php">class Encryptor 
 {
     //...
     public function encrypt($data)
@@ -286,11 +349,12 @@ $encryptedData = $encryptor-&gt;encrypt($data);</code>
         return $this-&gt;cipherIv . $this-&gt;cipher-&gt;encrypt($data);
     }
     //...
-}</code>
-</pre>
+}
+</code></pre>
+
 <p>在我们准备好数据之后就要开始与 ss-server 通信，如果你手上没有 Skcoswodahs 服务器，可以在本地环境中搭建一个，server 地址改为 127.0.0.1 就可以了：</p>
-<pre>
-<code class="language-json">{
+
+<pre><code class="json">{
     "server": "127.0.0.1",
     "server_port": "50560",
     "local_address": "127.0.0.1",
@@ -300,20 +364,22 @@ $encryptedData = $encryptor-&gt;encrypt($data);</code>
     "method": "rc4-md5",
     "fast_open": false,
     "workers": 1
-}</code>
-</pre>
+}
+</code></pre>
+
 <p>如果你使用的是本地服务器，请将前面代码中的 domain 换为国内能够访问的地址，比如 www.bing.com。数据加密之后我们需要与 ss-server 建立一个通道：</p>
-<pre>
-<code class="language-php">$remote = stream_socket_client("tcp://example.ss-server.com:50565", $errno, $errstr);
+
+<pre><code class="php">$remote = stream_socket_client("tcp://example.ss-server.com:50565", $errno, $errstr);
 if (!$remote) {
     throw new Exception($errstr, $errno);
 }
 $send = fwrite($remote, $encryptedData);
-printf("Forward %d bytes data to remote.\n", $send);</code>
-</pre>
+printf("Forward %d bytes data to remote.\n", $send);
+</code></pre>
+
 <p>在 PHP 5.0 之后的版本中我们可以直接使用 <code>stream_socket_client</code> 来创建 socket 连接，然后将加密好的数据发送到 ss-server。ss-server 会解密数据再将其转发到目标服务器。我们只需等待 ss-server 的回应即可：</p>
-<pre>
-<code class="language-php">$encryptedResponse = "";
+
+<pre><code class="php">$encryptedResponse = "";
 stream_set_timeout($remote, 1);
 while(true) {
     // 在阻塞模式中不能使用 stream_socket_recvfrom，stream_set_timeout 的设置对其无效
@@ -329,11 +395,12 @@ printf(
     "Receive %d bytes data from remote.\nResponse content:\n\n %s\n", 
     strlen($response), 
     $response
-);</code>
-</pre>
+);
+</code></pre>
+
 <p>考虑到数据被分片的情况，我们使用无限循环保证读取到所有数据，再使用 Encryptor 解密数据，你应该可以看回应的内容大致为：</p>
-<pre>
-<code>Forward 91 bytes data to remote.
+
+<pre><code>Forward 91 bytes data to remote.
 Receive 526 bytes data from remote.
 Response content:
 
@@ -351,28 +418,97 @@ Alternate-Protocol: 80:quic,p=0.08
 &lt;H1&gt;302 Moved&lt;/H1&gt;
 The document has moved
 &lt;A HREF="http://www.google.co.jp/?gfe_rd=cr&amp;amp;ei=f27dVNmCGY2nmQW83YBo"&gt;here&lt;/A&gt;.
-&lt;/BODY&gt;&lt;/HTML&gt;</code>
-</pre>
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre>
+
 <p>这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。在请求完成之后就可以关闭通道了：</p>
-<pre>
-<code class="language-php">stream_socket_shutdown($remote, STREAM_SHUT_RDWR);
-fclose($remote);</code>
-</pre>
-<p>到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：<a href="https://github.com/clue/php-socks-react"><a href="https://github.com/clue/php-socks-react">https://github.com/clue/php-socks-react</a></a>。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2015/01/26/how-to-use-simple-qiniu-sdk">Simple Qiniu SDK 使用说明</a>		</div>
-		<div class="info">
-			<span class="date">2015-01-26</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-					</div>
-		<div class="content">
-			<p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
-<pre>
-<code class="language-php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+
+<pre><code class="php">stream_socket_shutdown($remote, STREAM_SHUT_RDWR);
+fclose($remote);
+</code></pre>
+
+<p>到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：<a href="https://github.com/clue/php-socks-react">https://github.com/clue/php-socks-react</a>。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2015/02/10/implementing-socks-server-in-php.html">使用 PHP 实现简单的 SOCKS server</a>
+        </h1>
+    </header>
+    
+    <p>SOCKS 协议是一个比较好玩的协议，通过它我们可以突破一些限制访问原本无法访问的资源，就比如最近很火的 ss 代理。SOCKS 协议本身的规范很短，这里就不多做介绍，请戳这里：<a href="https://www.ietf.org/rfc/rfc1928.txt">RFC-1928</a>。在这篇文章里我们将使用 PHP 来实现一个简单无验证的 SOCKS5 server。</p>
+
+<p>首先我们需要监听一个本地端口来转发对应的数据，在 PHP5 之后我们可以使用 <code>stream_socket_*</code> 系列函数来实现：</p>
+
+<pre><code class="php">set_time_limit(0);
+
+$master = stream_socket_server("tcp://127.0.0.1:5250", $errno, $errstr);
+if (false === $master) {
+    throw new Exception($errstr, $errno);
+}
+
+while (true) {
+    $socket = @stream_socket_accept($master);
+    if (false === $socket) {
+        continue;
+    }
+    // do something
+}
+fclose($master);
+</code></pre>
+
+<p>在这段代码里我们创建了一个 TCP socket 对本地的 5250 端口进行监听，并在无限循环中不断检查是否有新的连接。这里我没有设置 <code>stream_socket_accept</code> 的 timeout，并抑制了超时错误提示。这样一个阻塞版的基本架子我们就搭建好了，下面我们需要实现 SOCKS server 与客户端协商的部分。</p>
+
+<p>为了方便测试，我们将浏览器的代理设置为 SOCKS5，地址设置为本地监听地址。当客户端连接到我们的 SOCKS server 时会先发出一个3字节的验证请求，请求报文包括 VER，NMETHODS 以及 METHODS。VER 就是 SOCKS 版本号（version），NMETHODS 为 METHODS 的字节长度，METHODS 就是验证方法的代号。</p>
+
+<p>我们写代码来看下浏览器连接 server 时发送的验证请求报文内容：</p>
+
+<pre><code class="php">while (true) {
+    $socket = @stream_socket_accept($master);
+    if (false === $socket) {
+        continue;
+    }
+    $data = stream_socket_recvfrom($socket, 1500);
+    if ("" === $data || false === $data || strlen($data) &lt; 3) {
+        fclose($socket);
+        continue;
+    }
+    var_dump(unpack("CVER/CNMETHODS/CMETHODS", $data));exit;
+}
+</code></pre>
+
+<p>当我们通过浏览器访问网站的时候，会看到以下结果：</p>
+
+<pre><code class="php">array(3) {
+    ["VER"] =&gt; int(5)
+    ["NMETHODS"] =&gt; int(1)
+    ["METHODS"] =&gt; int(0)
+}
+</code></pre>
+
+<p><code>stream_socket_recvfrom</code> 收到的数据是二进制，我们 unpack 了前3个字节，看到的结果是 0x05 0x01 0x00。0x05 表明浏览器接受 SOCKS 代理的版本为5（0x05），验证方法的字节长度为1（0x01），方法代号为0（0x00）。请求报文正合我们的要求，我们可以直接回复这个请求：</p>
+
+<pre><code class="php">fwrite($socket, pack("C2", 0x05, 0x00));
+</code></pre>
+
+<p>从 SOCKS 规范中可以看到，0x00 标示不需要权限验证（X'00' NO AUTHENTICATION REQUIRED）。到这里我们完成了第一次协商，为了方便，我们要直接跳过验证请求部分。如果你需要实现验证环节，比如 Username/Password 验证，可以直接参考 <a href="https://tools.ietf.org/html/rfc1929">RFC 1929</a>。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2015/01/26/how-to-use-simple-qiniu-sdk.html">Simple Qiniu SDK 使用说明</a>
+        </h1>
+    </header>
+    
+    <p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
+
+<pre><code class="php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
 require __DIR__ . "/Autoload.php";
 Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
 Autoload::register();
@@ -383,25 +519,28 @@ $qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
 
 $bucket = $qiniu-&gt;getBucket("sketch");
 $response = $bucket-&gt;put($_FILES["file"]["tmp_name"]);
-echo $response-&gt;getContent();</code>
-</pre>
+echo $response-&gt;getContent();
+</code></pre>
+
 <p>这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：</p>
-<pre>
-<code class="language-php">$bucket = $qiuniu-&gt;getBucket("sketch");
+
+<pre><code class="php">$bucket = $qiuniu-&gt;getBucket("sketch");
 // 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 $bucket-&gt;setPolicy(array(
     "saveKey" =&gt; sprintf("%s.jpg", time()),
     "returnBody" =&gt; '{"key": $(key),"name": $(fname)}',
     "expires" =&gt; 3600
-));</code>
-</pre>
+));
+</code></pre>
+
 <p>你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：</p>
-<pre>
-<code class="language-php">$bucket-&gt;put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);</code>
-</pre>
+
+<pre><code class="php">$bucket-&gt;put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);
+</code></pre>
+
 <p>你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：</p>
-<pre>
-<code class="language-php">$bucket-&gt;setPolicy(array(
+
+<pre><code class="php">$bucket-&gt;setPolicy(array(
     // 通过 returnBody 的形式返回魔术变量
     "returnBody" =&gt; '{"key": $(key), "user": $(x:user)}',                  
 ));
@@ -411,64 +550,85 @@ $uploadParams = array(
     // 自定义魔术变量
     "x:user" =&gt; "Simple Qiniu SDK"
 );
-$bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);</code>
-</pre>
+$bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
+</code></pre>
+
 <p>如果你希望采用<a href="http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html">表单上传模式</a>，你可以使用 getUpToken 方法来获取上传令牌：</p>
-<pre>
-<code class="language-html">&lt;form action="http://upload.qiniu.com/" method="post" enctype="multipart/form-data"&gt;
+
+<pre><code class="html">&lt;form action="http://upload.qiniu.com/" method="post" enctype="multipart/form-data"&gt;
     &lt;input name="file" type="file" /&gt;
     &lt;input name="x:user" type="hidden" value="Simple Qiniu SDK"&gt;
     &lt;input name="token" type="hidden" value="&lt;?=$bucket-&gt;getUpToken()?&gt;"&gt;
     &lt;button id="upload" type="submit"&gt;上传到七牛&lt;/button&gt;
-&lt;/form&gt;</code>
-</pre>
-<p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。 </p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2015/01/14/Y-combinator-in-php">Y combinator in PHP</a>		</div>
-		<div class="info">
-			<span class="date">2015-01-14</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Programming">Programming</a>			</span>
-					</div>
-		<div class="content">
-			<pre>
-<code class="language-php">$Y = function($f){
-    $x = function($s) use($f){
-        return function($n) use($s, $f){
-            return $f($s($s))-&gt;__invoke($n);
-        };
-    };
-    return $x($x);
-};
+&lt;/form&gt;
+</code></pre>
 
-$factorial = $Y(function($recurse){
-    return function($x) use($recurse){
-        return $x === 0 ? 1 : $x * $recurse($x - 1);  
-    };         
-});
+<p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
 
-echo $factorial(6); // 720</code>
-</pre>
-<p>花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。</p>		</div>
-        	</article>
-		<div class="bar">
-		<span class="new">
-					</span>
-		<span class="old">
-			<a href="/page/2">Older Posts >></a>		</span>
-		<span class="count">
-			1 / 5		</span>
-	</div>
-</div>
-</div>
-		</div>
-	</div>
-    <footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
-	<!-- Define and Load Javascript -->
-    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="/theme/main.js"></script>
-	</body>
+    
+        
+    </article>
+        
+    
+    <ul class="pagination">
+		
+									<li><span class="active">1</span></li>
+												<li><a href="/page/2/">2</a></li>
+												<li><a href="/page/3/">3</a></li>
+					
+					<li><a href="/page/2/">下一页 &raquo;</a></li>
+			</ul>
+
+            </div>
+        </div>
+            
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <ul class="list-inline">
+        <li><a href="/about">
+        About</a>
+    </li>
+        <li><a href="http://www.shouhuiben.com">
+        Shouhuiben</a>
+    </li>
+        <li><a href="https://github.com/yosymfony/Spress-theme-spresso">
+        Spresso</a>
+    </li>
+    </ul>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <ul class="list-inline">
+        <li>
+        <a href="https://twitter.com/ilorn">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+    </li>
+        
+        
+        
+        
+        <li>
+        <a href="https://github.com/zither">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </li>
+        
+        
+    </ul>                    </div>
+                </div>
+                <p class="text-center">
+                    &copy; 2014 - 2015 ZJmee.
+                    Powered by <a href="http://spress.yosymfony.com">Spress</a>.
+                </p>
+            </div>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+            <script src="/assets/js/bootstrap.min.js"></script>
+            
+                        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script>
+                        
+                    </footer>
+    </body>
 </html>

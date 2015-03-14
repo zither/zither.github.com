@@ -1,127 +1,268 @@
-<!doctype html>
-<html lang="zh-cn">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="记录在生活以及自学编程过程中好玩的东西。">
-	<meta name="keywords" content="MiniThinker, Programming, Computer, PHP, Scheme">
-	<title>ZJmee</title>
-	
-	<link rel="stylesheet" href="/theme/main.css">
-</head>
-<body>
-    <header>
-        <h1><a href="/">ZJmee</a></h1>
-        <h2>努力学习那些想要知道的东西</h2>
-    </header>
-    <div id="nav">
-        <a href="/">Home</a>
-        <a href="/linux">Linux</a>
-        <a href="/about">About</a>
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+    <head>
+        <meta charset="utf-8">
+<title>ZJmee 机械迷城</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ZJmee 的代码幻境。">
+<meta name="author" content="ZJmee">
+<meta name="generator" content="Spress" />
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:image" content="/assets/img/logo.png">
+    <meta name="twitter:title" content="ZJmee 机械迷城">
+    <meta name="twitter:description" content="ZJmee 的代码幻境。">
+    <meta name="twitter:creator" content="@ilorn">
+
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZJmee 机械迷城">
+<meta property="og:description" content="ZJmee 的代码幻境。">
+<meta property="og:url" content="/index.html">
+<meta property="og:site_name" content="ZJMEE 机械迷城">
+
+<link href="/rss.xml" type="application/rss+xml" rel="alternate" title="ZJMEE 机械迷城 Feed">
+<link rel="icon" type="image/png" href="/assets/img/logo.png">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
+
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="/assets/css/style.css" rel="stylesheet" media="screen">
+
+<link rel="stylesheet" href="/assets/css/obsidian.css">
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+            <a class="label label-primary" href="/">ZJMEE 机械迷城</a>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        <li><a href="/">
+        Home</a>
+    </li>
+        <li><a href="/linux">
+        Linux</a>
+    </li>
+    </ul>
+      </div><!--/.nav-collapse -->
     </div>
-	<div id="main">
-		<div class="border">
-			<div id="container"><div id="page">
-		<article>
-		<div class="title">
-			<a href="/article/2014/09/18/Combat-Simulation-System-of-Linodas">莉诺达斯木桩系统</a>		</div>
-		<div class="info">
-			<span class="date">2014-09-18</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Game">Game</a>			</span>
-					</div>
-		<div class="content">
-			<p>自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。</p>
+</div>
+            <div class="container">
+                                <article class="post">
+    <header>
+        <h1>
+            <a href="/2014/09/25/mreader-for-android.html">Mreader for android</a>
+        </h1>
+    </header>
+    
+    <p><img src="http://ww2.sinaimg.cn/large/86e701f8gw1ekoleq5h14j20xc0m8413.jpg" alt="Mreader for android" /></p>
+
+<p>经过这几天的折腾，我的第一个 Android app 诞生了。它是之前重写过的 <a href="http://mreader.sinaapp.com">Mreader</a> 的安卓版本，因此也是一个只能我自己使用的安卓应用。它实现了几个非常简单的功能，可以获取 Mreader 订阅中的未读文章以及星标文章列表，点击列表后可以直接在应用中查看文章内容。</p>
+
+<p>这款应用的开发完全是在计划之外，突然想给 Mreader 开发一个专属应用，然后就直接开始了。从脑袋中有了想法到应用雏形的完成只用了一天时间。由于之前完全没有 Android 开发经验，也没有学过 Java，整个开发过程完全是由需求驱动，不停的各种搜索学习。应用雏形是在 Eclipse 中完成的，大致了解之后又迁移到了 Android studio。</p>
+
+<p>应用虽然简单，学到的东西却不少。在短短的几天时间里了解了安卓开发的环境搭建，开发流程以及安卓应用大致结构，我可以说手里又多了一把锤子了么？其实应用开发和网页开发有着非常多的共同之处，这也是能快速上手的关键原因。另外，搜索用多了就会知道中文内容的质量低到了什么程度，以后还是直接用英文搜索技术问题吧。</p>
+
+<p>最后需要感谢 <a href="http://ffra.deviantart.com/art/MAXIMAL-Icons-Updated-387287801?q=gallery%3AFFra/43722907&amp;qo=2">FFra</a>，Mreader for android 直接使用了 Ta 设计的应用图标，非常漂亮。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2014/09/18/combat-simulation-system-of-linodas.html">莉诺达斯木桩系统</a>
+        </h1>
+    </header>
+    
+    <p>自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。</p>
+
 <p>在玩莉诺达的过程中，也在思考尘埃的一些设定，比如战斗方式之类。并且花了两三天时间制作了一个<a href="http://linodas.sinaapp.com">莉诺达斯木桩系统</a>，不仅可以方便的进行卡组对比，也能了解背后的计算过程。不过由于本人玩了一个来月等级也才只有15级，非常多的高级卡片拿不上，所以有些卡片属性还不能完全支持。当然，以后等级上来了，相应的功能也会添加上去。</p>
-<p>如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：<a href="http://linodas.sinaapp.com"><a href="http://linodas.sinaapp.com">http://linodas.sinaapp.com</a></a>。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/09/10/new-version-of-mreader">重写了 Mreader</a>		</div>
-		<div class="info">
-			<span class="date">2014-09-10</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Mreader">Mreader</a>			</span>
-					</div>
-		<div class="content">
-			<p><a href="http://mreader.sinaapp.com">Mreader</a> 是我自己写的一个 Feed 聚合工具，第一个版本诞生于 2013 年 5 月。当时写 Mreader 的原因是 Google reader 即将关闭，虽然那段时间出现了非常多的 Google reader 替代品，但是由于稳定性的原因没有使用它们。后来就花了几天时间自己写了一个简陋的 Web 聚合，然后一直使用到 <a href="http://digg.com/reader">Digg reader</a> 的发布。</p>
+
+<p>如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：<a href="http://linodas.sinaapp.com">http://linodas.sinaapp.com</a>。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2014/09/10/new-version-of-mreader.html">重写了 Mreader</a>
+        </h1>
+    </header>
+    
+    <p><a href="http://mreader.sinaapp.com">Mreader</a> 是我自己写的一个 Feed 聚合工具，第一个版本诞生于 2013 年 5 月。当时写 Mreader 的原因是 Google reader 即将关闭，虽然那段时间出现了非常多的 Google reader 替代品，但是由于稳定性的原因没有使用它们。后来就花了几天时间自己写了一个简陋的 Web 聚合，然后一直使用到 <a href="http://digg.com/reader">Digg reader</a> 的发布。</p>
+
 <p>Digg reader 算是 Google reader 的最佳替代品，我也一直使用到现在。不过最近国类又开始封锁国外的各种服务，在没有出墙的情况下，Digg reader 的良好体验被大大的降低了。然后我又一次想到了已经被搁置很久的 Mreader，决定花两天时间把它重写了一遍。基本的订阅功能今天已经完成了，前端方面基本直接 Copy 了我另一个小站的样式。</p>
-<p>现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/09/07/game-design">尘埃开发记录之游戏策划</a>		</div>
-		<div class="info">
-			<span class="date">2014-09-07</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Dust">Dust</a>			</span>
-					</div>
-		<div class="content">
-			<p>续接之前世界观设定部分，但是没想到跳进了游戏策划这个深坑。之前已经编码的部分基本都是系统基础，与属性没有太多关系。但是现阶段的世界观以及游戏玩法部分牵扯的数据就非常多了，编码部分基本已经停止。</p>
-<p>出现这个问题还是由于之前没有接触过游戏开发的原因，仍然用网页开发的那套做法，上来就开发相关的页面，而最重要的游戏策划部分反而没有什么头绪。现在要做的就是马上停止编码相关的工作，然后开始补充策划部分。</p>
-<p>因为尘埃并不是完全 clone 现存的一些游戏，所以在游戏玩法以及数值策划部分没有什么可以完全照搬的，这就要求我必须去了解游戏策划的各个部分。特别是数值策划，经验曲线，人物属性怎么设定，装备平衡怎么测量，这些都需要重新学习。</p>
-<p>然后还需要对尘埃的世界观进行补足，东方玄幻没有西幻那样成熟的世界体系，除了处于停摆状态的<a href="http://sj.163.com/">「沧海灵荒」</a>之外，我还没有发现其他的网站或讨论组。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/09/01/wordview-of-dust">尘埃开发记录之世界观</a>		</div>
-		<div class="info">
-			<span class="date">2014-09-01</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Dust">Dust</a>			</span>
-					</div>
-		<div class="content">
-			<p>尘埃已经完成了简单的背包以及物品合成功能，在地图中探索可以遇到不同的动物（怪物？），成功击杀之后有机率掉落一些物品。怪物掉落通常是游戏中各种装备和物品的基本来源，不过考虑到之前设计的合成功能，尘埃中的怪物只掉落各种材料。装备则需要玩家不断收集各种材料，然后通过合成功能合成而来。</p>
-<p>装备合成部分牵扯的东西比较多，首当其冲的便是装备属性。装备属性又涉及到人物属性、升级系统（成长功能），甚至是整个游戏的世界观设定。</p>
-<p>在第一篇开发记录中我把尘埃设定为一个生存类游戏，但是随着地图实现以及人物移动方式的变动，使得程序不再适合该设定。通过回忆曾经玩过的一些游戏或者看过的一些小说，又找到两个不同的游戏背景。一个是借鉴网易天下贰的游戏世界观，另一个则是仙侠小说中的修真世界观。</p>
-<p>天下贰算是我玩得最久的一款网游，具有完整的背景设定、人物属性以及装备设定可以借鉴。而仙侠的修真世界也是非常吸引我的一个因素，不仅可以衍生出不同的酷炫生活技能（比如炼丹、阵法），还可以借鉴其与游戏不同的成长系统（比如炼气、筑基）。因此这部分还需要仔细斟酌才好决定。</p>		</div>
-        	</article>
-		<article>
-		<div class="title">
-			<a href="/article/2014/08/29/data-structure-of-battle">尘埃开发记录之战斗数据结构</a>		</div>
-		<div class="info">
-			<span class="date">2014-08-29</span>
-			-
-			<span class="category">
-				Category: <a href="/category/Dust">Dust</a>			</span>
-					</div>
-		<div class="content">
-			<p>前面的日志中已经说过，尘埃现在采用的是自动回合制的战斗模式，玩家在战斗中不需要手动干涉。由于网页游戏的特性，尘埃的所有战斗过程全部在服务端完成，玩家是无法看到整个过程的。这就意味着需要在服务端生成一个完整的战斗记录，玩家要看到战斗过程就必须将记录传递到前端的战斗记录播放器中进行回放。</p>
-<p>回合制大大的简化了战斗模式，同时也简化的战斗记录数据的结构。尘埃暂时还没有考虑各种复杂的装备和技能特效，在 Demo 中直接采用了最简单的处理方法，将战斗记录分为两部分：战斗成员（包括攻击和防御两方）以及回合数据。战斗成员就是参战双方的详细属性，比如名称、血量等，而回合数据是简化后的操作步骤。</p>
-<pre>
-<code>0: {status:{attacker:[{id:2, name:勇敢的小鬼, hp:30, attack:3, defence:2,…}],…}}
-1: {type:battle, data:[attacker, 0, 0, 0, 3, 7]}
-2: {type:battle, data:[defender, 0, 0, 0, 1, 29]}
-3: {type:battle, data:[attacker, 0, 0, 0, 3, 4]}
-4: {type:battle, data:[defender, 0, 0, 0, 1, 28]}
-5: {type:battle, data:[attacker, 0, 0, 0, 3, 1]}
-6: {type:battle, data:[defender, 0, 0, 0, 1, 27]}
-7: {type:battle, data:[attacker, 0, 0, 0, 3, -2]}
-8: {type:message, data:勇敢的小鬼打败了老鼠。}</code>
-</pre>
-<p>上面是一个简单的战斗记录示例，第 0 行是参战成员的详细信息，其中分为攻击方和防御方两个部分。第 1-7 行就是整个战斗的操作数据。整个战斗记录的回放过程可以点击图片查看：<a href="http://ww2.sinaimg.cn/large/86e701f8gw1ejtkyk2521j20za0hm0v9.jpg">战斗记录</a>。</p>
-<p>战斗记录的回放基本都在前端进行控制，目前尘埃 Demo 的战斗回放采用的是 2 秒一个回合，当然如果有需要的话也可以把整个过程直接打印出来。不过随着之后各种战斗因素的加入，这个过程肯定会变得复杂起来。 </p>		</div>
-        	</article>
-		<div class="bar">
-		<span class="new">
-			<a href="/page/2"><< Newer Posts</a>		</span>
-		<span class="old">
-			<a href="/page/4">Older Posts >></a>		</span>
-		<span class="count">
-			3 / 5		</span>
-	</div>
-</div>
-</div>
-		</div>
-	</div>
-    <footer>Powered By <a href="https://github.com/scarwu/Pointless">Pointless</a></footer>
-	<!-- Define and Load Javascript -->
-    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="/theme/main.js"></script>
-	</body>
+
+<p>现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2014/03/23/who-changed-my-php-vim.html">谁动了我的 php.vim</a>
+        </h1>
+    </header>
+    
+    <p>最近发生了一个非常诡异的事情，我的 vim 语法高亮竟然自动变了！在<a href="http://blog.minimee.org/article/2014/03/20/the-problem-of-vim-css-color">前一篇博客</a>中我提到过：从我使用 vim 编辑器以来，color scheme 一直都是 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。它之前的模样可以在<a href="http://minimee.org/vim/">这篇介绍</a>中看到。</p>
+
+<p>从图片中可以看到 php 注释要比 php 普通代码的颜色要暗很多，不会吸引到视觉焦点，这也是我选择 color scheme 最重要的标准之一。但是最近它竟然自己把颜色给换了，难道注释也变得不甘寂寞了么？</p>
+
+<!--more-->
+
+<p>从<a href="http://ww1.sinaimg.cn/large/86e701f8gw1eepv20rot2j21ao07xdgn.jpg">这张图片</a>可以看到，注释中部分文字改变了高亮颜色！奇怪的是最近我并没有任何更新 vim 的操作，我也不知道为什么变成了这样。在更换了多个 color scheme 之后发现，这个问题影响到了所有的 color scheme，也就是说问题与 color scheme 自身没有关系。而是 vim highlight groups 中混入了奇怪的东西。</p>
+
+<pre><code class="vimL">hi Comment          guifg=#808080           gui=none
+hi Comment          ctermfg=243             cterm=none
+</code></pre>
+
+<p>这几行代码是 lucius 配色中关于注释的颜色设置，现在我需要找到混在 Comment group 中的其他 group。这时可以祭出 <a href="http://www.vim.org/scripts/script.php?script_id=383">SyntaxAttr.vim</a> 这件大杀器，它的功能很简单，就是可以获取鼠标所在文字的 highlight group 信息。插件安装成功之后可以使用以下命令来获取 highlight group 信息：</p>
+
+<pre><code class="vimL">:call SyntaxAttr()
+</code></pre>
+
+<p>利用这个插件我找到了注释中高亮部分的 highlight group：</p>
+
+<pre><code class="vimL">group: phpDocTags-&gt;PreProc guifg=#efefaf(#efefaf)
+group: phpDocCustomTags-&gt;Type guifg=#93e690(#93e690)
+</code></pre>
+
+<p>很显然，在 lucius scheme 之中并没有定义与这两个 group 相关的设置，关于这两个 group 的定义可以在 vim 的 syntax/php.vim 中找到：</p>
+
+<pre><code>syntax match  phpDocCustomTags  "@[a-zA-Z]*\(\s\+\|\n\|\r\)" containedin=phpComment
+syntax region phpDocTags  start="{@\(example...\|tutorial\)" end="}" containedin=phpComment
+syntax match  phpDocTags  "@\(abstract\....\|throws\)\(\s\+\)\?" containedin=phpComment
+</code></pre>
+
+<p>最后为了让这两个不安分的 highlight group 低调一点，我直接在 lucius scheme 中添加了如下两行设置：</p>
+
+<pre><code>hi phpDocTags       guifg=#808080                                   gui=none
+hi phpDocCustomTags guifg=#808080                                   gui=none
+</code></pre>
+
+<p>然后整个 vim 又恢复到之前的宁静了。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
+            <a href="/2014/03/20/the-problem-of-vim-css-color.html">vim-css-color 严重降低 vim 启动速度</a>
+        </h1>
+    </header>
+    
+    <p>因为一直使用 vim-gtk 的缘故，我其实很少使用 vim 进行编程，color scheme 更是一直使用 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。不过最近有些工作必须要在终端下完成，为了改善在 vim 中编程的体验，我还是决定升级下终端版本，并专门把 vim 的配色更换为 <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow-Night</a>。</p>
+
+<p>我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。</p>
+
+<!--more-->
+
+<p>使用如下命令来查看 vim 的启动过程耗费的时间：</p>
+
+<pre><code class="php">vim --startuptime timefile test.php
+</code></pre>
+
+<p>这个命令会打开 test.php 文件并在当前目录生成一个名为 timefile 的启动日志文件。然后我在日志文件中找到了拖慢 vim 启动速度的真凶：</p>
+
+<pre><code class="php">191.477  004.767  004.767: sourcing /usr/share/vim/vim74/syntax/vb.vim
+4279.165  4087.443  4087.443: sourcing /home/chou/.vim/bundle/css_color.vim/syntax/css.vim
+</code></pre>
+
+<p>从日志中可以看到，大部分时间都被用于加载这个名为 css_color.vim 的插件。话说这个插件比较好玩，特别是对于经常接触前端的朋友，它可以自动修改文件中表示各种颜色格式文字（比如 #ffffff）的背景，然后让人可以直观的看到这些数字组成的颜色。我当即在 .vimrc 配置中去掉了这个插件，然后 vim 的启动速度恢复正常。</p>
+
+<p>随手 google 了一下，发现非常多的人在 <a href="https://github.com/skammer/vim-css-color/issues/3">github issue</a> 上提出了这个问题，但是作者未作任何回复。大致是由于插件的 rgb2xterm 函数效率过低。不过有好心的网友自己对这个问题进行了更新修复，更新后的插件可以在这里找到：<a href="https://github.com/ap/vim-css-color">https://github.com/ap/vim-css-color</a>。</p>
+
+<p>之前在 88 色终端下并未发现这个问题是由于插件在开头添加了这样一行环境检测代码：</p>
+
+<pre><code class="vimL">if !( has('gui_running') || &amp;t_Co==256 ) | finish | endif
+</code></pre>
+
+<p>PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。</p>
+
+    
+        
+    </article>
+        
+    
+    <ul class="pagination">
+					<li>
+                <a class="prev" href="/page/2/">
+                    &laquo; 上一页
+                </a>
+            </li>
+		
+									<li><a href="/">1</a></li>
+												<li><a href="/page/2/">2</a></li>
+												<li><span class="active">3</span></li>
+					
+			</ul>
+
+            </div>
+        </div>
+            
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <ul class="list-inline">
+        <li><a href="/about">
+        About</a>
+    </li>
+        <li><a href="http://www.shouhuiben.com">
+        Shouhuiben</a>
+    </li>
+        <li><a href="https://github.com/yosymfony/Spress-theme-spresso">
+        Spresso</a>
+    </li>
+    </ul>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <ul class="list-inline">
+        <li>
+        <a href="https://twitter.com/ilorn">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+    </li>
+        
+        
+        
+        
+        <li>
+        <a href="https://github.com/zither">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </li>
+        
+        
+    </ul>                    </div>
+                </div>
+                <p class="text-center">
+                    &copy; 2014 - 2015 ZJmee.
+                    Powered by <a href="http://spress.yosymfony.com">Spress</a>.
+                </p>
+            </div>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+            <script src="/assets/js/bootstrap.min.js"></script>
+            
+                        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script>
+                        
+                    </footer>
+    </body>
 </html>

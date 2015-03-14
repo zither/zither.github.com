@@ -2,7 +2,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8">
-<title>About</title>
+<title>新一轮晒桌面开始</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="ZJmee 的代码幻境。">
 <meta name="author" content="ZJmee">
@@ -10,15 +10,15 @@
 
         <meta name="twitter:card" content="summary">
         <meta name="twitter:image" content="/assets/img/logo.png">
-    <meta name="twitter:title" content="About">
+    <meta name="twitter:title" content="新一轮晒桌面开始">
     <meta name="twitter:description" content="ZJmee 的代码幻境。">
     <meta name="twitter:creator" content="@ilorn">
 
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About">
+<meta property="og:title" content="新一轮晒桌面开始">
 <meta property="og:description" content="ZJmee 的代码幻境。">
-<meta property="og:url" content="/about/index.html">
+<meta property="og:url" content="/2014/09/29/new-system-screenshot.html">
 <meta property="og:site_name" content="ZJMEE 机械迷城">
 
 <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="ZJMEE 机械迷城 Feed">
@@ -63,34 +63,28 @@
                     <article class="post">
     <header>
         <h1>
-            <a href="/about/index.html">About</a>
+            <a href="/2014/09/29/new-system-screenshot.html">新一轮晒桌面开始</a>
         </h1>
     </header>
     
-    <p>那些年我捣鼓过的小玩意儿：</p>
+    <p><img src="http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg" alt="openbox" /></p>
 
-<ul>
-<li><a href="http://www.shouhuiben.com">恋恋手绘本</a>，我的 Forever Project，一个让人坚持绘画的小社区。</li>
-<li><a href="http://mreader.sinaapp.com">Mreader</a>，非常简单的 Feed 聚合阅读小站，为自己量身定制。</li>
-</ul>
+<p>据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。</p>
 
-<p>博客使用了这些服务：</p>
+<p>无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。</p>
 
-<ul>
-<li><a href="http://spress.yosymfony.com/">Spress</a>，The static site generator in PHP。</li>
-<li><a href="https://pages.github.com/">Github pages</a>，Websites for you and your projects。</li>
-</ul>
+<p>因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。</p>
 
-<p>来自 1971 的问候：</p>
+<!--more-->
 
-<ul>
-<li><code>echo aWxvcm4ubWNAZ21haWwuY29tCg== | base64 --decode</code></li>
-</ul>
+<p><img src="http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg" alt="lubuntu" /></p>
+
+<p>这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。</p>
 
     
         <footer>    
         <p class="pubdate">
-        	Posted by ZJmee on <time pubdate="pubdate">2015-03-14</time>
+        	Posted by ZJmee on <time pubdate="pubdate">2014-09-29</time>
         </p>
     </footer>
         

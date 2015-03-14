@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ZJMEE 机械迷城</title>
+        <link></link>
+        <description>RSS feed for ZJMEE 机械迷城</description>
+        <atom:link href="/rss.xml" rel="self" type="application/rss+xml" />
+                    <item>
+                <title>Memo View Component</title>
+                <description><![CDATA[<p>最近在对自写的 Memo 框架做一些结构调整，准备将它的一部分组件独立出来以便分开使用，最先完成的是 <a href="https://github.com/zither/Memo">Memo View Component</a>。Memo View 是一个轻量级的使用 PHP 原生语法的模板“引擎”，你可以使用它来实现简单的模板继承功能。</p>
+
+<p>Memo View 使用 PHP 原生语法，所以我们可以这样定义一个 base 模板：</p>
+
+<pre><code class="php">// file templates/base.php
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;?=$this-&gt;section("title")?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;?=$this-&gt;section("content")?&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>base 模板中的 section 方法相当于一个占位符，具体内容需要子模板来填充。我们再定义一个基于 base 的 index 子模板：</p>
+
+<pre><code class="php">// file templates/index.php
+&lt;?php $this-&gt;layout("base"); ?&gt;
+
+&lt;?php $this-&gt;open("title"); ?&gt;
+    &lt;title&gt;Memo Framework&lt;/title&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+
+&lt;?php $this-&gt;open("content"); ?&gt;
+    &lt;h1&gt;Memo&lt;/h1&gt;
+    &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+    &lt;?=$this-&gt;section("github")?&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+</code></pre>
+
+<p>在 index 模板中使用 layout 方法来声明其继承于 base 模板。然后使用 open 和 close 方法来填充对应 section 的内容。Memo View 支持 layout 的嵌套，所以我们在 index 模板中同样可以使用 section 方法。</p>
+
+<p>然后我们可以使用 Memo View 来载入之前定义的模板：</p>
+
+<pre><code class="php">// file index.php
+require __DIR__ . "/Memo/src/Memo/View.php";
+
+use Memo\View;
+
+try {
+    $view = new View(array(
+        "template" =&gt; "index",
+        "folders" =&gt; array(__DIR__ . "/templates/")
+    ));
+    $view-&gt;display();
+} catch (Exception $e) {
+    echo $e-&gt;getMessage(), PHP_EOL;
+}
+</code></pre>
+
+<p>Memo View 的 constructor 可以接受一个数组作为初始化参数，<code>template</code> 是模板名，<code>folders</code> 是模板目录。<code>folders</code> 可以同时定义多个目录，载入时会按顺序查找，并使用最先找到的模板。输出的内容大致如下：</p>
+
+<pre><code class="html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Memo Framework&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Memo&lt;/h1&gt;
+        &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>在模板中使用变量也非常方便，我们继续定义一个基于 index 的子模板 github：</p>
+
+<pre><code class="php">// file templates/github.php
+&lt;?php $this-&gt;layout("index"); ?&gt;
+
+&lt;?php $this-&gt;open("title"); ?&gt;
+    &lt;title&gt;Fork me on Github&lt;/title&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+
+&lt;?php $this-&gt;open("github"); ?&gt;
+    &lt;p&gt;Github: &lt;a href="&lt;?=$repo?&gt;"&gt;&lt;?=$this-&gt;toUpper($repo)?&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;?php $this-&gt;close(); ?&gt;
+</code></pre>
+
+<p>在 github 模板中又设置了一次 title secion 的内容，并且在 github section 中使用了 $repo 变量 以及 toUpper 方法。</p>
+
+<pre><code class="php">// file index.php
+require __DIR__ . "/Memo/src/Memo/View.php";
+
+use Memo\View;
+
+class Helper 
+{
+    public function toUpper($string)
+    {
+        return strtoupper($string);
+    }
+}
+
+try {
+    $view = new View(array(
+        "template" =&gt; "github",
+        "helper" =&gt; new Helper(),
+        "folders" =&gt; array(__DIR__ . "/templates/")
+    ));
+    $view-&gt;assign("repo", "https://github.com/zither/Memo");
+    // 可以通过 $view-&gt;render() 方法来获取内容
+    echo $view-&gt;render();
+} catch (Exception $e) {
+    echo $e-&gt;getMessage(), PHP_EOL;
+}
+</code></pre>
+
+<p>上面的代码中我们新增了一个 <code>helper</code> 参数，其值为 Helper 类的对象，我们需要通过它来提供 github 模板中需要的 toUpper 函数。然后使用 assign 方法设置了 repo 变量。输出内容大致如下：</p>
+
+<pre><code class="html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Fork me on Github&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Memo&lt;/h1&gt;
+        &lt;p&gt;Memo is a PHP micro framework.&lt;/p&gt;
+        &lt;p&gt;Github: &lt;a href="https://github.com/zither/Memo"&gt;HTTPS://GITHUB.COM/ZITHER/MEMO&lt;/a&gt;&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。</p>
+]]></description>
+                <link>/2015/03/06/how-to-use-memo-view-component.html</link>
+                <pubDate>Fri, 06 Mar 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/03/06/how-to-use-memo-view-component.html</guid>
+            </item>
+                    <item>
+                <title>Skcoswodahs client 的简单实现（续）</title>
+                <description><![CDATA[<p>考虑到之前的那篇<a href="/article/2015/02/12/a-simple-implementation-of-Skcoswodahs-client/">「Skcoswodahs client 的简单实现」</a>中使用了一些不恰当的第三方库，导致一些朋友在完善客户端的时候遇到了问题，特意写了这篇文章来说明一下。</p>
+
+<p>在上一篇文章中，为了方便我直接使用了 <a href="http://sourceforge.net/projects/rc4crypt/">RC4Crypt</a> 这个简单的 RC4 实现。但是这个库是不能真的用到客户端中去：它不支持 update 操作，每次加密或解密的时候都会重置 S box，如果连续操作的话就会出现乱码。</p>
+
+<p>所以我重新了实现了一个带状态的 <a href="https://github.com/zither/RC4-PHP">RC4-PHP</a> 类，用来代替之前的 RC4Crypt，使用说明如下：</p>
+
+<pre><code class="php">// Source: https://github.com/zither/RC4-PHP
+require __DIR__ . "/src/RC4.php";
+
+$password = md5("password", true);
+$plaintext = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+$encryptor = new RC4($password, RC4::ENCRYPT_MODE_UPDATE);
+$ciphertext = $encryptor-&gt;encrypt($plaintext);
+
+$decryptor = new RC4($password, RC4::ENCRYPT_MODE_UPDATE);
+$subCiphertext1 = substr($ciphertext, 0, 16);
+$subCiphertext2 = substr($ciphertext, 16);
+
+printf(
+    "------ UPDATE MODE ------\nsubPlaintext1: %s\nsubPlaintext2: %s\n",
+    $decryptor-&gt;decrypt($subCiphertext1),
+    $decryptor-&gt;decrypt($subCiphertext2)
+);
+
+// output
+//------ UPDATE MODE ------
+//subPlaintext1: 0123456789abcdef
+//subPlaintext2: ghijklmnopqrstuvwxyz
+</code></pre>
+
+<p>为了验证可用性，我用 PHP 写了一个只支持 RC4 的 Skcoswodahs 客户端：<a href="http://pan.baidu.com/s/1sjuiJH7">Psslocal.phar</a>，下载后可以得到一个 Phar 包，用 PHP 执行它即可：</p>
+
+<pre><code>// 客户端中使用了 mcrypt_create_iv 函数来生成 iv，运行前注意加载 MCrypt 拓展
+php psslocal.phar -c ~/skcoswodahs/config.json
+// 或者
+sudo mv psslocal.phar /usr/local/bin/psslocal
+sudo chmod u+x /usr/local/bin/psslocal
+psslocal -c ~/skcoswodahs/config.json
+</code></pre>
+
+<p>这个客户端只是随手找的一个 SOCKS5 库改的，代码不敢恭维，测试即可，请勿当真。</p>
+
+<p>其实用 PHP 来写 Skcoswodahs 客户端并不是一个很好的选择，抛开性能不说，在实现各种加密算法的时候都会遇到很多问题：PHP 官方自带的 Openssl 拓展不支持 context 设置和 update 操作； MCrypt 拓展各版本支持的算法不全，比如在新版本中移除了 RC4 支持。当然这些问题都可以通过安装第三方拓展来解决，但是这样就大大降低了客户端的通用性。</p>
+
+<p>如果你只熟悉 PHP 语言，那么我推荐你改写 Skcoswodahs 服务端，在服务端可以使用各种高性能框架，加密算法的支持也可以通过拓展解决，那么写客户端时要面临的问题都不复存在了。</p>
+
+<p>----- 2015年02月25日更新 -----</p>
+
+<p>我试着基于 Swoole + Openssl + Openssl-incremental 拓展实现了一个 PHP 版的 Skcoswodahs 服务端，在几天的单人测试中没有出现任何问题，一直维持着极低的 CUP 和 内存使用率。由于 Swoole 拓展自身的一些特性需求，在实现多端口的动态监听时会有些麻烦，但如果只监听多个固定端口还是非常方便的。</p>
+]]></description>
+                <link>/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2.html</link>
+                <pubDate>Fri, 20 Feb 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2.html</guid>
+            </item>
+                    <item>
+                <title>Skcoswodahs client 的简单实现</title>
+                <description><![CDATA[<p>现在最热门的上网姿势非 <a href="https://github.com/shadowsocks/shadowsocks">Skcoswodahs</a> 莫属，当初作者发布的时候只是一个非常简单的小工具，但是没想到现在基本达到了全平台覆盖。可能有不少朋友对它的原理感兴趣，这里就让我们使用 PHP 来实现一个简单的 Skcoswodahs 客户端。</p>
+
+<p>首先我们需要知道 Skcoswodahs 在传输数据的时候是分为3个部分，这里我们使用浏览器访问网站的例子来说明：</p>
+
+<pre><code>+--------------------------------------------------------------+
+|             1                2                 3             |
++  browser ------- ss-local ------- ss-server -------  Google  +
+|           SOCKS                  Skcoswodahs                 |
++--------------------------------------------------------------+
+</code></pre>
+
+<p>从上面我们可以看出，shadowsock 将一个 SOCKS 代理拆分为 ss-local 以及 ss-server 两个代理，阶段1和阶段3传递的都是原始数据。而 ss-local 与 ss-server 之间（2）传输的则是经过加密的数据，我们暂且称其为 Skcoswodahs 协议。</p>
+
+<p>在这篇文章中我们要实现的就是 ss-local，它负责接收浏览器发出的 HTTP 请求，然后将请求内容加密后转发到 ss-server。不过为了方便这里我们跳过了 ss-local 与浏览器 SOCKS 握手的 method-dependent 阶段，直接纯手工构建需要传输的数据。如果你并不了解 SOCKS 协议，那么需要先阅读 <a href="https://www.ietf.org/rfc/rfc1928.txt">SOCKS 协议规范</a>。</p>
+
+<p>在浏览器与 ss-local 之间的 method-dependent 协商完成后，浏览器会将需要访问的服务器地址和端口发送给 ss-local，其格式如下：</p>
+
+<pre><code> +----+-----+-------+------+----------+----------+
+ |VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
+ +----+-----+-------+------+----------+----------+
+ | 1  |  1  | X'00' |  1   | Variable |    2     |
+ +----+-----+-------+------+----------+----------+
+</code></pre>
+
+<p>ATYP，DST.ADDR 和 DST.PORT 这三个字段（Header）是需要通过我们的客户端转发到 ss-server 的。在我们与 ss-server 连接成功后可以完成与浏览器 SOCKS 协商的剩下部分。浏览器再将 HTTP 请求发送到我们的客户端。我们可以直接将之前的 Header 和 HTTP 请求内容拼接在一起进行加密，然后通过之前建立的连接发送的 ss-server。加密数据的格式如下：</p>
+
+<pre><code> +------+----------+----------+----------+
+ | ATYP | DST.ADDR | DST.PORT |   HTTP   | 
+ +------+----------+----------+----------+
+ |  1   | Variable |    2     | Variable |
+ +------+----------+----------+----------+
+</code></pre>
+
+<p>需要注意的是，header 部分只需要在建立通道的时候发送一次，通道建立之后直接传递加密的请求数据即可。ss-server 在收到数据后会直接解密，读取 ATYP 字段，根据其类型解析 header 部分，如果数据的整个长度超过 header 的长度，剩下的部分就会作为请求的内容。ss-server 会将从目标服务器获取的数据加密后通过通道转发回我们的客户端，我们需要将数据解密后返回给浏览器。</p>
+
+<p>从整个通信过程来说，我们的客户端其实就是带有加密解密功能的 SOCKS server。除了 SOCKS server 最基本的功能以外，需要我们动手就是加密解密功能了。现在我们开始写代码：</p>
+
+<pre><code class="php">// Source code: https://gist.github.com/zither/e35888cbb98e56f59dd4
+require "Encryptor.php";
+require "Cipher.php";
+// Update:http://blog.shouhuiben.net/article/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2/
+require "Rc4crypt.php";
+
+$domain = "www.google.com";
+$data = pack("C2", 0x03, strlen($domain));
+$data .= $domain . pack("n", 0x50);
+$data .= sprintf("GET / HTTP/1.1\r\nHost:%s\r\nAccept:text/html\r\n\r\n", $domain);
+</code></pre>
+
+<p>我们的客户端非常简单，简单到只支持一直加密方式：RC4。Encryptor.php，Cipher.php 和 Rc4crypt.php 这三个文件功能比较简单。Rc4crypt 提供了 RC4 加密方法的原生实现，Cipher 只是对 Rc4crypt 包裹了一下，实现了 Skcoswodahs 使用的 RC4-md5 加密，其实就是每个请求使用不同的 key 而已。Encryptor 的主要作用有两个：一是通过 password 生成加密需要的 key 和 随机 iv 字符串，二是调用 Cipher 对数据进行加密和解密。</p>
+
+<p>我直接跳过了与浏览器协商的部分，我们假设浏览器发出的请求是访问 Google 首页，为了摆出科学的姿势，我们不能在本地对 Domain 进行 DNS 解析，所以 Header 的内容是这样的：</p>
+
+<pre><code> +------+------+----------------+----------+
+ | ATYP | ALEN |    DST.ADDR    | DST.PORT | 
+ +------+------+----------------+----------+
+ | 0x03 | 0x0E | www.google.com |   0x50   |
+ +------+------+----------------+----------+
+</code></pre>
+
+<p>上面表示的是 ATYP 为完整域名（0x03）时的格式，ALEN 用一个字节指定域名的长度，DST.PORT 用两个字节指定端口。SOCKS 还支持 IP4（0x01）和 IP6（0x04），对应的格式可以直接在 <a href="https://www.ietf.org/rfc/rfc1928.txt">SOCKS 协议规范</a>中了解。为了避免 ss-server 在解析 Header 时出现错误，ATYP,ALEN 以及 DST.PORT 这几个重要的部分我们通过 pack 函数以二进制的形式包装到字符串中。最后我们在 Header 后面附加一个简单的 HTTP 请求，这样我们就完成了一个虚拟请求的数据构成。</p>
+
+<p>现在我们可以将数据进行加密了：</p>
+
+<pre><code class="php">$encryptor = new Encryptor("password", "RC4");
+$encryptedData = $encryptor-&gt;encrypt($data);
+</code></pre>
+
+<p>这里的 password 就是 Skcoswodahs 的配置文件中约定的密码，RC4 是加密方法。这里有一个地方需要注意，在第一次加密数据的时候 Encryptor 会将随机字符串 iv 与我们的数据拼接在一起：</p>
+
+<pre><code class="php">class Encryptor 
+{
+    //...
+    public function encrypt($data)
+    {
+        if (strlen($data) == 0) {
+            return $data;
+        }
+        if ($this-&gt;ivSent) {
+            return $this-&gt;cipher-&gt;encrypt($data);
+        }
+        $this-&gt;ivSent = true;
+        return $this-&gt;cipherIv . $this-&gt;cipher-&gt;encrypt($data);
+    }
+    //...
+}
+</code></pre>
+
+<p>在我们准备好数据之后就要开始与 ss-server 通信，如果你手上没有 Skcoswodahs 服务器，可以在本地环境中搭建一个，server 地址改为 127.0.0.1 就可以了：</p>
+
+<pre><code class="json">{
+    "server": "127.0.0.1",
+    "server_port": "50560",
+    "local_address": "127.0.0.1",
+    "local_port": "5250",
+    "password": "password",
+    "timeout": "300",
+    "method": "rc4-md5",
+    "fast_open": false,
+    "workers": 1
+}
+</code></pre>
+
+<p>如果你使用的是本地服务器，请将前面代码中的 domain 换为国内能够访问的地址，比如 www.bing.com。数据加密之后我们需要与 ss-server 建立一个通道：</p>
+
+<pre><code class="php">$remote = stream_socket_client("tcp://example.ss-server.com:50565", $errno, $errstr);
+if (!$remote) {
+    throw new Exception($errstr, $errno);
+}
+$send = fwrite($remote, $encryptedData);
+printf("Forward %d bytes data to remote.\n", $send);
+</code></pre>
+
+<p>在 PHP 5.0 之后的版本中我们可以直接使用 <code>stream_socket_client</code> 来创建 socket 连接，然后将加密好的数据发送到 ss-server。ss-server 会解密数据再将其转发到目标服务器。我们只需等待 ss-server 的回应即可：</p>
+
+<pre><code class="php">$encryptedResponse = "";
+stream_set_timeout($remote, 1);
+while(true) {
+    // 在阻塞模式中不能使用 stream_socket_recvfrom，stream_set_timeout 的设置对其无效
+    // chunk size 一般为 8192
+    $buffer = fread($remote, 8192);
+    if ("" === $buffer || false === $buffer) {
+        break;
+    }
+    $encryptedResponse .= $buffer;
+}
+$response = $encryptor-&gt;decrypt($encryptedResponse);
+printf(
+    "Receive %d bytes data from remote.\nResponse content:\n\n %s\n", 
+    strlen($response), 
+    $response
+);
+</code></pre>
+
+<p>考虑到数据被分片的情况，我们使用无限循环保证读取到所有数据，再使用 Encryptor 解密数据，你应该可以看回应的内容大致为：</p>
+
+<pre><code>Forward 91 bytes data to remote.
+Receive 526 bytes data from remote.
+Response content:
+
+HTTP/1.1 302 Found
+Cache-Control: private
+Content-Type: text/html; charset=UTF-8
+Location: http://www.google.co.jp/?gfe_rd=cr&amp;ei=f27dVNmCGY2nmQW83YBo
+Content-Length: 259
+Date: Fri, 13 Feb 2015 03:24:47 GMT
+Server: GFE/2.0
+Alternate-Protocol: 80:quic,p=0.08
+
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;302 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;302 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="http://www.google.co.jp/?gfe_rd=cr&amp;amp;ei=f27dVNmCGY2nmQW83YBo"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre>
+
+<p>这表明我们已经成功将请求发送到了 Google 的服务器。由于我的 ss-server 服务器在日本，所以 Google 回应了一个 302 跳转。在请求完成之后就可以关闭通道了：</p>
+
+<pre><code class="php">stream_socket_shutdown($remote, STREAM_SHUT_RDWR);
+fclose($remote);
+</code></pre>
+
+<p>到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：<a href="https://github.com/clue/php-socks-react">https://github.com/clue/php-socks-react</a>。</p>
+]]></description>
+                <link>/2015/02/12/a-simple-implemention-of-shadowsocks-client.html</link>
+                <pubDate>Thu, 12 Feb 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/02/12/a-simple-implemention-of-shadowsocks-client.html</guid>
+            </item>
+                    <item>
+                <title>使用 PHP 实现简单的 SOCKS server</title>
+                <description><![CDATA[<p>SOCKS 协议是一个比较好玩的协议，通过它我们可以突破一些限制访问原本无法访问的资源，就比如最近很火的 ss 代理。SOCKS 协议本身的规范很短，这里就不多做介绍，请戳这里：<a href="https://www.ietf.org/rfc/rfc1928.txt">RFC-1928</a>。在这篇文章里我们将使用 PHP 来实现一个简单无验证的 SOCKS5 server。</p>
+
+<p>首先我们需要监听一个本地端口来转发对应的数据，在 PHP5 之后我们可以使用 <code>stream_socket_*</code> 系列函数来实现：</p>
+
+<pre><code class="php">set_time_limit(0);
+
+$master = stream_socket_server("tcp://127.0.0.1:5250", $errno, $errstr);
+if (false === $master) {
+    throw new Exception($errstr, $errno);
+}
+
+while (true) {
+    $socket = @stream_socket_accept($master);
+    if (false === $socket) {
+        continue;
+    }
+    // do something
+}
+fclose($master);
+</code></pre>
+
+<p>在这段代码里我们创建了一个 TCP socket 对本地的 5250 端口进行监听，并在无限循环中不断检查是否有新的连接。这里我没有设置 <code>stream_socket_accept</code> 的 timeout，并抑制了超时错误提示。这样一个阻塞版的基本架子我们就搭建好了，下面我们需要实现 SOCKS server 与客户端协商的部分。</p>
+
+<p>为了方便测试，我们将浏览器的代理设置为 SOCKS5，地址设置为本地监听地址。当客户端连接到我们的 SOCKS server 时会先发出一个3字节的验证请求，请求报文包括 VER，NMETHODS 以及 METHODS。VER 就是 SOCKS 版本号（version），NMETHODS 为 METHODS 的字节长度，METHODS 就是验证方法的代号。</p>
+
+<p>我们写代码来看下浏览器连接 server 时发送的验证请求报文内容：</p>
+
+<pre><code class="php">while (true) {
+    $socket = @stream_socket_accept($master);
+    if (false === $socket) {
+        continue;
+    }
+    $data = stream_socket_recvfrom($socket, 1500);
+    if ("" === $data || false === $data || strlen($data) &lt; 3) {
+        fclose($socket);
+        continue;
+    }
+    var_dump(unpack("CVER/CNMETHODS/CMETHODS", $data));exit;
+}
+</code></pre>
+
+<p>当我们通过浏览器访问网站的时候，会看到以下结果：</p>
+
+<pre><code class="php">array(3) {
+    ["VER"] =&gt; int(5)
+    ["NMETHODS"] =&gt; int(1)
+    ["METHODS"] =&gt; int(0)
+}
+</code></pre>
+
+<p><code>stream_socket_recvfrom</code> 收到的数据是二进制，我们 unpack 了前3个字节，看到的结果是 0x05 0x01 0x00。0x05 表明浏览器接受 SOCKS 代理的版本为5（0x05），验证方法的字节长度为1（0x01），方法代号为0（0x00）。请求报文正合我们的要求，我们可以直接回复这个请求：</p>
+
+<pre><code class="php">fwrite($socket, pack("C2", 0x05, 0x00));
+</code></pre>
+
+<p>从 SOCKS 规范中可以看到，0x00 标示不需要权限验证（X'00' NO AUTHENTICATION REQUIRED）。到这里我们完成了第一次协商，为了方便，我们要直接跳过验证请求部分。如果你需要实现验证环节，比如 Username/Password 验证，可以直接参考 <a href="https://tools.ietf.org/html/rfc1929">RFC 1929</a>。</p>
+]]></description>
+                <link>/2015/02/10/implementing-socks-server-in-php.html</link>
+                <pubDate>Tue, 10 Feb 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/02/10/implementing-socks-server-in-php.html</guid>
+            </item>
+                    <item>
+                <title>Simple Qiniu SDK 使用说明</title>
+                <description><![CDATA[<p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
+
+<pre><code class="php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+require __DIR__ . "/Autoload.php";
+Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
+Autoload::register();
+
+$accessKey = "accessKey";
+$secretKey = "secretKey";
+$qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
+
+$bucket = $qiniu-&gt;getBucket("sketch");
+$response = $bucket-&gt;put($_FILES["file"]["tmp_name"]);
+echo $response-&gt;getContent();
+</code></pre>
+
+<p>这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：</p>
+
+<pre><code class="php">$bucket = $qiuniu-&gt;getBucket("sketch");
+// 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
+$bucket-&gt;setPolicy(array(
+    "saveKey" =&gt; sprintf("%s.jpg", time()),
+    "returnBody" =&gt; '{"key": $(key),"name": $(fname)}',
+    "expires" =&gt; 3600
+));
+</code></pre>
+
+<p>你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：</p>
+
+<pre><code class="php">$bucket-&gt;put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);
+</code></pre>
+
+<p>你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：</p>
+
+<pre><code class="php">$bucket-&gt;setPolicy(array(
+    // 通过 returnBody 的形式返回魔术变量
+    "returnBody" =&gt; '{"key": $(key), "user": $(x:user)}',                  
+));
+$uploadParams = array(
+    // 文件保存名称
+    "key" =&gt; "avatar.png",
+    // 自定义魔术变量
+    "x:user" =&gt; "Simple Qiniu SDK"
+);
+$bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
+</code></pre>
+
+<p>如果你希望采用<a href="http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html">表单上传模式</a>，你可以使用 getUpToken 方法来获取上传令牌：</p>
+
+<pre><code class="html">&lt;form action="http://upload.qiniu.com/" method="post" enctype="multipart/form-data"&gt;
+    &lt;input name="file" type="file" /&gt;
+    &lt;input name="x:user" type="hidden" value="Simple Qiniu SDK"&gt;
+    &lt;input name="token" type="hidden" value="&lt;?=$bucket-&gt;getUpToken()?&gt;"&gt;
+    &lt;button id="upload" type="submit"&gt;上传到七牛&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
+]]></description>
+                <link>/2015/01/26/how-to-use-simple-qiniu-sdk.html</link>
+                <pubDate>Mon, 26 Jan 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/01/26/how-to-use-simple-qiniu-sdk.html</guid>
+            </item>
+                    <item>
+                <title>Y combinator in PHP</title>
+                <description><![CDATA[<pre><code class="php">$Y = function($f){
+    $x = function($s) use($f){
+        return function($n) use($s, $f){
+            return $f($s($s))-&gt;__invoke($n);
+        };
+    };
+    return $x($x);
+};
+
+$factorial = $Y(function($recurse){
+    return function($x) use($recurse){
+        return $x === 0 ? 1 : $x * $recurse($x - 1);  
+    };         
+});
+
+echo $factorial(6); // 720
+</code></pre>
+
+<p>花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。</p>
+]]></description>
+                <link>/2015/01/14/y-combinator-in-php.html</link>
+                <pubDate>Wed, 14 Jan 2015 18:03:08 +0800</pubDate>
+                <guid>/2015/01/14/y-combinator-in-php.html</guid>
+            </item>
+                    <item>
+                <title>手动更新 VirtualBox Guest Additions</title>
+                <description><![CDATA[<p>在使用 Vagrant 作为开发环境一段时间后，发现 Vagrant 也并不能做到完全的无缝迁移。昨天更新系统软件之后，在运行 Vagrant 时提示了 VirtualBox Guest Additions 版本不匹配的警告。这个问题一般是由 VirtualBox 更新引起的，在我们的 Vagrant 环境中，Guest Additions 版本不同最可能出现的问题就是无法挂载共享文件夹。</p>
+
+<p>上面的问题可以通过升级 Vagrant box 里的 Guest Additions 来解决，升级也可以采用自动和手动两种方式。</p>
+
+<p>Vagrant 的 Vbguest plugin 可以在启动时自动检测 Guest Additions 的版本，如果版本不同则自动更新同步，具体教程可以参考这篇教程：<a href="http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/">Vagrant Tip: Sync VirtualBox Guest Additions</a>。我测试了一下这个插件，整个更新过程基本上是不需要人为操作，但是由于国内的网络问题，可能在下载新版本 Guest Additions(60MB+) 时需要等待比较长的时间。</p>
+
+<p>不过我最后还是采用了手动更新，因为使用 Vagrant 的目的是尽量不折腾，就没必要在解决由于依赖引起的问题时引入新的依赖隐患。Guest Additions 的介绍和手动更新方法在 VirtualBox 的文档 <a href="https://www.virtualbox.org/manual/ch04.html">Chapter 4. Guest Additions</a> 中写得非常详细了。在这里只是把步骤做一个简单的记录，方便以后需要时查看。</p>
+
+<pre><code class="bash"># 在 Vagrant box 中安装更新依赖
+vagrant@precise32:~$ sudo apt-get install linux-headers-$(uname -r) build-essential dkms
+# 下载新版本的 Guest Additions
+vagrant@precise32:~$ wget http://download.virtualbox.org/virtualbox/4.3.10/VBoxGuestAdditions_4.3.10.iso
+# 挂载镜像
+vagrant@precise32:~$ sudo mount VBoxGuestAdditions_4.3.10.iso -o loop,ro /mnt
+# 卸载旧版本，可省略
+vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run uninstall
+# 安装新版本
+vagrant@precise32:~$ sudo sh /mnt/VBoxLinuxAdditions.run
+</code></pre>
+
+<p>手动安装的过程也非常简单，但是不论是手动还是自动安装完成之后，启动时都可能会遇到以下这两个问题：</p>
+
+<pre><code class="bash">Failed to mount folders in Linux guest. This is usually because
+the "vboxsf" file system is not available. Please verify that
+the guest additions are properly installed in the guest and
+can work properly. The command attempted was:
+
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` /vagrant /vagrant
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` /vagrant /vagrant
+</code></pre>
+
+<p>这个问题普遍反映在 Guest Additions 4.3.10 版本中，可以通过这个命令解决：</p>
+
+<pre><code class="bash">vagrant@precise32:~$ sudo ln -sv /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions \
+/usr/lib/VBoxGuestAdditions
+</code></pre>
+
+<p>另外一个问题则表现为在新版安装成功之后依然会提示版本不匹配，VirtualBox 检测到的仍然是已经卸载掉的旧版本。首先需要确认新版本已经安装成功，检测是否已经安装了 vboxguest ：</p>
+
+<pre><code>vagrant@precise32:~$ lsmod | grep -i vbox
+vboxsf                 42523  1 
+vboxguest             219244  2 vboxsf
+vboxvideo              12550  0 
+drm                   197692  1 vboxvideo
+</code></pre>
+
+<p>查看 vboxguest 版本：</p>
+
+<pre><code class="bash">vagrant@precise32:~$ modinfo vboxguest
+filename:       /lib/modules/3.2.0-23-generic-pae/updates/dkms/vboxguest.ko
+version:        4.3.10
+license:        GPL
+description:    Oracle VM VirtualBox Guest Additions for Linux Module
+author:         Oracle Corporation
+srcversion:     FDAC0A8218FE4AEFD8732E8
+alias:          pci:v000080EEd0000CAFEsv00000000sd00000000bc*sc*i*
+depends:        
+vermagic:       3.2.0-23-generic-pae SMP mod_unload modversions 686 
+</code></pre>
+
+<p>查看 guestproperty 中的版本号（id 可以在项目目录的 .vagrant/machines/default/virtualbox/id 中查看）：</p>
+
+<pre><code class="bash">MiniThinker@localhost:~$ VBoxManage guestproperty get &lt;id&gt; /VirtualBox/GuestAdd/Version
+Value: 4.2
+</code></pre>
+
+<p>前面确认已经成功安装新版本，VBoxManage 仍然检测到的是旧版本，手动设置更新版本号：</p>
+
+<pre><code class="bash">MiniThinker@localhost:~$ VBoxManage guestproperty set &lt;id&gt; /VirtualBox/GuestAdd/Version
+</code></pre>
+
+<p>在问题解决后重新打包整个环境即可，如果不怕麻烦的话，可以卸载和删掉更新过程中安装和下载的文件。</p>
+]]></description>
+                <link>/2014/11/02/update-virtualbox-guest-additions.html</link>
+                <pubDate>Sun, 02 Nov 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/11/02/update-virtualbox-guest-additions.html</guid>
+            </item>
+                    <item>
+                <title>Youdao firefox alpha</title>
+                <description><![CDATA[<p>Chromium 升级到版本 37 后在 linux 下的变现欠佳。特别是在字体方面，就算在 Chromium 中设置了相关的字体，也不能完全得到改善。不过 Firefox 32 的表现却与之相反，启动速度、浏览器界面与字体渲染都令人非常满意，所以在 Chromium 相关问题未得到解决的情况下，我会将 Firefox 作为默认浏览器。之前在 Chromium 中使用的大部分插件也有对应的 Firefox 版本，没有迁移障碍。不过翻译插件的迁移就没有那么顺利了。</p>
+
+<p>之前在 Chromium 中主要使用有道词典的划词插件以及网友开发的 Halo 词典，这两者都没有对应的 Firefox 版本。Firefox 自身的翻译插件基本上都是基于 Google 翻译，以目前的网络环境来看，没翻墙的情况下差不多都已残废。我在 Firefox 插件列表中找到了一个叫 Youdao-firefox 的翻译插件，界面和快捷键还比较适合，但是试用的时候发现无法会出现无法翻译的问题，把插件解包了大致看了一下源代码，它依然使用的是 Google 翻译的接口，这是几个意思啊？</p>
+
+<p>既然没能找到好用的翻译插件，那就只能自己动手了，<a href="https://github.com/zither/youdao-firefox">Youdao-firefox-alpha</a> 就这样诞生了。我在 Youdao-firefox 的基础上，将 Google 翻译接口调整为有道词典的接口，删掉了仅对 Google 有用的多语言翻译配置，以及除中英以外的其他国际化支持。在界面和快捷键上仍然与原版一致，在选中单词过后按下 alt + z 就会弹出翻译框。暂时我只添加了有道翻译的基本释意，所以在翻译结果中不能看到网络释意，以后是否会支持还未决定。</p>
+
+<p>插件包不准备放到官方网站上去，所以如果你也需要的话可以在 <a href="https://github.com/zither/youdao-firefox/releases">Github</a> 上下载已经打包好的插件。当然，你也可以 fork 之后增加自己需要的功能，然后重新打包。</p>
+]]></description>
+                <link>/2014/10/13/youdao-firefox-alpha.html</link>
+                <pubDate>Mon, 13 Oct 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/10/13/youdao-firefox-alpha.html</guid>
+            </item>
+                    <item>
+                <title>Vagrant 与 LFS</title>
+                <description><![CDATA[<p>这几天一直在折腾迁移之前的开发环境。我现在使用的系统只划分了 /、/home、/boot 以及 swap 这几个分区，开发环境则沿用了 Apache 的 /var/www 目录。这样带来的问题是每次系统崩溃需要重装时就必须用 live CD 进行备份数据，重装后还需要还原开发环境，我希望以后能尽量避免类似的情况。另外最近可能还有跨平台的开发需求，这也提高了保证开发环境一致性的难度，所以决定把开发环境迁移到 Vagrant 上来。</p>
+
+<p>Vagrant 是一款构建虚拟开发环境的工具，可以简单的把它理解成一个集成开发环境的虚拟机。我们可以把代码目录放在宿主系统上，而代码的运行环境则由 Vagrant 来提供。Vagrant 的安装与配置非常简单，大致过程可以参照 Segmentfault 的文章：「<a href="http://segmentfault.com/blog/fenbox/1190000000264347">使用 Vagrant 打造跨平台开发环境</a>」。现在我已经把自己最常用的 LNMP 开发环境通过 Vagrant 打包，然后把开发目录迁移到了 /home 分区下面，整个过程非常顺利。</p>
+
+<p>在使用自己制作的 Vagrant 包的时候可能会出现：「_Vagrantfile:5: warning: already initialized constant VAGRANTFILE_API_VERSION」的问题。这是因为我们把已经配置好的 Vagrantfile 配置也打包到了里面，还原开发环境时（vagrant init）也会自己生成一个 Vagrantfile 配置文件，在这两个配置文件中重复定义了 VAGRANTFILE_API_VERSION 这个常量。从<a href="https://docs.vagrantup.com/v2/vagrantfile/index.html">官方文档</a>中得知 Vagrant 使用 ruby 来解释它的配置文件，并且项目目录下的配置会覆盖 package 中的配置，所以只需要用以下方式修改 ~/.vagrant.d 中对应的 _Vagrantfile 即可：</p>
+
+<pre><code>// 只需检测是否之前已经定义过该常量
+if !defined? VAGRANTFILE_API_VERSION
+    VAGRANTFILE_API_VERSION = "2"
+end
+</code></pre>
+
+<p>这虽然能够修正这个错误，但是每次还原都这样修改依然很麻烦。我推荐使用这种方法修改项目目录中的 Vagrantfile，然后重新打包。</p>
+
+<p>另外，我花了近 30 个小时的时间达成了成功安装 LFS 系统的成就。在迁移完开发环境之后我发现 Vagrant 包竟然有近 600M，后来在寻找更小巧的 Base 镜像时发现了一个超小的 LFS 镜像，这让我对 LFS 的兴趣大增。恰好国内恰好有完整的 LFS 安装手册，为了以后能更好的使用  linux，我决定在虚拟机里把整个安装过程跑一遍，好处多多。</p>
+
+<p>这里有几点关于安装 LFS 的心得可以记录一下。如果是第一次尝试安装的话，强烈推荐下载包含完整源码的 live CD，我安装的时候直接下了一个 mini 镜像，源码都是安装时再下载，导致频繁的在宿主环境与 chroot 环境中切换，并且手册中给出的下载地址很多已失效，还需要搜索相关的 LFS mirror，非常费时。按照手册的步骤完整基本上不会出现太大的问题，我只在第六章安装 file 和 man-db 时遇到了 zlib.h 和 db.h 等头文件无法找到的问题，自己把 /usr/include 加入到 C_INCLUDE_PATH 和 CPLUS_INCLUDE_PATH 环境变量即可。</p>
+
+<p>其实最可能遇到的问题应该是安装完成之后的网络设置部分，很多人都可能遇到 eth0 dosent exist 的问题。这里需要在编译 kernel 时添加相关驱动模块的支持。解决这个问题最简单的办法就是在宿主系统上使用 <code>lspci | grep -i Ethernet</code> 命令查看网卡参数，然后在 kernel 里选择合适的模块。其实究其根本，还是因为平常使用中很少会涉及到内核部分，对其众多的参数没有基本的了解。</p>
+]]></description>
+                <link>/2014/10/08/vagrant-and-lfs.html</link>
+                <pubDate>Wed, 08 Oct 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/10/08/vagrant-and-lfs.html</guid>
+            </item>
+                    <item>
+                <title>新一轮晒桌面开始</title>
+                <description><![CDATA[<p><img src="http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg" alt="openbox" /></p>
+
+<p>据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。</p>
+
+<p>无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。</p>
+
+<p>因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。</p>
+
+<!--more-->
+
+<p><img src="http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg" alt="lubuntu" /></p>
+
+<p>这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。</p>
+]]></description>
+                <link>/2014/09/29/new-system-screenshot.html</link>
+                <pubDate>Mon, 29 Sep 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/09/29/new-system-screenshot.html</guid>
+            </item>
+                    <item>
+                <title>Mreader for android</title>
+                <description><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/86e701f8gw1ekoleq5h14j20xc0m8413.jpg" alt="Mreader for android" /></p>
+
+<p>经过这几天的折腾，我的第一个 Android app 诞生了。它是之前重写过的 <a href="http://mreader.sinaapp.com">Mreader</a> 的安卓版本，因此也是一个只能我自己使用的安卓应用。它实现了几个非常简单的功能，可以获取 Mreader 订阅中的未读文章以及星标文章列表，点击列表后可以直接在应用中查看文章内容。</p>
+
+<p>这款应用的开发完全是在计划之外，突然想给 Mreader 开发一个专属应用，然后就直接开始了。从脑袋中有了想法到应用雏形的完成只用了一天时间。由于之前完全没有 Android 开发经验，也没有学过 Java，整个开发过程完全是由需求驱动，不停的各种搜索学习。应用雏形是在 Eclipse 中完成的，大致了解之后又迁移到了 Android studio。</p>
+
+<p>应用虽然简单，学到的东西却不少。在短短的几天时间里了解了安卓开发的环境搭建，开发流程以及安卓应用大致结构，我可以说手里又多了一把锤子了么？其实应用开发和网页开发有着非常多的共同之处，这也是能快速上手的关键原因。另外，搜索用多了就会知道中文内容的质量低到了什么程度，以后还是直接用英文搜索技术问题吧。</p>
+
+<p>最后需要感谢 <a href="http://ffra.deviantart.com/art/MAXIMAL-Icons-Updated-387287801?q=gallery%3AFFra/43722907&amp;qo=2">FFra</a>，Mreader for android 直接使用了 Ta 设计的应用图标，非常漂亮。</p>
+]]></description>
+                <link>/2014/09/25/mreader-for-android.html</link>
+                <pubDate>Thu, 25 Sep 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/09/25/mreader-for-android.html</guid>
+            </item>
+                    <item>
+                <title>莉诺达斯木桩系统</title>
+                <description><![CDATA[<p>自从开始尘埃的策划之后，很用心的玩了几款文字游戏，比如 Linodas、Estiah、World of dungeons。玩得比较久，比较喜欢的要算 Linodas，他是国内个人仿制 Estiah 的成果。虽然莉诺达斯的玩家并不是很多，但是活跃度很不错，玩家间交流比较频繁。仅仅是这点就可以超过 wod 了，我能说我的 wod 帐号到现在才升到 4 级嘛，新手副本对单人非常不友好，经常半路被撸晕拖回来。</p>
+
+<p>在玩莉诺达的过程中，也在思考尘埃的一些设定，比如战斗方式之类。并且花了两三天时间制作了一个<a href="http://linodas.sinaapp.com">莉诺达斯木桩系统</a>，不仅可以方便的进行卡组对比，也能了解背后的计算过程。不过由于本人玩了一个来月等级也才只有15级，非常多的高级卡片拿不上，所以有些卡片属性还不能完全支持。当然，以后等级上来了，相应的功能也会添加上去。</p>
+
+<p>如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：<a href="http://linodas.sinaapp.com">http://linodas.sinaapp.com</a>。</p>
+]]></description>
+                <link>/2014/09/18/combat-simulation-system-of-linodas.html</link>
+                <pubDate>Thu, 18 Sep 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/09/18/combat-simulation-system-of-linodas.html</guid>
+            </item>
+                    <item>
+                <title>重写了 Mreader</title>
+                <description><![CDATA[<p><a href="http://mreader.sinaapp.com">Mreader</a> 是我自己写的一个 Feed 聚合工具，第一个版本诞生于 2013 年 5 月。当时写 Mreader 的原因是 Google reader 即将关闭，虽然那段时间出现了非常多的 Google reader 替代品，但是由于稳定性的原因没有使用它们。后来就花了几天时间自己写了一个简陋的 Web 聚合，然后一直使用到 <a href="http://digg.com/reader">Digg reader</a> 的发布。</p>
+
+<p>Digg reader 算是 Google reader 的最佳替代品，我也一直使用到现在。不过最近国类又开始封锁国外的各种服务，在没有出墙的情况下，Digg reader 的良好体验被大大的降低了。然后我又一次想到了已经被搁置很久的 Mreader，决定花两天时间把它重写了一遍。基本的订阅功能今天已经完成了，前端方面基本直接 Copy 了我另一个小站的样式。</p>
+
+<p>现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。</p>
+]]></description>
+                <link>/2014/09/10/new-version-of-mreader.html</link>
+                <pubDate>Wed, 10 Sep 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/09/10/new-version-of-mreader.html</guid>
+            </item>
+                    <item>
+                <title>谁动了我的 php.vim</title>
+                <description><![CDATA[<p>最近发生了一个非常诡异的事情，我的 vim 语法高亮竟然自动变了！在<a href="http://blog.minimee.org/article/2014/03/20/the-problem-of-vim-css-color">前一篇博客</a>中我提到过：从我使用 vim 编辑器以来，color scheme 一直都是 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。它之前的模样可以在<a href="http://minimee.org/vim/">这篇介绍</a>中看到。</p>
+
+<p>从图片中可以看到 php 注释要比 php 普通代码的颜色要暗很多，不会吸引到视觉焦点，这也是我选择 color scheme 最重要的标准之一。但是最近它竟然自己把颜色给换了，难道注释也变得不甘寂寞了么？</p>
+
+<!--more-->
+
+<p>从<a href="http://ww1.sinaimg.cn/large/86e701f8gw1eepv20rot2j21ao07xdgn.jpg">这张图片</a>可以看到，注释中部分文字改变了高亮颜色！奇怪的是最近我并没有任何更新 vim 的操作，我也不知道为什么变成了这样。在更换了多个 color scheme 之后发现，这个问题影响到了所有的 color scheme，也就是说问题与 color scheme 自身没有关系。而是 vim highlight groups 中混入了奇怪的东西。</p>
+
+<pre><code class="vimL">hi Comment          guifg=#808080           gui=none
+hi Comment          ctermfg=243             cterm=none
+</code></pre>
+
+<p>这几行代码是 lucius 配色中关于注释的颜色设置，现在我需要找到混在 Comment group 中的其他 group。这时可以祭出 <a href="http://www.vim.org/scripts/script.php?script_id=383">SyntaxAttr.vim</a> 这件大杀器，它的功能很简单，就是可以获取鼠标所在文字的 highlight group 信息。插件安装成功之后可以使用以下命令来获取 highlight group 信息：</p>
+
+<pre><code class="vimL">:call SyntaxAttr()
+</code></pre>
+
+<p>利用这个插件我找到了注释中高亮部分的 highlight group：</p>
+
+<pre><code class="vimL">group: phpDocTags-&gt;PreProc guifg=#efefaf(#efefaf)
+group: phpDocCustomTags-&gt;Type guifg=#93e690(#93e690)
+</code></pre>
+
+<p>很显然，在 lucius scheme 之中并没有定义与这两个 group 相关的设置，关于这两个 group 的定义可以在 vim 的 syntax/php.vim 中找到：</p>
+
+<pre><code>syntax match  phpDocCustomTags  "@[a-zA-Z]*\(\s\+\|\n\|\r\)" containedin=phpComment
+syntax region phpDocTags  start="{@\(example...\|tutorial\)" end="}" containedin=phpComment
+syntax match  phpDocTags  "@\(abstract\....\|throws\)\(\s\+\)\?" containedin=phpComment
+</code></pre>
+
+<p>最后为了让这两个不安分的 highlight group 低调一点，我直接在 lucius scheme 中添加了如下两行设置：</p>
+
+<pre><code>hi phpDocTags       guifg=#808080                                   gui=none
+hi phpDocCustomTags guifg=#808080                                   gui=none
+</code></pre>
+
+<p>然后整个 vim 又恢复到之前的宁静了。</p>
+]]></description>
+                <link>/2014/03/23/who-changed-my-php-vim.html</link>
+                <pubDate>Sun, 23 Mar 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/03/23/who-changed-my-php-vim.html</guid>
+            </item>
+                    <item>
+                <title>vim-css-color 严重降低 vim 启动速度</title>
+                <description><![CDATA[<p>因为一直使用 vim-gtk 的缘故，我其实很少使用 vim 进行编程，color scheme 更是一直使用 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。不过最近有些工作必须要在终端下完成，为了改善在 vim 中编程的体验，我还是决定升级下终端版本，并专门把 vim 的配色更换为 <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow-Night</a>。</p>
+
+<p>我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。</p>
+
+<!--more-->
+
+<p>使用如下命令来查看 vim 的启动过程耗费的时间：</p>
+
+<pre><code class="php">vim --startuptime timefile test.php
+</code></pre>
+
+<p>这个命令会打开 test.php 文件并在当前目录生成一个名为 timefile 的启动日志文件。然后我在日志文件中找到了拖慢 vim 启动速度的真凶：</p>
+
+<pre><code class="php">191.477  004.767  004.767: sourcing /usr/share/vim/vim74/syntax/vb.vim
+4279.165  4087.443  4087.443: sourcing /home/chou/.vim/bundle/css_color.vim/syntax/css.vim
+</code></pre>
+
+<p>从日志中可以看到，大部分时间都被用于加载这个名为 css_color.vim 的插件。话说这个插件比较好玩，特别是对于经常接触前端的朋友，它可以自动修改文件中表示各种颜色格式文字（比如 #ffffff）的背景，然后让人可以直观的看到这些数字组成的颜色。我当即在 .vimrc 配置中去掉了这个插件，然后 vim 的启动速度恢复正常。</p>
+
+<p>随手 google 了一下，发现非常多的人在 <a href="https://github.com/skammer/vim-css-color/issues/3">github issue</a> 上提出了这个问题，但是作者未作任何回复。大致是由于插件的 rgb2xterm 函数效率过低。不过有好心的网友自己对这个问题进行了更新修复，更新后的插件可以在这里找到：<a href="https://github.com/ap/vim-css-color">https://github.com/ap/vim-css-color</a>。</p>
+
+<p>之前在 88 色终端下并未发现这个问题是由于插件在开头添加了这样一行环境检测代码：</p>
+
+<pre><code class="vimL">if !( has('gui_running') || &amp;t_Co==256 ) | finish | endif
+</code></pre>
+
+<p>PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。</p>
+]]></description>
+                <link>/2014/03/20/the-problem-of-vim-css-color.html</link>
+                <pubDate>Thu, 20 Mar 2014 18:03:08 +0800</pubDate>
+                <guid>/2014/03/20/the-problem-of-vim-css-color.html</guid>
+            </item>
+            </channel>
+</rss>

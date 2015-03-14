@@ -1,1 +1,0 @@
-[Powered by Pointless](https://github.com/scarwu/Pointless)

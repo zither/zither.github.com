@@ -2,7 +2,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8">
-<title>About</title>
+<title>Youdao firefox alpha</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="ZJmee 的代码幻境。">
 <meta name="author" content="ZJmee">
@@ -10,15 +10,15 @@
 
         <meta name="twitter:card" content="summary">
         <meta name="twitter:image" content="/assets/img/logo.png">
-    <meta name="twitter:title" content="About">
+    <meta name="twitter:title" content="Youdao firefox alpha">
     <meta name="twitter:description" content="ZJmee 的代码幻境。">
     <meta name="twitter:creator" content="@ilorn">
 
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About">
+<meta property="og:title" content="Youdao firefox alpha">
 <meta property="og:description" content="ZJmee 的代码幻境。">
-<meta property="og:url" content="/about/index.html">
+<meta property="og:url" content="/2014/10/13/youdao-firefox-alpha.html">
 <meta property="og:site_name" content="ZJMEE 机械迷城">
 
 <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="ZJMEE 机械迷城 Feed">
@@ -63,34 +63,22 @@
                     <article class="post">
     <header>
         <h1>
-            <a href="/about/index.html">About</a>
+            <a href="/2014/10/13/youdao-firefox-alpha.html">Youdao firefox alpha</a>
         </h1>
     </header>
     
-    <p>那些年我捣鼓过的小玩意儿：</p>
+    <p>Chromium 升级到版本 37 后在 linux 下的变现欠佳。特别是在字体方面，就算在 Chromium 中设置了相关的字体，也不能完全得到改善。不过 Firefox 32 的表现却与之相反，启动速度、浏览器界面与字体渲染都令人非常满意，所以在 Chromium 相关问题未得到解决的情况下，我会将 Firefox 作为默认浏览器。之前在 Chromium 中使用的大部分插件也有对应的 Firefox 版本，没有迁移障碍。不过翻译插件的迁移就没有那么顺利了。</p>
 
-<ul>
-<li><a href="http://www.shouhuiben.com">恋恋手绘本</a>，我的 Forever Project，一个让人坚持绘画的小社区。</li>
-<li><a href="http://mreader.sinaapp.com">Mreader</a>，非常简单的 Feed 聚合阅读小站，为自己量身定制。</li>
-</ul>
+<p>之前在 Chromium 中主要使用有道词典的划词插件以及网友开发的 Halo 词典，这两者都没有对应的 Firefox 版本。Firefox 自身的翻译插件基本上都是基于 Google 翻译，以目前的网络环境来看，没翻墙的情况下差不多都已残废。我在 Firefox 插件列表中找到了一个叫 Youdao-firefox 的翻译插件，界面和快捷键还比较适合，但是试用的时候发现无法会出现无法翻译的问题，把插件解包了大致看了一下源代码，它依然使用的是 Google 翻译的接口，这是几个意思啊？</p>
 
-<p>博客使用了这些服务：</p>
+<p>既然没能找到好用的翻译插件，那就只能自己动手了，<a href="https://github.com/zither/youdao-firefox">Youdao-firefox-alpha</a> 就这样诞生了。我在 Youdao-firefox 的基础上，将 Google 翻译接口调整为有道词典的接口，删掉了仅对 Google 有用的多语言翻译配置，以及除中英以外的其他国际化支持。在界面和快捷键上仍然与原版一致，在选中单词过后按下 alt + z 就会弹出翻译框。暂时我只添加了有道翻译的基本释意，所以在翻译结果中不能看到网络释意，以后是否会支持还未决定。</p>
 
-<ul>
-<li><a href="http://spress.yosymfony.com/">Spress</a>，The static site generator in PHP。</li>
-<li><a href="https://pages.github.com/">Github pages</a>，Websites for you and your projects。</li>
-</ul>
-
-<p>来自 1971 的问候：</p>
-
-<ul>
-<li><code>echo aWxvcm4ubWNAZ21haWwuY29tCg== | base64 --decode</code></li>
-</ul>
+<p>插件包不准备放到官方网站上去，所以如果你也需要的话可以在 <a href="https://github.com/zither/youdao-firefox/releases">Github</a> 上下载已经打包好的插件。当然，你也可以 fork 之后增加自己需要的功能，然后重新打包。</p>
 
     
         <footer>    
         <p class="pubdate">
-        	Posted by ZJmee on <time pubdate="pubdate">2015-03-14</time>
+        	Posted by ZJmee on <time pubdate="pubdate">2014-10-13</time>
         </p>
     </footer>
         
