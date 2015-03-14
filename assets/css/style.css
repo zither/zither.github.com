@@ -18,6 +18,9 @@ body {
 .label-primary {
     background-color:#EB6864;
 }
+.label-primary[href]:hover, .label-primary[href]:focus{
+    background-color:#EB6864;
+}
 #wrap > .container {
     padding: 60px 15px 0;
 }
@@ -35,6 +38,9 @@ body {
 }
 a {
     color:#c95555;
+}
+a:hover {
+    color:#555;  
 }
 code {
     font-size: 80%;
