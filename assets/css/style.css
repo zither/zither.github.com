@@ -1,19 +1,18 @@
 html,
 body {
     height: 100%;
-    font: 16px Helvetica, Tahoma, Arial,Georgia,"Lora","STSong","NSimSun",sans-serif;
+    font: 16px Helvetica, Tahoma, Arial,"Xin Gothic","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 }
 
 /* Wrapper for page content to push down footer */
 #wrap {
-    min-height: 100%;
-    max-width: 860px;
     height: auto !important;
-    height: 100%;
     /* Negative indent footer by its height */
-    margin: 0 auto -60px;
+    margin: 0 auto;
     /* Pad bottom by footer height */
-    padding: 0 0 60px;
+}
+.container {
+    max-width:860px;
 }
 .label-primary {
     background-color:#EB6864;
@@ -22,7 +21,7 @@ body {
     background-color:#EB6864;
 }
 #wrap > .container {
-    padding: 60px 15px 0;
+    padding: 0 15px 0;
 }
 
 #footer {
@@ -53,7 +52,7 @@ p {
     line-height:1.7em;
 }
 .pubdate {
-    color:#b6b6b6;
+    color:#e4e4e4;
 }
 
 .logo img {
@@ -62,7 +61,6 @@ p {
 
 /* Post */
 .post {
-    margin-bottom:50px;
 }
 .post header {
     margin-bottom:20px;

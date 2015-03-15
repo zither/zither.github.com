@@ -34,7 +34,7 @@
     </head>
     <body>
         <div id="wrap">
-            <div class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,6 +54,9 @@
     </li>
         <li><a href="/linux">
         Linux</a>
+    </li>
+        <li><a href="/about">
+        About</a>
     </li>
     </ul>
       </div><!--/.nav-collapse -->
@@ -140,20 +143,13 @@ $bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
         <footer id="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6">
-                        <ul class="list-inline">
-        <li><a href="/about">
-        About</a>
-    </li>
-        <li><a href="http://www.shouhuiben.com">
-        Shouhuiben</a>
-    </li>
-        <li><a href="https://github.com/yosymfony/Spress-theme-spresso">
-        Spresso</a>
-    </li>
-    </ul>
+                    <div class="col-sm-6">
+                        <p>
+                            &copy; 2014 - 2015 ZJmee.
+                            Powered by <a href="http://spress.yosymfony.com">Spress</a>.
+                        </p>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="col-sm-6 text-right hidden-xs">
                         <ul class="list-inline">
         <li>
         <a href="https://twitter.com/ilorn">
@@ -173,15 +169,11 @@ $bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
         
     </ul>                    </div>
                 </div>
-                <p class="text-center">
-                    &copy; 2014 - 2015 ZJmee.
-                    Powered by <a href="http://spress.yosymfony.com">Spress</a>.
-                </p>
             </div>
             <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
             <script src="//cdn.staticfile.org/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
             
-                        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+                        <script src="/assets/js/highlight.min.js"></script>
             <script>hljs.initHighlightingOnLoad();</script>
                         
                         </footer>
