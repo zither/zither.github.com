@@ -15,10 +15,10 @@ body {
     max-width:860px;
 }
 .label-primary {
-    background-color:#EB6864;
+    background-color:#c95555;
 }
 .label-primary[href]:hover, .label-primary[href]:focus{
-    background-color:#EB6864;
+    background-color:#c95555;
 }
 #wrap > .container {
     padding: 0 15px 0;
@@ -38,7 +38,7 @@ body {
 a {
     color:#c95555;
 }
-a:hover {
+a:hover, a:focus {
     color:#555;  
 }
 code {
@@ -67,9 +67,6 @@ p {
 }
 .post h1 {
     font: 26px Helvetica, Tahoma, Arial,Georgia,"Lora","STSong","NSimSun",sans-serif;
-}
-.post header a {
-    color:#555;
 }
 .post p a {
     text-decoration:underline;

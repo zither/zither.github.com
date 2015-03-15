@@ -134,7 +134,7 @@ try {
 <p>从输出的内容可以看到，github 模板中定义的 title 覆盖了 index 模板中设置的内容，这点需要注意。同时 index 模板中定义的 github section 也被正确填充，这说明 Helper 中的 toUpper 方法也被正确调用。</p>
 ]]></description>
                 <link>/2015/03/06/how-to-use-memo-view-component.html</link>
-                <pubDate>Fri, 06 Mar 2015 16:29:29 +0800</pubDate>
+                <pubDate>Fri, 06 Mar 2015 18:56:40 +0800</pubDate>
                 <guid>/2015/03/06/how-to-use-memo-view-component.html</guid>
             </item>
                     <item>
@@ -191,7 +191,7 @@ psslocal -c ~/skcoswodahs/config.json
 <p>我试着基于 Swoole + Openssl + Openssl-incremental 拓展实现了一个 PHP 版的 Skcoswodahs 服务端，在几天的单人测试中没有出现任何问题，一直维持着极低的 CUP 和 内存使用率。由于 Swoole 拓展自身的一些特性需求，在实现多端口的动态监听时会有些麻烦，但如果只监听多个固定端口还是非常方便的。</p>
 ]]></description>
                 <link>/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2.html</link>
-                <pubDate>Fri, 20 Feb 2015 16:29:29 +0800</pubDate>
+                <pubDate>Fri, 20 Feb 2015 18:56:40 +0800</pubDate>
                 <guid>/2015/02/20/a-simple-implementation-of-skcoswodahs-client-2.html</guid>
             </item>
                     <item>
@@ -362,7 +362,7 @@ fclose($remote);
 <p>到此我们已经完成了一个非常简陋的客户端，它只能纯手工构建请求，并且在完成一次通信之后就退出了，但是这并不重要，重要的是我们了解了它的原理。如果你想要完善这个客户端，可以自己为它补上 SOCKS server 的功能，也可以使用其他开源实现，比如：<a href="https://github.com/clue/php-socks-react">https://github.com/clue/php-socks-react</a>。</p>
 ]]></description>
                 <link>/2015/02/12/a-simple-implemention-of-shadowsocks-client.html</link>
-                <pubDate>Thu, 12 Feb 2015 16:29:29 +0800</pubDate>
+                <pubDate>Thu, 12 Feb 2015 18:56:40 +0800</pubDate>
                 <guid>/2015/02/12/a-simple-implemention-of-shadowsocks-client.html</guid>
             </item>
                     <item>
@@ -427,7 +427,7 @@ $bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
 <p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
 ]]></description>
                 <link>/2015/01/26/how-to-use-simple-qiniu-sdk.html</link>
-                <pubDate>Mon, 26 Jan 2015 16:29:29 +0800</pubDate>
+                <pubDate>Mon, 26 Jan 2015 18:56:40 +0800</pubDate>
                 <guid>/2015/01/26/how-to-use-simple-qiniu-sdk.html</guid>
             </item>
                     <item>
@@ -453,7 +453,7 @@ echo $factorial(6); // 720
 <p>花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。</p>
 ]]></description>
                 <link>/2015/01/14/y-combinator-in-php.html</link>
-                <pubDate>Wed, 14 Jan 2015 16:29:29 +0800</pubDate>
+                <pubDate>Wed, 14 Jan 2015 18:56:40 +0800</pubDate>
                 <guid>/2015/01/14/y-combinator-in-php.html</guid>
             </item>
                     <item>
@@ -532,7 +532,7 @@ Value: 4.2
 <p>在问题解决后重新打包整个环境即可，如果不怕麻烦的话，可以卸载和删掉更新过程中安装和下载的文件。</p>
 ]]></description>
                 <link>/2014/11/02/update-virtualbox-guest-additions.html</link>
-                <pubDate>Sun, 02 Nov 2014 16:29:29 +0800</pubDate>
+                <pubDate>Sun, 02 Nov 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/11/02/update-virtualbox-guest-additions.html</guid>
             </item>
                     <item>
@@ -546,7 +546,7 @@ Value: 4.2
 <p>插件包不准备放到官方网站上去，所以如果你也需要的话可以在 <a href="https://github.com/zither/youdao-firefox/releases">Github</a> 上下载已经打包好的插件。当然，你也可以 fork 之后增加自己需要的功能，然后重新打包。</p>
 ]]></description>
                 <link>/2014/10/13/youdao-firefox-alpha.html</link>
-                <pubDate>Mon, 13 Oct 2014 16:29:29 +0800</pubDate>
+                <pubDate>Mon, 13 Oct 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/10/13/youdao-firefox-alpha.html</guid>
             </item>
                     <item>
@@ -572,7 +572,7 @@ end
 <p>其实最可能遇到的问题应该是安装完成之后的网络设置部分，很多人都可能遇到 eth0 dosent exist 的问题。这里需要在编译 kernel 时添加相关驱动模块的支持。解决这个问题最简单的办法就是在宿主系统上使用 <code>lspci | grep -i Ethernet</code> 命令查看网卡参数，然后在 kernel 里选择合适的模块。其实究其根本，还是因为平常使用中很少会涉及到内核部分，对其众多的参数没有基本的了解。</p>
 ]]></description>
                 <link>/2014/10/08/vagrant-and-lfs.html</link>
-                <pubDate>Wed, 08 Oct 2014 16:29:29 +0800</pubDate>
+                <pubDate>Wed, 08 Oct 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/10/08/vagrant-and-lfs.html</guid>
             </item>
                     <item>
@@ -592,7 +592,7 @@ end
 <p>这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。</p>
 ]]></description>
                 <link>/2014/09/29/new-system-screenshot.html</link>
-                <pubDate>Mon, 29 Sep 2014 16:29:29 +0800</pubDate>
+                <pubDate>Mon, 29 Sep 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/09/29/new-system-screenshot.html</guid>
             </item>
                     <item>
@@ -608,7 +608,7 @@ end
 <p>最后需要感谢 <a href="http://ffra.deviantart.com/art/MAXIMAL-Icons-Updated-387287801?q=gallery%3AFFra/43722907&amp;qo=2">FFra</a>，Mreader for android 直接使用了 Ta 设计的应用图标，非常漂亮。</p>
 ]]></description>
                 <link>/2014/09/25/mreader-for-android.html</link>
-                <pubDate>Thu, 25 Sep 2014 16:29:29 +0800</pubDate>
+                <pubDate>Thu, 25 Sep 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/09/25/mreader-for-android.html</guid>
             </item>
                     <item>
@@ -620,7 +620,7 @@ end
 <p>如果你无意间看到这篇文章，并且也玩莉诺达斯，欢迎测试使用：<a href="http://linodas.sinaapp.com">http://linodas.sinaapp.com</a>。</p>
 ]]></description>
                 <link>/2014/09/18/combat-simulation-system-of-linodas.html</link>
-                <pubDate>Thu, 18 Sep 2014 16:29:29 +0800</pubDate>
+                <pubDate>Thu, 18 Sep 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/09/18/combat-simulation-system-of-linodas.html</guid>
             </item>
                     <item>
@@ -632,7 +632,7 @@ end
 <p>现在还有「星标」功能没有完成，我认为这是 Feed 聚合最重要的功能。Google reader 受到那么多人的喜欢，很大程度是因为能通过它找到很多相关网站已经消失的文章。所以我也打算在 Mreader 上永久保存我认为值得收藏的一些博客文章。这需要考虑到图片防盗链的问题，我准备只把「星标」文章的图片抓取到本地进行保存，方便以后查看。</p>
 ]]></description>
                 <link>/2014/09/10/new-version-of-mreader.html</link>
-                <pubDate>Wed, 10 Sep 2014 16:29:29 +0800</pubDate>
+                <pubDate>Wed, 10 Sep 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/09/10/new-version-of-mreader.html</guid>
             </item>
                     <item>
@@ -676,7 +676,7 @@ hi phpDocCustomTags guifg=#808080                                   gui=none
 <p>然后整个 vim 又恢复到之前的宁静了。</p>
 ]]></description>
                 <link>/2014/03/23/who-changed-my-php-vim.html</link>
-                <pubDate>Sun, 23 Mar 2014 16:29:29 +0800</pubDate>
+                <pubDate>Sun, 23 Mar 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/03/23/who-changed-my-php-vim.html</guid>
             </item>
                     <item>
@@ -710,7 +710,7 @@ hi phpDocCustomTags guifg=#808080                                   gui=none
 <p>PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。</p>
 ]]></description>
                 <link>/2014/03/20/the-problem-of-vim-css-color.html</link>
-                <pubDate>Thu, 20 Mar 2014 16:29:29 +0800</pubDate>
+                <pubDate>Thu, 20 Mar 2014 18:56:40 +0800</pubDate>
                 <guid>/2014/03/20/the-problem-of-vim-css-color.html</guid>
             </item>
             </channel>
