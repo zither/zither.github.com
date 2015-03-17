@@ -66,6 +66,121 @@
                                 <article class="post">
     <header>
         <h1>
+            <a href="/2015/03/17/switch-pointless-to-spress.html">从 Pointless 迁移到 Spress</a>
+        </h1>
+    </header>
+    
+    <p>由于 Pointless 「年久失修」，我将博客迁移到了 Spress。不过就目前版本而言，Spress 对多语言支持有些问题。如果你想试用一下 Spress，需要注意以下几点。</p>
+
+<p>Spress 不支持中文标题，它会将标题中的非字母和数字的字符都替换为连字符「-」：</p>
+
+<pre><code class="php">// src/Core/Utils.php
+class Utils {
+    // ...
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $result = preg_replace('/[^\\pL\d]+/u', '-', $text);
+        // ...
+    }
+}
+</code></pre>
+
+<p>Utils 类就一个 slugify 方法，Spress 的标题会被它过滤，它的第一行代码就将所有非数字和 Unicode letter 的字符替换为连字符。</p>
+
+<pre><code class="php">// src/Core/ContentManager/PostItem.php
+class PostItem extends ContentItem 
+{
+    // ...
+    public function getTitle()
+    {
+        $title = $this-&gt;frontmatter-&gt;getFrontmatter()-&gt;get('title');
+        return $title ?: $this-&gt;title;
+    }
+    // ...
+    private function getTitleSlugified()
+    {
+        return Utils::slugify($this-&gt;getTitle());
+    }
+}
+</code></pre>
+
+<p>然后是 PostItem 类，生成文章链接时需要调用 getTitleSlugified 方法。如果我们在 Front-matter 里自定义了中文标题，自定义标题会覆盖 markdown 文件名中的标题，最终导致自定义标题中的所有中文字符都会被替换掉。解决这个问题很简单，修改一下 getTitleSlugified 方法即可：</p>
+
+<pre><code class="php">// src/Core/ContentManager/PostItem.php
+class PostItem extends ContentItem 
+{
+    // ...
+    public function getOriginalTitle()
+    {
+        return $this-&gt;title;
+    }
+    // ...
+    private function getTitleSlugified()
+    {
+        return Utils::slugify($this-&gt;getOriginalTitle());
+    }
+}
+</code></pre>
+
+<p>我添加了一个 getOriginalTitle 方法，它直接返回原标题。然后将 getTitleSlugified 方法中的 getTitle 替换为 getOriginalTitle 即可。当然你也可以简单粗暴的在 getTitleSlugified 里直接使用 <code>$this-&gt;title</code>。</p>
+
+<p>Spress 不支持 「page/2」 格式分页。Spress 默认分页为 page:num 格式，文章数量比较多的时候就会在根目录生成一堆 page2，page3 之类的文件夹，完全不能忍。Spress 贴心的提供了 <code>paginate_path</code> 参数来自定义分页路径，但是如果把参数修改为 page/:num，你就会发现你的首页空了。这是因为 Spress 把新生成的首页放到了 page/ 目录下了：</p>
+
+<pre><code class="php">// src/Core/ContentManager/ContentManager.php
+class ContentManager 
+{
+    // ...
+    private function getRelativePathPaginatorTemplate()
+    {
+        $path = $this-&gt;getRelativePathPaginator();
+        return $path ? $path.'/index.html' : 'index.html';
+    }
+
+    private function getRelativePathPaginator()
+    {
+        $result = '';
+        $template = $this-&gt;configuration-&gt;getRepository()-&gt;get('paginate_path');
+        $dir = dirname($template);
+        if ($dir != '.') {
+            $result = ltrim($dir, '/');
+        }
+        return $result;
+    } 
+}
+</code></pre>
+
+<p>Spress 在生成分页的时候会调用以上两个函数，getRelativePathPaginator 方法决定了首页放置路径。因为我只是用 Spress 来写博客，暂时未想到有什么把首页放到子目录的需求，直接修改代码：</p>
+
+<pre><code class="php">// src/Core/ContentManager/ContentManager.php
+class ContentManager 
+{
+    // ...
+    private function getRelativePathPaginator()
+    {
+        $result = '';
+        $template = $this-&gt;configuration-&gt;getRepository()-&gt;get('paginate_path');
+        $dir = dirname($template);
+        if ($dir != '.' &amp;&amp; 0 === strpos($dir, '/')) {
+            $result = ltrim($dir, '/');
+        }
+        return $result;
+    } 
+}
+</code></pre>
+
+<p>保守起见，我保留了原有的功能，根据 paginate_path 是绝对路径还是相对路径来决定首页的放置路径。然后就可以安心的使用相对路径（例如：page/:num）来定义分页格式了。</p>
+
+<p>Spress 不支持自动部署，也就是说每次 <code>site:build</code> 之后需要自己手工上传。我使用的是 Github pages 托管，我是直接修改 <code>destination</code> 参数，指向博客的 git 目录。如果你直接放到了 spress 目录，需要将其添加到 <code>exclude</code> 列表，防止多次复制。Github pages 需要的文件（例如：CNAME）必须提取到 Spress 目录，不然会被清空。</p>
+
+<p>经过上面的修改和调整，Spress 已经能够正常使用了。如果你不想自己动手修改代码，可以直接使用我打包好的 <a href="http://pan.baidu.com/s/1sjG4hU9">Phar 文件</a>，因为是基于 Spress 2.0.0 开发版打包，所以查看帮助列表的时候会看到 unstable 的提醒，忽略即可。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
             <a href="/2015/03/06/how-to-use-memo-view-component.html">Memo View Component</a>
         </h1>
     </header>
@@ -500,36 +615,6 @@ $bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
 </code></pre>
 
 <p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
-
-    
-        
-    </article>
-            <article class="post">
-    <header>
-        <h1>
-            <a href="/2015/01/14/y-combinator-in-php.html">Y combinator in PHP</a>
-        </h1>
-    </header>
-    
-    <pre><code class="php">$Y = function($f){
-    $x = function($s) use($f){
-        return function($n) use($s, $f){
-            return $f($s($s))-&gt;__invoke($n);
-        };
-    };
-    return $x($x);
-};
-
-$factorial = $Y(function($recurse){
-    return function($x) use($recurse){
-        return $x === 0 ? 1 : $x * $recurse($x - 1);  
-    };         
-});
-
-echo $factorial(6); // 720
-</code></pre>
-
-<p>花了一些时间用 PHP 推导了一遍 Y combinator，因为语法上的一些原因，推导过程中总觉得怪怪的。推导结果代码如上所示，精简和美观程度与 LISP 相差甚远，也就勉强能看。</p>
 
     
         
