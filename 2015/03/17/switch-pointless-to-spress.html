@@ -125,7 +125,7 @@ class PostItem extends ContentItem
 
 <p>我添加了一个 getOriginalTitle 方法，它直接返回原标题。然后将 getTitleSlugified 方法中的 getTitle 替换为 getOriginalTitle 即可。当然你也可以简单粗暴的在 getTitleSlugified 里直接使用 <code>$this-&gt;title</code>。</p>
 
-<p>Spress 不支持 「page/2」 格式分页。Spress 默认分页为 page:num 格式，文章数量比较多的时候就会在根目录生成一堆 page2，page3 之类的文件夹，完全不能忍。Spress 贴心的提供了 <code>paginate_path</code> 参数来自定义分页路径，但是如果把参数修改为 page/:num，你就会发现你的首页空了。这是因为 Spress 把新生成的首页放到了 page/ 目录下了：</p>
+<p>Spress 不支持「page/:num」分页格式。Spress 默认分页为 page:num 格式，文章数量比较多的时候就会在根目录生成一堆 page2，page3 之类的文件夹，完全不能忍。Spress 贴心的提供了 <code>paginate_path</code> 参数来自定义分页路径，但是如果把参数修改为 page/:num，你就会发现首页空了。这是因为 Spress 把新生成的首页放到了 page/ 目录下了：</p>
 
 <pre><code class="php">// src/Core/ContentManager/ContentManager.php
 class ContentManager 
@@ -171,7 +171,7 @@ class ContentManager
 
 <p>保守起见，我保留了原有的功能，根据 paginate_path 是绝对路径还是相对路径来决定首页的放置路径。然后就可以安心的使用相对路径（例如：page/:num）来定义分页格式了。</p>
 
-<p>Spress 不支持自动部署，也就是说每次 <code>site:build</code> 之后需要自己手工上传。我使用的是 Github pages 托管，我是直接修改 <code>destination</code> 参数，指向博客的 git 目录。如果你直接放到了 spress 目录，需要将其添加到 <code>exclude</code> 列表，防止多次复制。Github pages 需要的文件（例如：CNAME）必须提取到 Spress 目录，不然会被清空。</p>
+<p>Spress 不支持自动部署，也就是说每次 <code>site:build</code> 之后需要自己手工上传。我的博客托管在 Github pages 上，于是直接修改 <code>destination</code> 参数，指向博客的 git 目录。如果你直接放到了 spress 目录，需要将其添加到 <code>exclude</code> 列表，防止多次复制。Github pages 需要的文件（例如：CNAME）必须提取到 Spress 目录，不然会被清空。</p>
 
 <p>经过上面的修改和调整，Spress 已经能够正常使用了。如果你不想自己动手修改代码，可以直接使用我打包好的 <a href="http://pan.baidu.com/s/1sjG4hU9">Phar 文件</a>，因为是基于 Spress 2.0.0 开发版打包，所以查看帮助列表的时候会看到 unstable 的提醒，忽略即可。</p>
 
