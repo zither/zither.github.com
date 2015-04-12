@@ -66,6 +66,75 @@
                                 <article class="post">
     <header>
         <h1>
+            <a href="/2015/01/26/how-to-use-simple-qiniu-sdk.html">Simple Qiniu SDK 使用说明</a>
+        </h1>
+    </header>
+    
+    <p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
+
+<pre><code class="php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
+require __DIR__ . "/Autoload.php";
+Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
+Autoload::register();
+
+$accessKey = "accessKey";
+$secretKey = "secretKey";
+$qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
+
+$bucket = $qiniu-&gt;getBucket("sketch");
+$response = $bucket-&gt;put($_FILES["file"]["tmp_name"]);
+echo $response-&gt;getContent();
+</code></pre>
+
+<p>这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：</p>
+
+<pre><code class="php">$bucket = $qiuniu-&gt;getBucket("sketch");
+// 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
+$bucket-&gt;setPolicy(array(
+    "saveKey" =&gt; sprintf("%s.jpg", time()),
+    "returnBody" =&gt; '{"key": $(key),"name": $(fname)}',
+    "expires" =&gt; 3600
+));
+</code></pre>
+
+<p>你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：</p>
+
+<pre><code class="php">$bucket-&gt;put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);
+</code></pre>
+
+<p>你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：</p>
+
+<pre><code class="php">$bucket-&gt;setPolicy(array(
+    // 通过 returnBody 的形式返回魔术变量
+    "returnBody" =&gt; '{"key": $(key), "user": $(x:user)}',                  
+));
+$uploadParams = array(
+    // 文件保存名称
+    "key" =&gt; "avatar.png",
+    // 自定义魔术变量
+    "x:user" =&gt; "Simple Qiniu SDK"
+);
+$bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
+</code></pre>
+
+<p>如果你希望采用<a href="http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html">表单上传模式</a>，你可以使用 getUpToken 方法来获取上传令牌：</p>
+
+<pre><code class="html">&lt;form action="http://upload.qiniu.com/" method="post" enctype="multipart/form-data"&gt;
+    &lt;input name="file" type="file" /&gt;
+    &lt;input name="x:user" type="hidden" value="Simple Qiniu SDK"&gt;
+    &lt;input name="token" type="hidden" value="&lt;?=$bucket-&gt;getUpToken()?&gt;"&gt;
+    &lt;button id="upload" type="submit"&gt;上传到七牛&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
             <a href="/2015/01/14/y-combinator-in-php.html">Y combinator in PHP</a>
         </h1>
     </header>
@@ -224,30 +293,6 @@ end
     
         
     </article>
-            <article class="post">
-    <header>
-        <h1>
-            <a href="/2014/09/29/new-system-screenshot.html">新一轮晒桌面开始</a>
-        </h1>
-    </header>
-    
-    <p><img src="http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg" alt="openbox" /></p>
-
-<p>据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。</p>
-
-<p>无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。</p>
-
-<p>因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。</p>
-
-<!--more-->
-
-<p><img src="http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg" alt="lubuntu" /></p>
-
-<p>这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。</p>
-
-    
-        
-    </article>
         
     
     <ul class="pagination">
@@ -260,6 +305,7 @@ end
 									<li><a href="/">1</a></li>
 												<li><span class="active">2</span></li>
 												<li><a href="/page/3/">3</a></li>
+												<li><a href="/page/4/">4</a></li>
 					
 					<li><a href="/page/3/">下一页 &raquo;</a></li>
 			</ul>

@@ -66,6 +66,30 @@
                                 <article class="post">
     <header>
         <h1>
+            <a href="/2014/09/29/new-system-screenshot.html">新一轮晒桌面开始</a>
+        </h1>
+    </header>
+    
+    <p><img src="http://ww4.sinaimg.cn/large/86e701f8gw1ektde2c28kj21ao0t6ti8.jpg" alt="openbox" /></p>
+
+<p>据可靠日期记录，我持续使用了近一年半的 Debian sid 系统终于被我滚挂了。事情的起因要归结到这两天被大家玩坏了的 bash 漏洞，一直采用超惰性升级的我，在为这个漏洞打补丁的时候顺手滚动升级了一下系统软件，然后就没有然后了。这次崩溃非常彻底，以前出问题最多是无法启动 x-window，这次连 /sbin/init 都无法启动了，提示说 segment fault。期间尝试了很多种修复方案，但未能见效。</p>
+
+<p>无奈之下只好重新安装 Debian，采用一贯的硬盘启动网络安装的方式，过程非常顺利。未料到的是在我辛苦调教好 openbox，重启之后崩溃再现，仍然无法启动 /sbin/init 进程。令人疑惑的是我在新系统上没有做任何危险操作，只是安装了 openbox，docky 等几个我常用的软件而已。继续重装，然后这个过程重复了 4 次，我尝试了 Debian testing 和 sid 两个版本以及几个常用的桌面环境，都无一例外的在重新安装 openbox 环境重启之后崩溃。</p>
+
+<p>因为手里没有 Linux 的系统盘，很多检查工具用不了，就直接尝试安装其他的 Linux 发行版了。考虑到使用习惯，选择了自带 openbox 的 lubuntu 发行版，图片中就是最后的调教效果，已经非常接近之前的样式了，只是换了一下壁纸。其实 lubuntu 自带的主题也挺好看的（如下图），但是与 conky 有兼容性问题。</p>
+
+<!--more-->
+
+<p><img src="http://ww3.sinaimg.cn/large/86e701f8gw1ektdcl5te6j21ao0t6k0q.jpg" alt="lubuntu" /></p>
+
+<p>这张图就是 lubuntu 默认主题，只是换了一下图标而已。另外需要说到的就是开源的显卡驱动进步了很多，没有出现之前风扇狂转的问题了，但是在登录之后仍然有花屏的现象。暂时先这样用着，过段时间再考虑需不需要换到闭源驱动。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
             <a href="/2014/09/25/mreader-for-android.html">Mreader for android</a>
         </h1>
     </header>
@@ -163,44 +187,6 @@ hi phpDocCustomTags guifg=#808080                                   gui=none
     
         
     </article>
-            <article class="post">
-    <header>
-        <h1>
-            <a href="/2014/03/20/the-problem-of-vim-css-color.html">vim-css-color 严重降低 vim 启动速度</a>
-        </h1>
-    </header>
-    
-    <p>因为一直使用 vim-gtk 的缘故，我其实很少使用 vim 进行编程，color scheme 更是一直使用 <a href="http://www.vim.org/scripts/script.php?script_id=2536">lucius</a>。不过最近有些工作必须要在终端下完成，为了改善在 vim 中编程的体验，我还是决定升级下终端版本，并专门把 vim 的配色更换为 <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow-Night</a>。</p>
-
-<p>我使用的终端是 rxvt-unicode，默认为88色，而 Tomorrow-Night 的 256 色要比 88 色看起来舒服很多，所以我直接把 rxvt-unicode 换成了 rxvt-unicode-256color。没想到在终端更换完毕之后出现了一个问题：用 vim 打开文件的速度变得非常慢，最少需要4-5秒左右。</p>
-
-<!--more-->
-
-<p>使用如下命令来查看 vim 的启动过程耗费的时间：</p>
-
-<pre><code class="php">vim --startuptime timefile test.php
-</code></pre>
-
-<p>这个命令会打开 test.php 文件并在当前目录生成一个名为 timefile 的启动日志文件。然后我在日志文件中找到了拖慢 vim 启动速度的真凶：</p>
-
-<pre><code class="php">191.477  004.767  004.767: sourcing /usr/share/vim/vim74/syntax/vb.vim
-4279.165  4087.443  4087.443: sourcing /home/chou/.vim/bundle/css_color.vim/syntax/css.vim
-</code></pre>
-
-<p>从日志中可以看到，大部分时间都被用于加载这个名为 css_color.vim 的插件。话说这个插件比较好玩，特别是对于经常接触前端的朋友，它可以自动修改文件中表示各种颜色格式文字（比如 #ffffff）的背景，然后让人可以直观的看到这些数字组成的颜色。我当即在 .vimrc 配置中去掉了这个插件，然后 vim 的启动速度恢复正常。</p>
-
-<p>随手 google 了一下，发现非常多的人在 <a href="https://github.com/skammer/vim-css-color/issues/3">github issue</a> 上提出了这个问题，但是作者未作任何回复。大致是由于插件的 rgb2xterm 函数效率过低。不过有好心的网友自己对这个问题进行了更新修复，更新后的插件可以在这里找到：<a href="https://github.com/ap/vim-css-color">https://github.com/ap/vim-css-color</a>。</p>
-
-<p>之前在 88 色终端下并未发现这个问题是由于插件在开头添加了这样一行环境检测代码：</p>
-
-<pre><code class="vimL">if !( has('gui_running') || &amp;t_Co==256 ) | finish | endif
-</code></pre>
-
-<p>PS：我顺手安装测试了一下网友修正过的插件，启动速度很快，推荐使用。</p>
-
-    
-        
-    </article>
         
     
     <ul class="pagination">
@@ -213,7 +199,9 @@ hi phpDocCustomTags guifg=#808080                                   gui=none
 									<li><a href="/">1</a></li>
 												<li><a href="/page/2/">2</a></li>
 												<li><span class="active">3</span></li>
+												<li><a href="/page/4/">4</a></li>
 					
+					<li><a href="/page/4/">下一页 &raquo;</a></li>
 			</ul>
 
             </div>

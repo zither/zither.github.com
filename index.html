@@ -66,6 +66,30 @@
                                 <article class="post">
     <header>
         <h1>
+            <a href="/2015/04/12/8bit-adder-in-minetest.html">用 Minetest 制作8位加法器</a>
+        </h1>
+    </header>
+    
+    <p>Minetest 的 Mesecons mod 和 Minecraft 红石系统类似，提供了各种类型电力、导体、逻辑门以及感应器。我们可以用这些物品制作计算机的各种部件，甚至制作一台完整的简单计算机，对与学习计算机组成很有帮助。</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/86e701f8gw1er2s68thr2j20ma0gqq5x.jpg" alt="8bit-adder-1" /></p>
+
+<p>这是我在 Minetest 里制作的8位行波加法器，可以手动输入两个8位二进制数，然后显示两个数的和以及进位项。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/86e701f8gw1er2s5up20lj20m70gkgoc.jpg" alt="2bit-latch" /></p>
+
+<p>不过 Mesecons 没有直接提供「或（OR）门」，这个有点麻烦，必须用与非门去替换，会让组件的体积增大不少，比如上面这个2位锁存器。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/86e701f8gw1er2xp9ul88j20m80fu76t.jpg" alt="2bit-counter" /></p>
+
+<p>Mesecons 提供了 Blinky Plant 来实现时钟功能，触发频率为3秒一次，上面这个2位计数器就是基于它的。这里有一个很要命的问题，尽管 Blinky Plant 的频率已经很低了，但是电路仍然反应不过来，计数很可能乱掉。</p>
+
+    
+        
+    </article>
+            <article class="post">
+    <header>
+        <h1>
             <a href="/2015/03/17/switch-pointless-to-spress.html">从 Pointless 迁移到 Spress</a>
         </h1>
     </header>
@@ -550,75 +574,6 @@ fclose($remote);
     
         
     </article>
-            <article class="post">
-    <header>
-        <h1>
-            <a href="/2015/01/26/how-to-use-simple-qiniu-sdk.html">Simple Qiniu SDK 使用说明</a>
-        </h1>
-    </header>
-    
-    <p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
-
-<pre><code class="php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
-require __DIR__ . "/Autoload.php";
-Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
-Autoload::register();
-
-$accessKey = "accessKey";
-$secretKey = "secretKey";
-$qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
-
-$bucket = $qiniu-&gt;getBucket("sketch");
-$response = $bucket-&gt;put($_FILES["file"]["tmp_name"]);
-echo $response-&gt;getContent();
-</code></pre>
-
-<p>这次重写我剔除了 Simple Qiniu SDK 中的自动加载函数，所以在使用前你需要自己解决自动加载问题（推荐使用 Composer）。这个示例使用的是默认设置，如果你需要修改七牛的上传策略，可以使用 setPolicy 方法：</p>
-
-<pre><code class="php">$bucket = $qiuniu-&gt;getBucket("sketch");
-// 更多策略参数请参考：http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
-$bucket-&gt;setPolicy(array(
-    "saveKey" =&gt; sprintf("%s.jpg", time()),
-    "returnBody" =&gt; '{"key": $(key),"name": $(fname)}',
-    "expires" =&gt; 3600
-));
-</code></pre>
-
-<p>你不仅可以指定文件保存的名称，还可以设置 \Qiniu\Bucket::EXTR_OVERWRITE 参数来启用 put（更新） 模式：</p>
-
-<pre><code class="php">$bucket-&gt;put($_FILES["file"]["tmp_name"], "avatar.png", \Qiniu\Bucket::EXTR_OVERWRITE);
-</code></pre>
-
-<p>你可以自定义一些魔术变量，然后以数组的形式传递给 put 方法：</p>
-
-<pre><code class="php">$bucket-&gt;setPolicy(array(
-    // 通过 returnBody 的形式返回魔术变量
-    "returnBody" =&gt; '{"key": $(key), "user": $(x:user)}',                  
-));
-$uploadParams = array(
-    // 文件保存名称
-    "key" =&gt; "avatar.png",
-    // 自定义魔术变量
-    "x:user" =&gt; "Simple Qiniu SDK"
-);
-$bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
-</code></pre>
-
-<p>如果你希望采用<a href="http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html">表单上传模式</a>，你可以使用 getUpToken 方法来获取上传令牌：</p>
-
-<pre><code class="html">&lt;form action="http://upload.qiniu.com/" method="post" enctype="multipart/form-data"&gt;
-    &lt;input name="file" type="file" /&gt;
-    &lt;input name="x:user" type="hidden" value="Simple Qiniu SDK"&gt;
-    &lt;input name="token" type="hidden" value="&lt;?=$bucket-&gt;getUpToken()?&gt;"&gt;
-    &lt;button id="upload" type="submit"&gt;上传到七牛&lt;/button&gt;
-&lt;/form&gt;
-</code></pre>
-
-<p>以上就是重构后 Simple Qiniu SDK 所有功能的使用说明，如果你还需要「删除文件」等其他功能，可以自行修改或者使用<a href="http://developer.qiniu.com/docs/v6/sdk/php-sdk.html">官方 SDK</a>。当然，如果我也有了对应的使用需求，也会给 Simple Qiniu SDK 增加对应的功能支持。</p>
-
-    
-        
-    </article>
         
     
     <ul class="pagination">
@@ -626,6 +581,7 @@ $bucket-&gt;put($_FILES["file"]["tmp_name"], $uploadParams);
 									<li><span class="active">1</span></li>
 												<li><a href="/page/2/">2</a></li>
 												<li><a href="/page/3/">3</a></li>
+												<li><a href="/page/4/">4</a></li>
 					
 					<li><a href="/page/2/">下一页 &raquo;</a></li>
 			</ul>
