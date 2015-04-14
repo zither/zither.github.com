@@ -70,7 +70,7 @@
         </h1>
     </header>
     
-    <p>Minetest 的 Mesecons mod 和 Minecraft 红石系统类似，提供了各种类型能量、导体、逻辑门以及感应器。我们可以用这些物品制作计算机的各种部件，甚至制作一台完整的计算机，对于学习计算机组成很有帮助。</p>
+    <p>Minetest 的 Mesecons mod 和 Minecraft 红石系统类似，提供了各种类型能量、导体、逻辑门以及感应器。我们可以用这些物品制作计算机的各种部件，<del>甚至制作一台完整的计算机</del>，对于学习计算机组成很有帮助。</p>
 
 <p><img src="http://ww4.sinaimg.cn/mw690/86e701f8gw1er2s68thr2j20ma0gqq5x.jpg" alt="8bit-adder-1" /></p>
 
@@ -83,6 +83,10 @@
 <p><img src="http://ww3.sinaimg.cn/mw690/86e701f8gw1er2xp9ul88j20m80fu76t.jpg" alt="2bit-counter" /></p>
 
 <p>Mesecons 提供了 Blinky Plant 来实现时钟功能，触发频率为3秒一次，上面这个2位计数器就是基于它的。这里有一个很要命的问题，尽管 Blinky Plant 的频率已经很低了，但是电路仍然反应不过来，计数很可能乱掉。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/86e701f8gw1er5719xuu3j20m80e4din.jpg" alt="8x1-ram" /></p>
+
+<p>这是一个 8x1 的内存，可以保存8个1位的数据，本来准备做 8x4 阵列的，但是由于开全景仍然无法让这个 8x1 的内存正常工作，后面的也就不用做了。情况是这样的，打开写入开关，从3根地址线输入 111，写入数据1，由于视野的问题，我必须绕内存跑一圈最右边的绿灯才会被点亮。这还是在我添加了或门的情况下，所以我觉得应该收回前面说可以做计算机的话。</p>
 
     
         
