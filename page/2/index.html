@@ -72,14 +72,14 @@
     
     <p>为了解决<a href="http://www.shouhuiben.com">「手绘本」</a>的头像托管问题，前几天重写了一遍 <a href="https://github.com/zither/simple-qiniu-sdk">Simple Qiniu SDK</a>，剔除了上传以外的其他功能。这是吸取了之前的教训：只维护自己用得到的代码。因此现在的 Simple Qiniu SDK 只能用于小文件上传。下面是一个简单的使用示例：</p>
 
-<pre><code class="php">// Autoload 源码：https://github.com/zither/simple-qiniu-sdk/blob/master/example/Autoload.php
-require __DIR__ . "/Autoload.php";
-Autoload::addNamespace("Qiniu", dirname(__DIR__) . "/src/Qiniu");
-Autoload::register();
+<pre><code class="php">use Qiniu\Client;
 
-$accessKey = "accessKey";
-$secretKey = "secretKey";
-$qiniu = new \Qiniu\Qiniu($accessKey, $secretKey);
+// 通过 composer 安装后直接载入 autoload
+require dirname(__DIR__) . "/vendor/autoload.php";
+
+$accessKey = "Your access key";
+$secretKey = "Your secret key";
+$qiniu = new Client($accessKey, $secretKey);
 
 $bucket = $qiniu-&gt;getBucket("sketch");
 $response = $bucket-&gt;put($_FILES["file"]["tmp_name"]);

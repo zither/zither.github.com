@@ -107,16 +107,16 @@
 <p>然后我们可以使用 Memo View 来载入之前定义的模板：</p>
 
 <pre><code class="php">// file index.php
-require __DIR__ . "/Memo/src/Memo/View.php";
+require __DIR__ . "/Memo/src/Memo/Services/View.php";
 
-use Memo\View;
+use Memo\Services\View;
 
 try {
-    $view = new View(array(
-        "template" =&gt; "index",
+    $view = new View([
         "folders" =&gt; array(__DIR__ . "/templates/")
-    ));
-    $view-&gt;display();
+    ]);
+    $view-&gt;setTemplate("index");
+    echo $view-&gt;render();
 } catch (Exception $e) {
     echo $e-&gt;getMessage(), PHP_EOL;
 }
@@ -153,9 +153,9 @@ try {
 <p>在 github 模板中又设置了一次 title secion 的内容，并且在 github section 中使用了 $repo 变量 以及 toUpper 方法。</p>
 
 <pre><code class="php">// file index.php
-require __DIR__ . "/Memo/src/Memo/View.php";
+require __DIR__ . "/Memo/src/Memo/Services/View.php";
 
-use Memo\View;
+use Memo\Services\View;
 
 class Helper 
 {
@@ -172,7 +172,6 @@ try {
         "folders" =&gt; array(__DIR__ . "/templates/")
     ));
     $view-&gt;assign("repo", "https://github.com/zither/Memo");
-    // 可以通过 $view-&gt;render() 方法来获取内容
     echo $view-&gt;render();
 } catch (Exception $e) {
     echo $e-&gt;getMessage(), PHP_EOL;
