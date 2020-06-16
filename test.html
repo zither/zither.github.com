@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<textarea id="content"></textarea>
+<button id="btnLoad">打包</button>
+<button id="decode">解包</button>
+<body>
+<script>
+    let source = '/v2-3e2932e0da67bc08f6da4229072ef7bd.gif';
+    let target = 'https://wx2.sinaimg.cn/large/86e701f8gy1gft3xlitakg203c03c0le.gif';
+    function uncompress(img) {
+      let w = img.width;
+      let h = img.height;
+
+      let canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+
+      let ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      let imgData = ctx.getImageData(0, 0, w, h);
+      return imgData.data.buffer;
+    }
+
+    function append(buffer)
+    {
+        let enc = new TextEncoder();
+        let t = document.getElementById('content').value;
+        let json = JSON.stringify({content:t});
+        let text = enc.encode(json);
+        let size = text.byteLength;
+        let type = enc.encode("application/json");
+        let length = type.byteLength;
+        leng = new Uint8Array([length]);
+        let raw = new Uint8Array(buffer);
+        let len = raw.byteLength + 4 + 1 + length + text.byteLength;
+        let output = new Uint8Array(len);
+
+        arr = new Uint8Array([
+          (size & 0x000000ff),
+          (size & 0x0000ff00) >> 8,
+          (size & 0x00ff0000) >> 16,
+          (size & 0xff000000) >> 24
+        ]);
+
+      output.set(raw);
+      output.set(arr, raw.byteLength);
+      output.set(leng, raw.byteLength + 4);
+      output.set(type, raw.byteLength + 4 + 1);
+      output.set(text, raw.byteLength + 4 + 1 + type.byteLength);
+      console.log('output len: ' + output.byteLength);
+
+      return output;
+    }
+
+    var saveByteArray = (function () {
+      var a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+      return function (data, name) {
+        var blob = new Blob(data, {type: "octet/stream"}),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+    }());
+
+    let data;
+    let bin;
+
+    function get(path)
+    {
+      var oReq = new XMLHttpRequest();
+      oReq.open("GET", path, true);
+      oReq.responseType = "arraybuffer";
+
+      oReq.onload = function (oEvent) {
+        var arrayBuffer = oReq.response; // Note: not oReq.responseText
+        if (arrayBuffer) {
+          var byteArray = new Uint8Array(arrayBuffer);
+          for (var i = 0; i < byteArray.byteLength; i++) {
+            // do something with each byte in the array
+          }
+        }
+      };
+
+      oReq.send(null);
+    }
+
+    btnLoad.onclick = function() {
+      btnLoad.disabled = true;
+      var oReq = new XMLHttpRequest();
+      oReq.open("GET", source, true);
+      oReq.responseType = "arraybuffer";
+
+      oReq.onload = function (oEvent) {
+        var arrayBuffer = oReq.response; // Note: not oReq.responseText
+        if (arrayBuffer) {
+          //var byteArray = new Uint8Array(arrayBuffer);
+          //for (var i = 0; i < byteArray.byteLength; i++) {
+          //  // do something with each byte in the array
+          //}
+          let data = append(arrayBuffer);
+          saveByteArray([data], 'test.gif')
+        }
+      };
+      oReq.send(null);
+    };
+
+    decode.onclick = function () {
+      var oReq = new XMLHttpRequest();
+      oReq.open("GET", target, true);
+      oReq.responseType = "arraybuffer";
+
+      oReq.onload = function (oEvent) {
+        var arrayBuffer = oReq.response; // Note: not oReq.responseText
+        if (arrayBuffer) {
+          let raw = new Uint8Array(arrayBuffer);
+          let t = raw.subarray(767);
+          let dec = new TextDecoder();
+          let text = dec.decode(t);
+          document.getElementById('content').value = text;
+          //var byteArray = new Uint8Array(arrayBuffer);
+          //for (var i = 0; i < byteArray.byteLength; i++) {
+          //  // do something with each byte in the array
+          //}
+          //let data = append(arrayBuffer);
+          //saveByteArray([data], 'test.gif')
+        }
+      };
+      oReq.send(null);
+    };
+
+
+</script>
+</body>
+</html>
