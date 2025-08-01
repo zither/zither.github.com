@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriterN - A Tribute to Simplicity and Focus</title>
+    <style>
+        :root {
+            --primary-color: #36474F;
+            --secondary-color: #009788;
+            --background-color: #f4f6f8;
+            --text-color: #333;
+            --card-bg-color: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        header .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin: 20px 0 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .section {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 450px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .button.primary {
+            background-color: var(--secondary-color);
+        }
+
+        .button.secondary {
+            background-color: var(--primary-color);
+        }
+
+        .pro-distinction {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f5e9; /* A light green background */
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .pro-distinction p {
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- 在这里替换成你的应用Logo -->
+            <img src="https://via.placeholder.com/100" alt="WriterN Logo" class="logo">
+            <h1>WriterN</h1>
+            <p>回归纯粹，专注写作。向经典致敬的现代化 Markdown 编辑器。</p>
+        </header>
+
+        <main>
+            <section class="download-section">
+                <h2>下载 WriterN</h2>
+                <div class="button-container">
+                    <a href="#download-link-pro" class="button primary">获取 WriterN Pro</a>
+                    <a href="#download-link-free" class="button secondary">下载免费版</a>
+                </div>
+            </section>
+            
+            <section class="features-section">
+                <h2>核心特性</h2>
+                <ul>
+                    <li><strong>极简无干扰界面</strong>：让你专注于文字本身。</li>
+                    <li><strong>强大的 Markdown 支持</strong>：实时预览，所见即所得。</li>
+                    <li><strong>流畅的阅读模式</strong>：在写作与阅读间无缝切换。</li>
+                    <li><strong>高效的文件管理</strong>：支持批量选择、移动、收藏等操作。</li>
+                    <li><strong>离线优先</strong>：所有笔记都安全地存储在你的设备上。</li>
+                </ul>
+            </section>
+
+            <section class="gallery-section">
+                <h2>应用截图</h2>
+                <div class="screenshot-gallery">
+                    <div class="screenshot-placeholder">应用截图 1</div>
+                    <div class="screenshot-placeholder">应用截图 2</div>
+                </div>
+            </section>
+
+            <section class="pro-section">
+                <h2>关于 WriterN Pro</h2>
+                <p>作为一名 Writer Plus 的多年用户，我深爱它的纯粹。但它已停更多年，缺少了一些我梦寐以求的功能。因此，WriterN 诞生了——它是我利用业余时间，从零开始，为弥补这份遗憾而开发的复刻与进化之作。</p>
+
+                <div class="pro-distinction">
+                    <p><strong>请注意：</strong>WriterN Pro 在功能上与免费版 **完全相同**。它不提供任何额外的功能或特性。</p>
+                </div>
+
+                <p style="margin-top: 20px;">那么，为什么选择 Pro 版？</p>
+                <p>购买 Pro 版是对这份热爱和付出的直接支持。您的每一份支持，都是激励我继续维护、优化、并为 WriterN 投入更多心血的最大动力。它更像是一杯给开发者的咖啡，一份对独立开发精神的认可。</p>
+                
+                <p>如果您喜欢 WriterN，并希望它能走得更远，请考虑支持 Pro 版。衷心感谢！</p>
+                
+                <div class="button-container">
+                     <!-- 在这里替换成你的支付/介绍页面链接 -->
+                    <a href="https://afdian.net/a/your-profile" target="_blank" class="button primary">前往支持并获取 Pro 激活码</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 Your Name/Studio. Inspired by WriterPlus.</p>
+        </footer>
+    </div>
+</body>
+</html>
